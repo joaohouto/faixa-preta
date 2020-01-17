@@ -10,24 +10,18 @@ router.get('/', function (req, res) {
 const MoveController = require('./src/controllers/MoveController');
 
 router.route('/moves')
-    .get(MoveController.findAll)
-    .post(MoveController.create);
+    .get(MoveController.findAll);
 
 router.route('/moves/:move_id')
-    .get(MoveController.findOne)
-    .put(MoveController.update)
-    .delete(MoveController.delete);
+    .get(MoveController.findOne);
 
 
 const ActivityController = require('./src/controllers/ActivityController');
 
 router.route('/activities')
-    .get(ActivityController.findAll)
-    .post(ActivityController.create);
+    .get(ActivityController.findAll);
 
 router.route('/activities/:activity_id')
-    .get(ActivityController.findOne)
-    .put(ActivityController.update)
-    .delete(ActivityController.delete);
+    .get(ActivityController.findOne);
 
 module.exports = router;
