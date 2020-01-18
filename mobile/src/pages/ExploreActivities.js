@@ -41,34 +41,7 @@ export default class ExploreActivities extends Component {
       <Text style={styles.activityCardCategory}>category</Text>
       <Text style={styles.activityCardName}>name</Text>
     </TouchableOpacity>
-    <TouchableOpacity style={styles.activityCard}>
-      <Text style={styles.activityCardCategory}>category</Text>
-      <Text style={styles.activityCardName}>name</Text>
-    </TouchableOpacity><TouchableOpacity style={styles.activityCard}>
-      <Text style={styles.activityCardCategory}>category</Text>
-      <Text style={styles.activityCardName}>name</Text>
-    </TouchableOpacity><TouchableOpacity style={styles.activityCard}>
-      <Text style={styles.activityCardCategory}>category</Text>
-      <Text style={styles.activityCardName}>name</Text>
-    </TouchableOpacity><TouchableOpacity style={styles.activityCard}>
-      <Text style={styles.activityCardCategory}>category</Text>
-      <Text style={styles.activityCardName}>name</Text>
-    </TouchableOpacity><TouchableOpacity style={styles.activityCard}>
-      <Text style={styles.activityCardCategory}>category</Text>
-      <Text style={styles.activityCardName}>name</Text>
-    </TouchableOpacity><TouchableOpacity style={styles.activityCard}>
-      <Text style={styles.activityCardCategory}>category</Text>
-      <Text style={styles.activityCardName}>name</Text>
-    </TouchableOpacity><TouchableOpacity style={styles.activityCard}>
-      <Text style={styles.activityCardCategory}>category</Text>
-      <Text style={styles.activityCardName}>name</Text>
-    </TouchableOpacity><TouchableOpacity style={styles.activityCard}>
-      <Text style={styles.activityCardCategory}>category</Text>
-      <Text style={styles.activityCardName}>name</Text>
-    </TouchableOpacity><TouchableOpacity style={styles.activityCard}>
-      <Text style={styles.activityCardCategory}>category</Text>
-      <Text style={styles.activityCardName}>name</Text>
-    </TouchableOpacity>
+
 
           </View>
       </View>
