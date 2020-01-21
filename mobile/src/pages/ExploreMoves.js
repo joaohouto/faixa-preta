@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 
 import api from '../services/api';
 
@@ -20,8 +20,11 @@ export default class ExploreMoves extends Component {
   }
 
   render() {
+
+    const { moves } = this.state;
+
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
           <View style={styles.header}>
             <View style={styles.headerBox}>
               <Text style={styles.headerBoxText}>Movimentos</Text>
@@ -30,14 +33,18 @@ export default class ExploreMoves extends Component {
           <View style={styles.content}>
               <TextInput style={styles.searchInput} placeholderTextColor="#999" placeholder="Buscar" />
 
-                {this.state.moves.map(move => (
+                {moves.length > 0 ? moves.map(move => (
                   <TouchableOpacity key={move._id} style={styles.moveCard}>
                     <Text>{move.name}</Text>
                   </TouchableOpacity>
-                ))}
+                )) : (
+                  <Text>
+                    Carregando...
+                  </Text>
+                )}
 
           </View>
-      </View>
+      </ScrollView>
   );
   }
 }
@@ -58,7 +65,7 @@ const styles = StyleSheet.create({
     },  
 
     header: {
-      height: 200,
+      height: 150,
     },
 
     headerBox: {

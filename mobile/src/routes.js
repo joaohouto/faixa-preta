@@ -16,6 +16,8 @@ const Routes = createMaterialBottomTabNavigator({
 
 },
 {
+    initialRouteName: 'ExploreActivities',
+
     barStyle: {
         backgroundColor: '#f1f1f1',
     },

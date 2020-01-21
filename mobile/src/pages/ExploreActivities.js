@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Picker, Slider } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 import api from '../services/api';
+import Activity from './Activity';
 
-export default class ExploreActivities extends Component {
+class ExploreActivities extends Component {
 
   state = {
     activities: []
@@ -17,7 +20,6 @@ export default class ExploreActivities extends Component {
     const response = await api.get('/activities');
 
     this.setState({ activities: response.data });
-
   }
 
   render(){
@@ -25,7 +27,7 @@ export default class ExploreActivities extends Component {
     const { activities } = this.state;
 
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
           <View style={styles.header}>
               <View style={styles.headerTextBox}>
                 <Text style={styles.headerText}>aprenda,</Text>
@@ -37,26 +39,33 @@ export default class ExploreActivities extends Component {
 
             <Text style={styles.label}>Treinos</Text>
 
-            <TouchableOpacity style={styles.activityCard}>
-      <Text style={styles.activityCardCategory}>category</Text>
-      <Text style={styles.activityCardName}>name</Text>
-    </TouchableOpacity>
-
+            { activities.length > 0 ? activities.map(activity => (
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Treino', { activityId: activity._id })} key={activity._id} style={styles.activityCard}>
+                <Text style={styles.activityCardCategory}>{activity.category}</Text>
+                <Text style={styles.activityCardName}>{activity.name}</Text>
+              </TouchableOpacity>
+            )) : (
+              <Text>
+                Carregando...
+              </Text>
+            )}
 
           </View>
-      </View>
+      </ScrollView>
   );
   }
 }
 
-const ItemList = ({ props }) => {
-  return (
-    <TouchableOpacity style={styles.activityCard}>
-      <Text style={styles.activityCardCategory}>{props.category}</Text>
-      <Text style={styles.activityCardName}>{props.name}</Text>
-    </TouchableOpacity>
-  );
-}
+const StackNavigator = createStackNavigator(
+  {
+    FaixaPreta: ExploreActivities,
+    Treino: Activity,
+  },
+
+  {
+    initialRouteName: 'FaixaPreta',
+  }
+);
 
 const styles = StyleSheet.create({
     container: {
@@ -64,12 +73,8 @@ const styles = StyleSheet.create({
       backgroundColor: '#111',
     },
 
-    list: {
-      height: 'auto'
-    },  
-
     header: {
-      height: 300,
+      height: 250,
     },
 
     headerTextBox:{
@@ -122,3 +127,5 @@ const styles = StyleSheet.create({
       borderRadius: 100
     }
   });
+
+export default createAppContainer(StackNavigator);
