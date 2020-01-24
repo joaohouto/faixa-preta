@@ -1,26 +1,21 @@
-import React from 'react';
-import { Text } from 'react-native';
-
 import { createAppContainer } from 'react-navigation';
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import { createStackNavigator } from 'react-navigation-stack';
 
 import ExploreActivities from './pages/ExploreActivities';
-import News from './pages/News';
-import ExploreMoves from './pages/ExploreMoves';
+import Activity from './pages/Activity';
 
-const Routes = createMaterialBottomTabNavigator({
-
-    News,
-    ExploreActivities,
-    ExploreMoves
-
-},
-{
-    initialRouteName: 'ExploreActivities',
-
-    barStyle: {
-        backgroundColor: '#f1f1f1',
+const Routes = createStackNavigator({
+    Home: {
+        screen: ExploreActivities,
+        navigationOptions: {
+            title: 'Faixa Preta'
+        }
     },
+
+    Activity: {
+        screen: Activity
+    },
+
 });
 
 export default createAppContainer(Routes);

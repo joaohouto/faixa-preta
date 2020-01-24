@@ -1,11 +1,12 @@
 const Activity = require('../models/Activity');
+const MoveController = require('../controllers/MoveController');
 
 exports.findAll = (req, res) => {
     Activity.find().then(activitys => {
         res.send(activitys);
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "Something went wrong while retrieving activitys"
+            message: err.message || "Something went wrong while retrieving items"
         });
     });
 };
@@ -21,7 +22,7 @@ exports.create = (req, res) => {
     const activity = new Activity({
         name: req.body.name,
         details: req.body.details,
-        category: req.body.category,
+        tags: req.body.tags,
         image: req.body.image,
         moves: req.body.moves
     });
@@ -43,7 +44,7 @@ exports.findOne = (req, res) => {
                 message: "Item not found with id " + req.params.activity_id
             });            
         }
-
+        
         res.send(activity);
 
     }).catch(err => {
@@ -69,7 +70,7 @@ exports.update = (req, res) => {
     const activity = new Activity({
         name: req.body.name,
         details: req.body.details,
-        category: req.body.category,
+        tags: req.body.tags,
         image: req.body.image,
         moves: req.body.moves
     });
@@ -77,8 +78,9 @@ exports.update = (req, res) => {
     Activity.findByIdAndUpdate(req.params.activity_id, {
         name: req.body.name,
         details: req.body.details,
-        videoUrl: req.body.videoUrl,
-        image: req.body.image
+        tags: req.body.tags,
+        image: req.body.image,
+        moves: req.body.moves
     }, {new: true})
     .then(activity => {
 
@@ -102,7 +104,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-    Activity.findByIdAndReactivity(req.params.activity_id)
+    Activity.findByIdAndDelete(req.params.activity_id)
     .then(activity => {
 
         if(!activity) {

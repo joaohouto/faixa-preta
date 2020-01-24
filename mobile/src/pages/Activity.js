@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements'
 
 import api from '../services/api';
@@ -8,43 +8,53 @@ export default class Activity extends Component {
 
   state = {
     activity: {},
-    moves: []
+    kihonMoves: [],
+    kataMoves: []
   }
 
   componentDidMount() {
     this.loadActivity();
+
   }
 
   loadActivity = async () => {
 
-    const { navigation } = this.props;
+    //Get activity _id
+    const { navigation } = this.props;  
     var activityId = JSON.stringify(navigation.getParam('activityId', '0'));
+    activityId = activityId.substring(1, (activityId.length - 1));// remove the ""
 
-    activityId = activityId.substring(1, (activityId.length - 1));//remove ""
+    //Get data from api
+    const activityResponse = await api.get('/activities/' + activityId);
+    this.setState({ activity: activityResponse.data });
 
-    const response = await api.get('/activities/' + activityId);
- 
-    this.setState({ activity: response.data });
+    //Load moves data
+    activityResponse.data.moves.map(async move => {
+        const moveResponse = await api.get('/moves/' + move.move_id);
 
-    var finalMoves = [];
-    this.state.activity.moves.map(move => {
-      finalMoves.push(move);
+        if(move.category == "Kihon")
+          this.setState({ kihonMoves: this.state.kihonMoves.concat({ info: move, data: moveResponse.data }) });
+
+        else if(move.category == "Kata")
+          this.setState({ kataMoves: this.state.kataMoves.concat(moveResponse.data) });
+
     });
-
-    this.setState({ moves: finalMoves });
+    
   }
 
   render() {
 
     const { activity } = this.state;
-    const { moves } = this.state;
+    const { kihonMoves } = this.state;
+    const { kataMoves } = this.state;
 
     return (
       <ScrollView style={styles.container}>
           <View style={styles.header}>
             
             <View style={styles.headerBox}>
-              <Text style={styles.headerBoxText}>{activity.name}</Text>
+              <Text style={styles.headerText}>{activity.name}</Text>
+              <Text style={styles.headerLabel}>{activity.tags}</Text>
             </View>
 
           </View>
@@ -55,22 +65,33 @@ export default class Activity extends Component {
               <Text style={styles.details}>{activity.details}</Text>
 
             <View style={styles.activityAlert}>
-              <Icon
-                name='warning'
-                size={35}
-                color='#999'
-                style={styles.activityAlertIcon}
-              />
-              <Text style={styles.activityAlertText}>Lembre-se: treine sempre em locais seguros e não exceda fisicamente seus limites.</Text>
+              <Icon name='warning' size={35} color='#ccc' style={styles.activityAlertIcon} />
+              <Text style={styles.activityAlertText}>Treine sempre em locais seguros e não exceda fisicamente seus limites.</Text>
             </View>
 
             <View style={styles.divider}></View>
 
-            <Text style={styles.label}>Fundamentos</Text>
+              { kihonMoves.length > 0 ? <Text style={styles.label}>Kihon</Text> : <View /> }
 
-            {moves.length > 0 ? moves.map(move => (
-              <Text key={move._id}>{move.name}</Text>
-            )) : <Text>Opa</Text>}
+                { kihonMoves.length > 0 ? kihonMoves.map(move => (
+                  <TouchableOpacity key={move.info._id} style={styles.moveCard}>
+                    <Text>{move.data.name}</Text>
+                  <Text style={styles.moveCardRepetitions}>x{move.info.repetitions}</Text>
+                    </TouchableOpacity>
+                  )) : <View /> }
+
+              { kataMoves.length > 0 ? <Text style={styles.label}>Kata</Text> : <View /> }
+
+                { kataMoves.length > 0 ? kataMoves.map(move => (
+                  <TouchableOpacity key={move.info._id} style={styles.moveCard}>
+                    <Text>{move.data.name}</Text>
+                  <Text style={styles.moveCardRepetitions}>x{move.info.repetitions}</Text>
+                    </TouchableOpacity>
+                  )) : <View /> }
+
+            <TouchableOpacity style={styles.startButton}>
+              <Text style={styles.startButtonText}>Iniciar</Text>
+            </TouchableOpacity>
 
           </View>
       </ScrollView>
@@ -94,9 +115,24 @@ const styles = StyleSheet.create({
       padding: 25
     },
 
-    headerBoxText: {
+    headerText: {
       color: "#fff",
-      fontSize: 40
+      fontSize: 40,
+      position: 'absolute',
+      bottom: 60,
+      left: 20
+    },
+
+    headerLabel: {
+      fontSize: 14,
+      color: '#b3b3b3',
+      backgroundColor: '#666666',
+      padding: 4,
+      paddingHorizontal: 15,
+      borderRadius: 100,
+      position: 'absolute',
+      bottom: 0,
+      margin: 20
     },
 
     content: {
@@ -121,7 +157,8 @@ const styles = StyleSheet.create({
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      padding: 20,
+      paddingHorizontal: 20,
+      paddingVertical: 30
     },
 
     activityAlertText: {
@@ -132,9 +169,45 @@ const styles = StyleSheet.create({
 
     divider: {
       height: 2,
-      backgroundColor: '#ccc',
+      backgroundColor: '#f1f1f1',
       marginHorizontal: 20
       
+    },
+
+    startButton: {
+      height: 50,
+      backgroundColor: '#111',
+      margin: 20,
+      borderRadius: 25,
+      display: 'flex',
+      alignItems:  'center',
+      justifyContent: 'center'
+    },
+
+    startButtonText: {
+      color: '#fff',
+      textTransform: 'uppercase',
+      fontWeight: 'bold',
+      fontSize: 16
+    },
+
+    moveCard: {
+      backgroundColor: '#f1f1f1',
+      margin: 10,
+      marginHorizontal: 20,
+      padding: 20,
+      borderRadius: 10,
+      height: 60
+    },
+
+    moveCardRepetitions: {
+      color: '#999',
+      fontSize: 20,
+      fontWeight: 'bold',
+      position: 'absolute',
+      right: 0,
+      bottom: 0,
+      padding: 20
     }
 
   });

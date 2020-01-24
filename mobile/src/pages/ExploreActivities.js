@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Picker, Slider } from 'react-native';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 
 import api from '../services/api';
-import Activity from './Activity';
 
 class ExploreActivities extends Component {
 
@@ -40,8 +37,8 @@ class ExploreActivities extends Component {
             <Text style={styles.label}>Treinos</Text>
 
             { activities.length > 0 ? activities.map(activity => (
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('Treino', { activityId: activity._id })} key={activity._id} style={styles.activityCard}>
-                <Text style={styles.activityCardCategory}>{activity.category}</Text>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Activity', { activityId: activity._id })} key={activity._id} style={styles.activityCard}>
+                <Text style={styles.activityCardCategory}>{activity.tags}</Text>
                 <Text style={styles.activityCardName}>{activity.name}</Text>
               </TouchableOpacity>
             )) : (
@@ -55,17 +52,6 @@ class ExploreActivities extends Component {
   );
   }
 }
-
-const StackNavigator = createStackNavigator(
-  {
-    FaixaPreta: ExploreActivities,
-    Treino: Activity,
-  },
-
-  {
-    initialRouteName: 'FaixaPreta',
-  }
-);
 
 const styles = StyleSheet.create({
     container: {
@@ -115,7 +101,7 @@ const styles = StyleSheet.create({
       color: '#f1f1f1',
       fontSize: 18,
       fontWeight: 'bold',
-      marginTop: 20
+      marginTop: 40
     },
 
     activityCardCategory: {
@@ -123,9 +109,11 @@ const styles = StyleSheet.create({
       color: '#b3b3b3',
       backgroundColor: '#666666',
       padding: 4,
-      paddingHorizontal: 10,
-      borderRadius: 100
+      paddingHorizontal: 15,
+      borderRadius: 100,
+      position: 'absolute',
+      margin: 20
     }
   });
 
-export default createAppContainer(StackNavigator);
+export default ExploreActivities;

@@ -11,20 +11,18 @@ const ActivitySchema = mongoose.Schema({
         required: true
     },
 
-    category: {
-        type: String,
-        required: true
-    },
+    tags: [ String ],
 
     image: {
         type: String,
         required: true
     },
 
-    moves: [{
+    moves: [ {
+        category: String,
         move_id: String,
         repetitions: Number,
-    }],
+    } ],
 
     createdAt: {
         type: Date,

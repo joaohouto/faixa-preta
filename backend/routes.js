@@ -2,26 +2,30 @@ const router = require('express').Router();
 
 router.get('/', function (req, res) {
     res.json({
-        status: 'API Online',
-        message: 'Seja bem vindo ao Faixa Preta!'
+        status: 'Online',
+        message: 'Seja bem vindo a API do Faixa Preta!'
     });
 });
 
 const MoveController = require('./src/controllers/MoveController');
 
 router.route('/moves')
-    .get(MoveController.findAll);
+    .get(MoveController.findAll)
+    .post(MoveController.create);
 
 router.route('/moves/:move_id')
-    .get(MoveController.findOne);
+    .get(MoveController.findOne)
+    .delete(MoveController.delete);
 
 
 const ActivityController = require('./src/controllers/ActivityController');
 
 router.route('/activities')
-    .get(ActivityController.findAll);
+    .get(ActivityController.findAll)
+    .post(ActivityController.create);
 
 router.route('/activities/:activity_id')
-    .get(ActivityController.findOne);
+    .get(ActivityController.findOne)
+    .delete(ActivityController.delete);
 
 module.exports = router;
