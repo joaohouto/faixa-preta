@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { Icon } from 'react-native-elements'
 
 import api from '../services/api';
@@ -74,22 +74,24 @@ export default class Activity extends Component {
               { kihonMoves.length > 0 ? <Text style={styles.label}>Kihon</Text> : <View /> }
 
                 { kihonMoves.length > 0 ? kihonMoves.map(move => (
-                  <TouchableOpacity key={move.info._id} style={styles.moveCard}>
-                    <Text>{move.data.name}</Text>
-                  <Text style={styles.moveCardRepetitions}>x{move.info.repetitions}</Text>
-                    </TouchableOpacity>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { move: move })} key={move.info._id} style={styles.moveCard}>
+                    <Image source={require("../assets/moveIcons/activity_alt.png")} style={styles.moveCardImage} />
+                    <Text style={styles.moveCardName}>{move.data.name}</Text>
+                    <Text style={styles.moveCardRepetitions}>x{move.info.repetitions}</Text>
+                  </TouchableOpacity>
                   )) : <View /> }
 
               { kataMoves.length > 0 ? <Text style={styles.label}>Kata</Text> : <View /> }
 
                 { kataMoves.length > 0 ? kataMoves.map(move => (
-                  <TouchableOpacity key={move.info._id} style={styles.moveCard}>
-                    <Text>{move.data.name}</Text>
-                  <Text style={styles.moveCardRepetitions}>x{move.info.repetitions}</Text>
-                    </TouchableOpacity>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { moveId: move.data._id })} key={move.info._id} style={styles.moveCard}>
+                    <Image source={require("../assets/moveIcons/activity_alt.png")} style={styles.moveCardImage} />
+                    <Text style={styles.moveCardName}>{move.data.name}</Text>
+                    <Text style={styles.moveCardRepetitions}>x{move.info.repetitions}</Text>
+                  </TouchableOpacity>
                   )) : <View /> }
 
-            <TouchableOpacity style={styles.startButton}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityRunning', { activity: this.state.activity, kihonMoves: this.state.kihonMoves, kataMoves: this.state.kataMoves })} style={styles.startButton}>
               <Text style={styles.startButtonText}>Iniciar</Text>
             </TouchableOpacity>
 
@@ -137,6 +139,7 @@ const styles = StyleSheet.create({
 
     content: {
       flex: 1,
+      minHeight: Dimensions.get('window').height - 230,
       borderTopRightRadius: 25,
       borderTopLeftRadius: 25,
       backgroundColor: '#fff',
@@ -199,6 +202,12 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       height: 60
     },
+    
+    moveCardName: {
+      position: 'absolute',
+      left: 70,
+      bottom: 20
+    },  
 
     moveCardRepetitions: {
       color: '#999',
@@ -208,6 +217,16 @@ const styles = StyleSheet.create({
       right: 0,
       bottom: 0,
       padding: 20
+    },
+
+    moveCardImage: {
+      backgroundColor: "#ccc",
+      height: 40,
+      width: 40,
+      position: 'absolute',
+      left: 10,
+      top: 10,
+      borderRadius: 20
     }
 
   });

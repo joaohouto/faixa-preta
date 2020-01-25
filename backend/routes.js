@@ -15,6 +15,7 @@ router.route('/moves')
 
 router.route('/moves/:move_id')
     .get(MoveController.findOne)
+    .put(MoveController.update)
     .delete(MoveController.delete);
 
 
@@ -26,6 +27,7 @@ router.route('/activities')
 
 router.route('/activities/:activity_id')
     .get(ActivityController.findOne)
+    .put(ActivityController.update)
     .delete(ActivityController.delete);
 
 module.exports = router;
