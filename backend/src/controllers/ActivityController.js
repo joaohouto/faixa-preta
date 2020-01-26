@@ -2,8 +2,8 @@ const Activity = require('../models/Activity');
 const MoveController = require('../controllers/MoveController');
 
 exports.findAll = (req, res) => {
-    Activity.find().then(activitys => {
-        res.send(activitys);
+    Activity.find().then(activities => {
+        res.send(activities);
     }).catch(err => {
         res.status(500).send({
             message: err.message || "Something went wrong while retrieving items"
@@ -123,6 +123,17 @@ exports.delete = (req, res) => {
         }
         return res.status(500).send({
             message: "Could not delete item with id " + req.params.activity_id
+        });
+    });
+};
+
+exports.findByTag = (req, res) => {
+    Activity.find({ tags: { $eq: req.params.tag_name } }).then(activities => {
+        
+        res.send(activities);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Something went wrong while retrieving items"
         });
     });
 };

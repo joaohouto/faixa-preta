@@ -30,4 +30,6 @@ router.route('/activities/:activity_id')
     .put(ActivityController.update)
     .delete(ActivityController.delete);
 
+router.route('/activities/tag/:tag_name').get(ActivityController.findByTag);
+
 module.exports = router;
