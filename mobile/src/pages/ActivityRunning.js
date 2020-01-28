@@ -30,6 +30,8 @@ export default class ActivityRunning extends Component {
     var kataMoves = navigation.getParam('kataMoves', 'null');
     this.setState({ kataMoves });
 
+    
+
   }
 
   render() {
@@ -38,40 +40,45 @@ export default class ActivityRunning extends Component {
     const { kihonMoves } = this.state;
     const { kataMoves } = this.state;
 
+    console.log(kihonMoves);
+
     return (
       <View style={styles.container}>
-          <View style={styles.header}>
 
-            <Image source={require("../assets/moveIcons/activity_alt.png")} style={styles.headerMoveImage} />
-            <Text style={styles.moveName}>{activity.name}</Text>
-            <Text style={styles.moveRepetitions}>x5</Text>
+        { kihonMoves.forEach(move, index => (
+          <View key={move.info._id}>
+            <View style={styles.header}>
 
-            <View style={styles.divider}></View>
+              <Image source={require("../assets/moveIcons/activity_alt.png")} style={styles.headerMoveImage} />
+              <Text style={styles.moveName}>{move.data.name}</Text>
+              <Text style={styles.moveRepetitions}>x{move.info.repetitions}</Text>
 
-            <Text style={styles.moveDetails}>O Shuto Uke é executado com a mão espalmada, imitando o formato de uma lâmina.</Text>
-
-          </View>
-          <View style={styles.content}>
-
-            <Text style={styles.label}>Próximo</Text>
-
-            <View style={styles.moveCard}>
-              <Image source={require("../assets/moveIcons/activity_alt.png")} style={styles.moveCardImage} />
-              <Text style={styles.moveCardName}>nome</Text>
-              <Text style={styles.moveCardRepetitions}>x4</Text>
             </View>
+            <View style={styles.content}>
 
-            <View style={styles.bottomButtons}>
-              <TouchableOpacity style={styles.endButton}>
-                <Text style={styles.endButtonText}>Finalizar</Text>
+              <Text style={styles.label}>Próximo</Text>
+
+              <TouchableOpacity style={styles.moveCard}>
+                <Image source={require("../assets/moveIcons/activity_alt.png")} style={styles.moveCardImage} />
+                <View style={styles.moveCardImageBackground}></View>
+                <Text style={styles.moveCardName}></Text>
+                <Text style={styles.moveCardRepetitions}>x8</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.nextButton}>
-                <Icon name='chevron-right' type='font-awesome' size={25} color='#f1f1f1' />
-              </TouchableOpacity>
-            </View>
+              {/* Controls */}
+              <View style={styles.bottomButtons}>
+                <TouchableOpacity style={styles.endButton}>
+                  <Text style={styles.endButtonText}>Finalizar</Text>
+                </TouchableOpacity>
 
+                <TouchableOpacity style={styles.nextButton}>
+                  <Icon name='chevron-right' type='font-awesome' size={25} color='#f1f1f1' />
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
+        )) }
+          
 
       </View>
   );
@@ -201,12 +208,21 @@ const styles = StyleSheet.create({
     },
 
     moveCardImage: {
-      backgroundColor: "#ccc",
       height: 40,
       width: 40,
       position: 'absolute',
       left: 10,
       top: 10,
+      zIndex: 2
+    },
+
+    moveCardImageBackground: {
+      backgroundColor: "#ccc",
+      height: 30,
+      width: 30,
+      position: 'absolute',
+      left: 15,
+      top: 15,
       borderRadius: 20
     }
 

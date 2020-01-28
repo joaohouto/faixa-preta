@@ -3,13 +3,15 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image, Dimensions
 import { Icon } from 'react-native-elements'
 
 import api from '../services/api';
+import SmallCardLoader from '../components/SmallCardLoader';
 
 export default class Activity extends Component {
 
   state = {
     activity: {},
     kihonMoves: [],
-    kataMoves: []
+    kataMoves: [],
+    isLoading: true
   }
 
   componentDidMount() {
@@ -21,15 +23,13 @@ export default class Activity extends Component {
 
     //Get activity _id
     const { navigation } = this.props;  
-    var activityId = JSON.stringify(navigation.getParam('activityId', '0'));
-    activityId = activityId.substring(1, (activityId.length - 1));// remove the ""
 
-    //Get data from api
-    const activityResponse = await api.get('/activities/' + activityId);
-    this.setState({ activity: activityResponse.data });
+    var activity = navigation.getParam('activity', 'null');
+    this.setState({ activity });
 
     //Load moves data
-    activityResponse.data.moves.map(async move => {
+    var loaded = 0;
+    activity.moves.map(async move => {
         const moveResponse = await api.get('/moves/' + move.move_id);
 
         if(move.category == "Kihon")
@@ -38,8 +38,10 @@ export default class Activity extends Component {
         if(move.category == "Kata")
           this.setState({ kataMoves: this.state.kataMoves.concat({ info: move, data: moveResponse.data }) });
 
+        if(activity.moves.length == this.state.kataMoves.length + this.state.kihonMoves.length)
+          this.setState({ isLoading: false });
     });
-    
+
   }
 
   render() {
@@ -73,27 +75,31 @@ export default class Activity extends Component {
 
             <View style={styles.divider}></View>
 
-              { kihonMoves.length > 0 ? <Text style={styles.label}>Kihon</Text> : <View /> }
+              { kihonMoves.length > 0 ? <Text style={styles.label}>Kihon</Text>  : <View /> }
 
-                { kihonMoves.length > 0 ? kihonMoves.map(move => (
+                { !this.state.isLoading ? kihonMoves.length > 0 ? kihonMoves.map(move => (
                   <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { move: move })} key={move.info._id} style={styles.moveCard}>
                     <Image source={require("../assets/moveIcons/activity_alt.png")} style={styles.moveCardImage} />
                     <View style={styles.moveCardImageBackground}></View>
                     <Text style={styles.moveCardName}>{move.data.name}</Text>
                     <Text style={styles.moveCardRepetitions}>x{move.info.repetitions}</Text>
                   </TouchableOpacity>
-                  )) : <View /> }
+                  ))
+                  : <View /> 
+                  : <SmallCardLoader /> }
 
-              { kataMoves.length > 0 ? <Text style={styles.label}>Kata</Text> : <View /> }
+              { kataMoves.length > 0 ? <Text style={styles.label}>Kata</Text>  : <View /> }
 
-              { kataMoves.length > 0 ? kataMoves.map(move => (
+              { !this.state.isLoading ? kataMoves.length > 0 ? kataMoves.map(move => (
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { move: move })} key={move.info._id} style={styles.moveCard}>
                   <Image source={require("../assets/moveIcons/activity_alt.png")} style={styles.moveCardImage} />
                   <View style={styles.moveCardImageBackground}></View>
                   <Text style={styles.moveCardName}>{move.data.name}</Text>
                   <Text style={styles.moveCardRepetitions}>x{move.info.repetitions}</Text>
                 </TouchableOpacity>
-                )) : <View /> }
+                )) 
+                : <View /> 
+                : <SmallCardLoader /> }
 
             <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityRunning', { activity: this.state.activity, kihonMoves: this.state.kihonMoves, kataMoves: this.state.kataMoves })} style={styles.startButton}>
               <Text style={styles.startButtonText}>Iniciar</Text>
@@ -236,11 +242,11 @@ const styles = StyleSheet.create({
 
     moveCardImageBackground: {
       backgroundColor: "#ccc",
-      height: 40,
-      width: 40,
+      height: 30,
+      width: 30,
       position: 'absolute',
-      left: 10,
-      top: 10,
+      left: 15,
+      top: 15,
       borderRadius: 20
     }
 

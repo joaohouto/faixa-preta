@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions, Image } from 'react-native';
 
 import api from '../services/api';
+import CardLoader from '../components/CardLoader';
 
 class ExploreActivities extends Component {
 
@@ -54,16 +55,14 @@ class ExploreActivities extends Component {
             <Text style={styles.label}>Exame de faixa</Text>
 
             { activities.length > 0 ? activities.map(activity => (
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('Activity', { activityId: activity._id })} key={activity._id} style={styles.activityCard}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Activity', { activity: activity })} key={activity._id} style={styles.activityCard}>
                 <View style={styles.categoryBox}>
                   {activity.tags.map(tag => <Text style={styles.activityCardCategory}>{tag}</Text>)}
                 </View>
                 <Text style={styles.activityCardName}>{activity.name}</Text>
               </TouchableOpacity>
             )) : (
-              <Text>
-                Carregando...
-              </Text>
+              <CardLoader />
             )}
 
           </View>

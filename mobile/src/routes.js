@@ -10,7 +10,6 @@ import Activity from './pages/Activity';
 import ActivityRunning from './pages/ActivityRunning';
 import ActivityList from './pages/ActivityList';
 import Move from './pages/Move';
-import WebVisualizer from './pages/WebVisualizer';
 
 const Routes = createStackNavigator({
     Home: {
@@ -40,7 +39,7 @@ const Routes = createStackNavigator({
         screen: ActivityRunning,
         navigationOptions: {
             title: 'Treino',
-            headerLeft: () => <View style={{ marginLeft: 20 }}><Icon name='times' type='font-awesome' color="#111" size={20}  /></View>,
+            headerLeft: () => <View style={{ marginLeft: 20 }}><Icon name='times' type='font-awesome' color="#fff" size={20}  /></View>,
             headerRight: () =>  <Text style={{ marginRight: 20 }}>EM EXECUÇÃO</Text>,
             headerStyle: {
                 backgroundColor: '#111',
@@ -64,17 +63,6 @@ const Routes = createStackNavigator({
         screen: Move,
         navigationOptions: {
             title: 'Informações',
-            headerStyle: {
-                backgroundColor: '#111',
-            },
-            headerTintColor: '#fff'
-        }
-    },
-
-    WebVisualizer: {
-        screen: WebVisualizer,
-        navigationOptions: {
-            title: 'Navegador',
             headerStyle: {
                 backgroundColor: '#111',
             },
