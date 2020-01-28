@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions, Image } from 'react-native';
 
 import api from '../services/api';
 
@@ -14,7 +14,7 @@ class ExploreActivities extends Component {
   }
 
   loadCustomActivities = async () => {
-    const response = await api.get('/activities');
+    const response = await api.get('/activities/tag/Exame');
 
     this.setState({ activities: response.data });
   }
@@ -32,6 +32,7 @@ class ExploreActivities extends Component {
                 <Text style={styles.headerText}>aperfeiçoe-se.</Text>
               </View>
           </View>
+          <Image style={styles.headerThumbnail} source={require("../assets/yoko.png")} />
           <View style={styles.content}>
 
             <Text style={styles.label}>Fundamental</Text>
@@ -41,20 +42,22 @@ class ExploreActivities extends Component {
                 <Text style={styles.tagCardText}>Kihon</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.tagCard}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kata" })} style={styles.tagCard}>
                 <Text style={styles.tagCardText}>Kata</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.tagCard}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kumite" })} style={styles.tagCard}>
                 <Text style={styles.tagCardText}>Kumite</Text>
               </TouchableOpacity>
             </View>
 
-            <Text style={styles.label}>Todos</Text>
+            <Text style={styles.label}>Exame de faixa</Text>
 
             { activities.length > 0 ? activities.map(activity => (
               <TouchableOpacity onPress={() => this.props.navigation.navigate('Activity', { activityId: activity._id })} key={activity._id} style={styles.activityCard}>
-                <Text style={styles.activityCardCategory}>{activity.tags}</Text>
+                <View style={styles.categoryBox}>
+                  {activity.tags.map(tag => <Text style={styles.activityCardCategory}>{tag}</Text>)}
+                </View>
                 <Text style={styles.activityCardName}>{activity.name}</Text>
               </TouchableOpacity>
             )) : (
@@ -90,6 +93,14 @@ const styles = StyleSheet.create({
       color: "#f1f1f1",
       fontSize: 30,
     },  
+
+    headerThumbnail: {
+      width: Dimensions.get('window').width,
+      height: 250,
+      position: 'absolute',
+      top: 0,
+      zIndex: -99
+    }, 
 
     content: {
       flex: 1,
@@ -138,7 +149,13 @@ const styles = StyleSheet.create({
       color: '#f1f1f1',
       fontSize: 18,
       fontWeight: 'bold',
-      marginTop: 40
+      marginTop: 20
+    },
+
+    categoryBox: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-start'
     },
 
     activityCardCategory: {
@@ -148,9 +165,8 @@ const styles = StyleSheet.create({
       padding: 4,
       paddingHorizontal: 15,
       borderRadius: 100,
-      position: 'absolute',
-      margin: 20
-    }
+      marginRight: 5
+    },
   });
 
 export default ExploreActivities;

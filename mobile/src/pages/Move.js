@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, Linking } from 'react-native';
 import { Icon } from 'react-native-elements'
 
 import api from '../services/api';
@@ -32,10 +32,10 @@ export default class Move extends Component {
       <View style={styles.container}>
           <View style={styles.header}>
 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('WebVisualizer', { url: move.videoUrl })}><Icon name='play-circle' type='font-awesome' size={60} color='#ccc' /></TouchableOpacity>
+            <TouchableOpacity onPress={() => Linking.openURL(move.videoUrl)}><Icon name='play-circle' type='font-awesome' size={60} color='#ccc' /></TouchableOpacity>
 
           </View>
-          <Image style={styles.headerThumbnail} source={{ uri: "https://img.youtube.com/vi/kJ5xNaSIeTI/mqdefault.jpg" }} />
+          <Image style={styles.headerThumbnail} source={{ uri: move.image }} />
           <View style={styles.content}>
             <Text style={styles.contentTitle}>{move.name}</Text>
 

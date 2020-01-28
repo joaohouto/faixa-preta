@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { Icon } from 'react-native-elements'
 
 import { createAppContainer } from 'react-navigation';
@@ -16,14 +16,23 @@ const Routes = createStackNavigator({
     Home: {
         screen: ExploreActivities,
         navigationOptions: {
-            title: 'Faixa Preta'
+            title: '',
+            headerLeft: () => <Image source={require("./assets/logo-x.png")} style={{ height: 16, width: 190, marginLeft: 20 }} />,
+            headerStyle: {
+                backgroundColor: '#111',
+            },
+            headerTintColor: '#fff'
         }
     },
 
     Activity: {
         screen: Activity,
         navigationOptions: {
-            title: 'Treino'
+            title: 'Treino',
+            headerStyle: {
+                backgroundColor: '#111',
+            },
+            headerTintColor: '#fff'
         }
     },
 
@@ -33,28 +42,43 @@ const Routes = createStackNavigator({
             title: 'Treino',
             headerLeft: () => <View style={{ marginLeft: 20 }}><Icon name='times' type='font-awesome' color="#111" size={20}  /></View>,
             headerRight: () =>  <Text style={{ marginRight: 20 }}>EM EXECUÇÃO</Text>,
-
+            headerStyle: {
+                backgroundColor: '#111',
+            },
+            headerTintColor: '#fff'
         }
     },
 
     ActivityList: {
         screen: ActivityList,
         navigationOptions: {
-            title: 'Treinos'
+            title: 'Lista de treinos',
+            headerStyle: {
+                backgroundColor: '#111',
+            },
+            headerTintColor: '#fff'
         }
     },
 
     Move: {
         screen: Move,
         navigationOptions: {
-            title: 'Informações'
+            title: 'Informações',
+            headerStyle: {
+                backgroundColor: '#111',
+            },
+            headerTintColor: '#fff'
         }
     },
 
     WebVisualizer: {
         screen: WebVisualizer,
         navigationOptions: {
-            title: 'Navegador'
+            title: 'Navegador',
+            headerStyle: {
+                backgroundColor: '#111',
+            },
+            headerTintColor: '#fff'
         }
     },
 

@@ -35,8 +35,8 @@ export default class Activity extends Component {
         if(move.category == "Kihon")
           this.setState({ kihonMoves: this.state.kihonMoves.concat({ info: move, data: moveResponse.data }) });
 
-        else if(move.category == "Kata")
-          this.setState({ kataMoves: this.state.kataMoves.concat(moveResponse.data) });
+        if(move.category == "Kata")
+          this.setState({ kataMoves: this.state.kataMoves.concat({ info: move, data: moveResponse.data }) });
 
     });
     
@@ -54,7 +54,9 @@ export default class Activity extends Component {
             
             <View style={styles.headerBox}>
               <Text style={styles.headerText}>{activity.name}</Text>
-              <Text style={styles.headerLabel}>{activity.tags}</Text>
+              <View style={styles.categoryBox}>
+                {activity.tags ? activity.tags.map(tag => <Text style={styles.headerLabel}>{tag}</Text>) : <Text></Text>}
+              </View>
             </View>
 
           </View>
@@ -76,6 +78,7 @@ export default class Activity extends Component {
                 { kihonMoves.length > 0 ? kihonMoves.map(move => (
                   <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { move: move })} key={move.info._id} style={styles.moveCard}>
                     <Image source={require("../assets/moveIcons/activity_alt.png")} style={styles.moveCardImage} />
+                    <View style={styles.moveCardImageBackground}></View>
                     <Text style={styles.moveCardName}>{move.data.name}</Text>
                     <Text style={styles.moveCardRepetitions}>x{move.info.repetitions}</Text>
                   </TouchableOpacity>
@@ -83,13 +86,14 @@ export default class Activity extends Component {
 
               { kataMoves.length > 0 ? <Text style={styles.label}>Kata</Text> : <View /> }
 
-                { kataMoves.length > 0 ? kataMoves.map(move => (
-                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { moveId: move.data._id })} key={move.info._id} style={styles.moveCard}>
-                    <Image source={require("../assets/moveIcons/activity_alt.png")} style={styles.moveCardImage} />
-                    <Text style={styles.moveCardName}>{move.data.name}</Text>
-                    <Text style={styles.moveCardRepetitions}>x{move.info.repetitions}</Text>
-                  </TouchableOpacity>
-                  )) : <View /> }
+              { kataMoves.length > 0 ? kataMoves.map(move => (
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { move: move })} key={move.info._id} style={styles.moveCard}>
+                  <Image source={require("../assets/moveIcons/activity_alt.png")} style={styles.moveCardImage} />
+                  <View style={styles.moveCardImageBackground}></View>
+                  <Text style={styles.moveCardName}>{move.data.name}</Text>
+                  <Text style={styles.moveCardRepetitions}>x{move.info.repetitions}</Text>
+                </TouchableOpacity>
+                )) : <View /> }
 
             <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityRunning', { activity: this.state.activity, kihonMoves: this.state.kihonMoves, kataMoves: this.state.kataMoves })} style={styles.startButton}>
               <Text style={styles.startButtonText}>Iniciar</Text>
@@ -120,9 +124,13 @@ const styles = StyleSheet.create({
     headerText: {
       color: "#fff",
       fontSize: 40,
-      position: 'absolute',
-      bottom: 60,
-      left: 20
+      marginBottom: 10
+    },
+
+    categoryBox: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-start'
     },
 
     headerLabel: {
@@ -132,9 +140,7 @@ const styles = StyleSheet.create({
       padding: 4,
       paddingHorizontal: 15,
       borderRadius: 100,
-      position: 'absolute',
-      bottom: 0,
-      margin: 20
+      marginRight: 5
     },
 
     content: {
@@ -220,6 +226,15 @@ const styles = StyleSheet.create({
     },
 
     moveCardImage: {
+      height: 40,
+      width: 40,
+      position: 'absolute',
+      left: 10,
+      top: 10,
+      zIndex: 2
+    },
+
+    moveCardImageBackground: {
       backgroundColor: "#ccc",
       height: 40,
       width: 40,

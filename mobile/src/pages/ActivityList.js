@@ -23,7 +23,7 @@ class ActivityList extends Component {
 
     this.setState({ activityTag });
 
-    const response = await api.get('/activities');
+    const response = await api.get('/activities/tag/'+activityTag);
 
     this.setState({ activities: response.data });
   }
@@ -51,7 +51,9 @@ class ActivityList extends Component {
 
             { activities.length > 0 ? activities.map(activity => (
               <TouchableOpacity onPress={() => this.props.navigation.navigate('Activity', { activityId: activity._id })} key={activity._id} style={styles.activityCard}>
-                <Text style={styles.activityCardCategory}>{activity.tags}</Text>
+                <View style={styles.categoryBox}>
+                  {activity.tags.map(tag => <Text style={styles.activityCardCategory}>{tag}</Text>)}
+                </View>
                 <Text style={styles.activityCardName}>{activity.name}</Text>
               </TouchableOpacity>
             )) : (
@@ -129,7 +131,13 @@ const styles = StyleSheet.create({
       color: '#f1f1f1',
       fontSize: 18,
       fontWeight: 'bold',
-      marginTop: 40
+      marginTop: 20
+    },
+
+    categoryBox: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-start'
     },
 
     activityCardCategory: {
@@ -139,8 +147,7 @@ const styles = StyleSheet.create({
       padding: 4,
       paddingHorizontal: 15,
       borderRadius: 100,
-      position: 'absolute',
-      margin: 20
+      marginRight: 5
     },
 
     searchBox: {
