@@ -29,12 +29,7 @@ export default class SmallCard extends Component {
 
     return (
         <Animated.View style={{ opacity: this.state.fadeAnim }}>
-            <TouchableOpacity style={styles.moveCard}>
-                <View style={styles.moveCardImageBackground}></View>
-                <Text style={styles.moveCardRepetitions}>xX</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.moveCard}>
+            <TouchableOpacity key={Math.floor((Math.random() * 100) + 1)} style={styles.moveCard}>
                 <View style={styles.moveCardImageBackground}></View>
                 <Text style={styles.moveCardRepetitions}>xX</Text>
             </TouchableOpacity>

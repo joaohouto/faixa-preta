@@ -6,12 +6,14 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import ExploreActivities from './pages/ExploreActivities';
+import News from './pages/News';
 import Activity from './pages/Activity';
 import ActivityRunning from './pages/ActivityRunning';
 import ActivityList from './pages/ActivityList';
 import Move from './pages/Move';
 
 const Routes = createStackNavigator({
+
     Home: {
         screen: ExploreActivities,
         navigationOptions: {

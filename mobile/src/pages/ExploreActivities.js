@@ -39,15 +39,15 @@ class ExploreActivities extends Component {
             <Text style={styles.label}>Fundamental</Text>
 
             <View style={styles.row}>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kihon" })} style={styles.tagCard}>
+              <TouchableOpacity key="kihon" onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kihon" })} style={styles.tagCard}>
                 <Text style={styles.tagCardText}>Kihon</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kata" })} style={styles.tagCard}>
+              <TouchableOpacity key="kata" onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kata" })} style={styles.tagCard}>
                 <Text style={styles.tagCardText}>Kata</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kumite" })} style={styles.tagCard}>
+              <TouchableOpacity key="kumite" onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kumite" })} style={styles.tagCard}>
                 <Text style={styles.tagCardText}>Kumite</Text>
               </TouchableOpacity>
             </View>
@@ -55,9 +55,9 @@ class ExploreActivities extends Component {
             <Text style={styles.label}>Exame de faixa</Text>
 
             { activities.length > 0 ? activities.map(activity => (
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('Activity', { activity: activity })} key={activity._id} style={styles.activityCard}>
+              <TouchableOpacity key={activity._id} onPress={() => this.props.navigation.navigate('Activity', { activity: activity })} style={styles.activityCard}>
                 <View style={styles.categoryBox}>
-                  {activity.tags.map(tag => <Text style={styles.activityCardCategory}>{tag}</Text>)}
+                  {activity.tags.map(tag => <Text key={Math.floor((Math.random() * 100) + 1)} style={styles.activityCardCategory}>{tag}</Text>)}
                 </View>
                 <Text style={styles.activityCardName}>{activity.name}</Text>
               </TouchableOpacity>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
       top: 0,
       zIndex: -99
     }, 
-
+    
     content: {
       flex: 1,
       minHeight: Dimensions.get('window').height - 330,

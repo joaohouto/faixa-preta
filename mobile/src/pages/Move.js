@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, Linking } from 'react-native';
 import { Icon } from 'react-native-elements'
 
-import api from '../services/api';
-
 export default class Move extends Component {
 
   state = {
@@ -12,15 +10,13 @@ export default class Move extends Component {
 
   componentDidMount() {
     this.loadMove();
-
   }
 
   loadMove = async () => {
 
-    //Get move _id
     const { navigation } = this.props;  
     const move = navigation.getParam('move', '0');
-    this.setState({ move: move.data });
+    this.setState({ move: move.moveData });
     
   }
 
@@ -32,10 +28,10 @@ export default class Move extends Component {
       <View style={styles.container}>
           <View style={styles.header}>
 
-            <TouchableOpacity onPress={() => Linking.openURL(move.videoUrl)}><Icon name='play-circle' type='font-awesome' size={60} color='#ccc' /></TouchableOpacity>
+            <TouchableOpacity onPress={() => Linking.openURL("https://www.youtube.com/watch?v=" + move.videoUrl)}><Icon name='play-circle' type='font-awesome' size={60} color='#ccc' /></TouchableOpacity>
 
           </View>
-          <Image style={styles.headerThumbnail} source={{ uri: move.image }} />
+          <Image style={styles.headerThumbnail} source={{ uri: "https://img.youtube.com/vi/"+ move.videoUrl +"/0.jpg" }} />
           <View style={styles.content}>
             <Text style={styles.contentTitle}>{move.name}</Text>
 
@@ -54,7 +50,7 @@ export default class Move extends Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#111',
+      backgroundColor: '#000',
     },
 
     header: {
@@ -77,20 +73,22 @@ const styles = StyleSheet.create({
       flex: 1,
       borderTopRightRadius: 25,
       borderTopLeftRadius: 25,
-      backgroundColor: '#fff',
+      backgroundColor: '#111',
     },
 
     contentTitle: {
       fontSize: 35,
       padding: 20,
       paddingBottom: 0,
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      color: '#ddd'
     },
 
     label: {
       padding: 20,
       textTransform: 'uppercase',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      color: '#999'
     },
 
     details: {
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
 
     divider: {
       height: 2,
-      backgroundColor: '#f1f1f1',
+      backgroundColor: '#333',
       margin: 20,
       
     },

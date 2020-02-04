@@ -20,6 +20,7 @@ const ActivitySchema = mongoose.Schema({
 
     moves: [ {
         category: String,
+        group_id: String,
         move_id: String,
         repetitions: Number,
     } ],

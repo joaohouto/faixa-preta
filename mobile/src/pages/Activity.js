@@ -11,36 +11,41 @@ export default class Activity extends Component {
     activity: {},
     kihonMoves: [],
     kataMoves: [],
+    kumiteMoves: [],
     isLoading: true
   }
 
   componentDidMount() {
     this.loadActivity();
-
   }
 
   loadActivity = async () => {
 
-    //Get activity _id
+    //Carrega dados do treino
     const { navigation } = this.props;  
-
     var activity = navigation.getParam('activity', 'null');
     this.setState({ activity });
 
-    //Load moves data
-    var loaded = 0;
-    activity.moves.map(async move => {
-        const moveResponse = await api.get('/moves/' + move.move_id);
+    //Carrega os movimentos da api
+    for (const move of activity.moves) {
+      const moveResponse = await api.get('/moves/' + move.move_id);
 
-        if(move.category == "Kihon")
-          this.setState({ kihonMoves: this.state.kihonMoves.concat({ info: move, data: moveResponse.data }) });
+      if(move.category == "Kihon")
+        this.setState({ kihonMoves: this.state.kihonMoves.concat({ activityData: move, moveData: moveResponse.data }) });
 
-        if(move.category == "Kata")
-          this.setState({ kataMoves: this.state.kataMoves.concat({ info: move, data: moveResponse.data }) });
+      if(move.category == "Kata")
+        this.setState({ kataMoves: this.state.kataMoves.concat({ activityData: move, moveData: moveResponse.data }) });
 
-        if(activity.moves.length == this.state.kataMoves.length + this.state.kihonMoves.length)
-          this.setState({ isLoading: false });
-    });
+      if(move.category == "Kumite")
+        this.setState({ kumiteMoves: this.state.kumiteMoves.concat({ activityData: move, moveData: moveResponse.data }) });
+
+    }
+
+    this.setState({ isLoading: false });
+
+  }
+
+  organizeGroups = () => {
 
   }
 
@@ -49,6 +54,7 @@ export default class Activity extends Component {
     const { activity } = this.state;
     const { kihonMoves } = this.state;
     const { kataMoves } = this.state;
+    const { kumiteMoves } = this.state;
 
     return (
       <ScrollView style={styles.container}>
@@ -57,7 +63,7 @@ export default class Activity extends Component {
             <View style={styles.headerBox}>
               <Text style={styles.headerText}>{activity.name}</Text>
               <View style={styles.categoryBox}>
-                {activity.tags ? activity.tags.map(tag => <Text style={styles.headerLabel}>{tag}</Text>) : <Text></Text>}
+                {activity.tags ? activity.tags.map(tag => <Text key={Math.random()} style={styles.headerLabel}>{tag}</Text>) : <Text></Text>}
               </View>
             </View>
 
@@ -65,8 +71,7 @@ export default class Activity extends Component {
           <View style={styles.content}>
 
             <Text style={styles.label}>Detalhes</Text>
-
-              <Text style={styles.details}>{activity.details}</Text>
+            <Text style={styles.details}>{activity.details}</Text>
 
             <View style={styles.activityAlert}>
               <Icon name='warning' size={35} color='#ccc' style={styles.activityAlertIcon} />
@@ -75,35 +80,53 @@ export default class Activity extends Component {
 
             <View style={styles.divider}></View>
 
-              { kihonMoves.length > 0 ? <Text style={styles.label}>Kihon</Text>  : <View /> }
-
-                { !this.state.isLoading ? kihonMoves.length > 0 ? kihonMoves.map(move => (
-                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { move: move })} key={move.info._id} style={styles.moveCard}>
-                    <Image source={require("../assets/moveIcons/activity_alt.png")} style={styles.moveCardImage} />
-                    <View style={styles.moveCardImageBackground}></View>
-                    <Text style={styles.moveCardName}>{move.data.name}</Text>
-                    <Text style={styles.moveCardRepetitions}>x{move.info.repetitions}</Text>
-                  </TouchableOpacity>
-                  ))
-                  : <View /> 
+              { kihonMoves.length > 0 && !this.state.isLoading ? <Text style={styles.label}>Kihon</Text>  : <View /> }
+              
+                { !this.state.isLoading ? 
+                    kihonMoves.length > 0 ? kihonMoves.map(move => (
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { move: move })} key={move.activityData._id} style={styles.moveCard}>
+                      <Image source={require(`../assets/moveIcons/${move.moveData.image}.png`)} style={styles.moveCardImage} />
+                      <View style={styles.moveCardImageBackground}></View>
+                      <Text style={styles.moveCardName}>{move.moveData.name}</Text>
+                      <Text style={styles.moveCardRepetitions}>x{move.activityData.repetitions}</Text>
+                    </TouchableOpacity>
+                    ))
+                    : <View /> 
                   : <SmallCardLoader /> }
 
-              { kataMoves.length > 0 ? <Text style={styles.label}>Kata</Text>  : <View /> }
+              { kataMoves.length > 0 && !this.state.isLoading  ? <Text style={styles.label}>Kata</Text>  : <View /> }
 
-              { !this.state.isLoading ? kataMoves.length > 0 ? kataMoves.map(move => (
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { move: move })} key={move.info._id} style={styles.moveCard}>
-                  <Image source={require("../assets/moveIcons/activity_alt.png")} style={styles.moveCardImage} />
-                  <View style={styles.moveCardImageBackground}></View>
-                  <Text style={styles.moveCardName}>{move.data.name}</Text>
-                  <Text style={styles.moveCardRepetitions}>x{move.info.repetitions}</Text>
-                </TouchableOpacity>
-                )) 
-                : <View /> 
+              { !this.state.isLoading ? 
+                kataMoves.length > 0 ? kataMoves.map(move => (
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { move: move })} key={move.activityData._id} style={styles.moveCard}>
+                    <View style={styles.moveCardImageBackground}></View>
+                    <Text style={styles.moveCardName}>{move.moveData.name}</Text>
+                    <Text style={styles.moveCardRepetitions}>x{move.activityData.repetitions}</Text>
+                  </TouchableOpacity>
+                  )) 
+                  : <View /> 
+                : <SmallCardLoader /> }
+              
+              { kumiteMoves.length > 0 && !this.state.isLoading  ? <Text style={styles.label}>Kumite</Text>  : <View /> }
+
+              { !this.state.isLoading ? 
+                kumiteMoves.length > 0 ? kumiteMoves.map(move => (
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { move: move })} key={move.activityData._id} style={styles.moveCard}>
+                    <View style={styles.moveCardImageBackground}></View>
+                    <Text style={styles.moveCardName}>{move.moveData.name}</Text>
+                    <Text style={styles.moveCardRepetitions}>x{move.activityData.repetitions}</Text>
+                  </TouchableOpacity>
+                  )) 
+                  : <View /> 
                 : <SmallCardLoader /> }
 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityRunning', { activity: this.state.activity, kihonMoves: this.state.kihonMoves, kataMoves: this.state.kataMoves })} style={styles.startButton}>
-              <Text style={styles.startButtonText}>Iniciar</Text>
-            </TouchableOpacity>
+            { !this.state.isLoading ? (
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityRunning', { activity: this.state.activity, kihonMoves: this.state.kihonMoves, kataMoves: this.state.kataMoves })} style={styles.startButton}>
+                <Text style={styles.startButtonText}>Iniciar</Text>
+              </TouchableOpacity>
+            ) : (
+              <View style={styles.startButtonLoading} />
+            ) }
 
           </View>
       </ScrollView>
@@ -187,6 +210,14 @@ const styles = StyleSheet.create({
       backgroundColor: '#f1f1f1',
       marginHorizontal: 20
       
+    },
+
+    startButtonLoading: {
+      height: 50,
+      backgroundColor: '#111',
+      margin: 20,
+      borderRadius: 25,
+      opacity: 0.2
     },
 
     startButton: {

@@ -10,7 +10,8 @@ export default class ActivityRunning extends Component {
     activity: {},
     kihonMoves: [],
     kataMoves: [],
-    isOverlayVisible: true
+    moves: [],
+    currentPage: 1
   }
 
   componentDidMount() {
@@ -25,60 +26,81 @@ export default class ActivityRunning extends Component {
     this.setState({ activity });
 
     var kihonMoves = navigation.getParam('kihonMoves', 'null');
-    this.setState({ kihonMoves });
+    this.setState({ moves: kihonMoves });
 
     var kataMoves = navigation.getParam('kataMoves', 'null');
     this.setState({ kataMoves });
-
     
 
   }
 
+  handleNextPage = () => {
+    if(this.state.currentPage < this.state.moves.length){
+      this.setState({ currentPage: this.state.currentPage + 1 });
+    }
+  }
+
   render() {
 
-    const { activity } = this.state;
-    const { kihonMoves } = this.state;
-    const { kataMoves } = this.state;
-
-    console.log(kihonMoves);
+    const { moves } = this.state;
 
     return (
-      <View style={styles.container}>
+      <View style={styles.container}> 
+        {
+          moves.map(move => (
 
-        { kihonMoves.forEach(move, index => (
-          <View key={move.info._id}>
-            <View style={styles.header}>
+            <View key={move.activityData._id}>
+              <View style={styles.header}>
 
-              <Image source={require("../assets/moveIcons/activity_alt.png")} style={styles.headerMoveImage} />
-              <Text style={styles.moveName}>{move.data.name}</Text>
-              <Text style={styles.moveRepetitions}>x{move.info.repetitions}</Text>
+                <Image source={require("../assets/moveIcons/default.png")} style={styles.headerMoveImage} />
+                <Text style={styles.moveName}>{ moves.find(move => move.activityData.group_id == this.state.currentPage).moveData.name}</Text>
+                <Text style={styles.moveRepetitions}>{ moves.find(move => move.activityData.group_id == this.state.currentPage).activityData.repetitions}x</Text>
 
-            </View>
-            <View style={styles.content}>
+              </View>
+              <View style={styles.content}>
 
               <Text style={styles.label}>Próximo</Text>
 
-              <TouchableOpacity style={styles.moveCard}>
-                <Image source={require("../assets/moveIcons/activity_alt.png")} style={styles.moveCardImage} />
-                <View style={styles.moveCardImageBackground}></View>
-                <Text style={styles.moveCardName}></Text>
-                <Text style={styles.moveCardRepetitions}>x8</Text>
-              </TouchableOpacity>
+                  {
+                    moves.find(move => move.activityData.group_id == this.state.currentPage + 1) ? (
+                      
+                      <View>
+                        <TouchableOpacity style={styles.moveCard}>
+                        <Image source={require(`../assets/moveIcons/${moves.find(move => move.activityData.group_id == this.state.currentPage + 1).moveData.image}.png`)} style={styles.moveCardImage} />
+                          <View style={styles.moveCardImageBackground}></View>
+                          <Text style={styles.moveCardName}>{moves.find(move => move.activityData.group_id == this.state.currentPage + 1).moveData.name}</Text>
+                          <Text style={styles.moveCardRepetitions}>x{moves.find(move => move.activityData.group_id == this.state.currentPage + 1).activityData.repetitions}</Text>
+                        </TouchableOpacity>
 
-              {/* Controls */}
-              <View style={styles.bottomButtons}>
-                <TouchableOpacity style={styles.endButton}>
-                  <Text style={styles.endButtonText}>Finalizar</Text>
-                </TouchableOpacity>
+                        <View style={styles.bottomButtons}>
+                          <TouchableOpacity style={styles.endButton}>
+                            <Text style={styles.endButtonText}>Finalizar</Text>
+                          </TouchableOpacity>
 
-                <TouchableOpacity style={styles.nextButton}>
-                  <Icon name='chevron-right' type='font-awesome' size={25} color='#f1f1f1' />
-                </TouchableOpacity>
+                          <TouchableOpacity onPress={this.handleNextPage} style={styles.nextButton}>
+                            <Icon name='chevron-right' type='font-awesome' size={25} color='#f1f1f1' />
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+
+                    ) : (
+                      <View>
+                        <View style={{ height: 80  }} />
+
+                        <View style={styles.bottomButtons}>
+                          <TouchableOpacity style={styles.endButton}>
+                            <Text style={styles.endButtonText}>Finalizar</Text>
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                    )
+                  }
+
+
               </View>
             </View>
-          </View>
-        )) }
-          
+          ))
+        }
 
       </View>
   );
@@ -87,7 +109,6 @@ export default class ActivityRunning extends Component {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
       backgroundColor: '#111',
     },
 
@@ -126,8 +147,7 @@ const styles = StyleSheet.create({
     },  
 
     content: {
-      flex: 1,
-      minHeight: Dimensions.get('window').height - 230,
+      minHeight: 230,
       borderTopRightRadius: 25,
       borderTopLeftRadius: 25,
       backgroundColor: '#fff',

@@ -21,13 +21,15 @@ class ActivityList extends Component {
 
   loadCustomActivities = async () => {
 
+    //Pegar tag
     const { navigation } = this.props;  
     var activityTag = JSON.stringify(navigation.getParam('activityTag', '0'));
     activityTag = activityTag.substring(1, (activityTag.length - 1));
 
     this.setState({ activityTag });
 
-    const response = await api.get('/activities/tag/'+activityTag);
+    //Pegas treinos com base na tag
+    const response = await api.get('/activities/tag/' + activityTag);
 
     this.setState({ activities: response.data, displayActivities: response.data, isLoading: false });
   }
@@ -58,7 +60,6 @@ class ActivityList extends Component {
       <ScrollView style={styles.container}>
           <View style={styles.header}>
             
-            {/* Header */}
             <View style={styles.headerBox}>
               <Text style={styles.headerText}>{this.state.activityTag}</Text>
               <Text style={styles.headerLabel}>{activities.length} treinos</Text>
@@ -67,7 +68,6 @@ class ActivityList extends Component {
           </View>
           <View style={styles.content}>
 
-            {/* Search input */}
             <View style={styles.searchBox}>
               <TextInput onChangeText={e => this.handleSearchInputChange(e)} value={this.state.search} name="search" style={styles.searchInput} placeholderTextColor="#999" placeholder="Buscar" />
               <TouchableOpacity style={styles.searchIcon}>
@@ -77,13 +77,12 @@ class ActivityList extends Component {
               </TouchableOpacity>
             </View>        
 
-            {/* Cards */}
             { !this.state.isLoading ? 
                 displayActivities.length > 0 ? displayActivities.map(activity => (
 
                   <TouchableOpacity onPress={() => this.props.navigation.navigate('Activity', { activity: activity })} key={activity._id} style={styles.activityCard}>
                     <View style={styles.categoryBox}>
-                      {activity.tags.map(tag => <Text style={styles.activityCardCategory}>{tag}</Text>)}
+                      {activity.tags.map(tag => <Text tag={Math.floor((Math.random() * 100) + 1)} style={styles.activityCardCategory}>{tag}</Text>)}
                     </View>
                     <Text style={styles.activityCardName}>{activity.name}</Text>
                   </TouchableOpacity>

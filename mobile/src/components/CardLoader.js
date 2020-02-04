@@ -29,28 +29,28 @@ export default class Card extends Component {
 
     return (
         <Animated.View style={{ opacity: this.state.fadeAnim }}>
-          <TouchableOpacity style={styles.activityCard}>
+          <TouchableOpacity key="01" style={styles.activityCard}>
             <View style={styles.categoryBox}>
                 <Text style={styles.activityCardCategory}></Text>
             </View>
             <View style={{ width: 200, height: 20, backgroundColor: '#ccc', marginTop: 20, borderRadius: 5 }}></View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.activityCard}>
+        <TouchableOpacity key="02" style={styles.activityCard}>
             <View style={styles.categoryBox}>
                 <Text style={styles.activityCardCategory}></Text>
             </View>
             <View style={{ width: 200, height: 20, backgroundColor: '#ccc', marginTop: 20, borderRadius: 5 }}></View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.activityCard}>
+        <TouchableOpacity key="03" style={styles.activityCard}>
             <View style={styles.categoryBox}>
                 <Text style={styles.activityCardCategory}></Text>
             </View>
             <View style={{ width: 200, height: 20, backgroundColor: '#ccc', marginTop: 20, borderRadius: 5 }}></View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.activityCard}>
+        <TouchableOpacity key="04" style={styles.activityCard}>
             <View style={styles.categoryBox}>
                 <Text style={styles.activityCardCategory}></Text>
             </View>
