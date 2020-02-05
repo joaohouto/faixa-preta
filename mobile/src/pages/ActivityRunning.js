@@ -7,11 +7,11 @@ import { Icon, Overlay } from 'react-native-elements'
 export default class ActivityRunning extends Component {
 
   state = {
-    activity: {},
-    kihonMoves: [],
-    kataMoves: [],
     moves: [],
-    currentPage: 1
+    runnedMoves: [],
+    currentPage: 1,
+    isVisiblePlay: true,
+    isVisibleEnd: false
   }
 
   componentDidMount() {
@@ -22,22 +22,31 @@ export default class ActivityRunning extends Component {
 
     const { navigation } = this.props;  
 
-    var activity = navigation.getParam('activity', 'null');
-    this.setState({ activity });
-
     var kihonMoves = navigation.getParam('kihonMoves', 'null');
-    this.setState({ moves: kihonMoves });
-
     var kataMoves = navigation.getParam('kataMoves', 'null');
-    this.setState({ kataMoves });
+    var kumiteMoves = navigation.getParam('kumiteMoves', 'null');
+
+    var moves = kihonMoves.concat(kataMoves);
+    moves = moves.concat(kumiteMoves);
+
+    this.setState({ moves });
     
 
   }
 
   handleNextPage = () => {
     if(this.state.currentPage < this.state.moves.length){
-      this.setState({ currentPage: this.state.currentPage + 1 });
+
+      this.setState({ currentPage: this.state.currentPage + 1 }); //Atualiza a página de movimento atual
+      
+      this.setState({ runnedMoves: this.state.runnedMoves.concat(this.state.moves.find(move => move.activityData.group_id == this.state.currentPage)) });
     }
+
+  }
+
+  finishActivity = () => {
+    this.setState({ runnedMoves: this.state.runnedMoves.concat(this.state.moves.find(move => move.activityData.group_id == this.state.currentPage)) });
+    this.setState({ isVisibleEnd: true });
   }
 
   render() {
@@ -45,50 +54,108 @@ export default class ActivityRunning extends Component {
     const { moves } = this.state;
 
     return (
-      <View style={styles.container}> 
-        {
-          moves.map(move => (
+      <View style={styles.container}>
+        
+        <Overlay
+          isVisible={this.state.isVisiblePlay}
+          windowBackgroundColor="rgba(0, 0, 0, .9)"
+          width={Dimensions.get('window').width}
+          height="auto"
+          borderRadius={25}
+        >
+          <View>
+              <Text style={styles.overlayTitle}>Prepare-se</Text>
+              <Text style={styles.overlayText}>A partir de agora o seu treino será monitorado.</Text>
+              <Text style={styles.overlayText}>Execute os movimentos propostos no seu ritmo e, então, toque no (>) para seguir para o próximo grupo de movimentos. Ao final da atividade, seu progresso será exibido.</Text>
+
+              <View style={styles.divider}></View>
+
+              <View style={styles.activityAlert}>
+                <Icon name='warning' size={35} color='#ccc' style={styles.activityAlertIcon} />
+                <Text style={styles.activityAlertText}>Não se esqueça: treine sempre em locais seguros e não exceda fisicamente seus limites.</Text>
+              </View>
+
+              <TouchableOpacity onPress={() => this.setState({ isVisiblePlay: false })} style={styles.playButton}>
+                <Text style={styles.playButtonText}>Iniciar</Text>
+              </TouchableOpacity>
+
+          </View>
+        </Overlay>
+
+        <Overlay
+          isVisible={this.state.isVisibleEnd}
+          windowBackgroundColor="rgba(0, 0, 0, .9)"
+          width={Dimensions.get('window').width}
+          height={Dimensions.get('window').height-100}
+          borderRadius={25}
+
+        >
+          <TouchableOpacity  style={{ position: 'absolute', right: 30, top: 30 }}>
+            <Icon name='times' type='font-awesome' size={25} color='#ccc' />
+          </TouchableOpacity>
+
+          <Text style={styles.overlayTitle}>Atividade finalizada</Text>
+
+          <Text style={styles.label}>Resumo</Text>
+        
+          <ScrollView>
+          { this.state.runnedMoves.map(move => (
+            <TouchableOpacity key={move.activityData._id} style={styles.moveCard}>
+              <Image source={{ uri: move.moveData.image }} style={styles.moveCardImage} />
+              <View style={styles.moveCardImageBackground}></View>
+              <Text style={styles.moveCardName}>{move.moveData.name}</Text>
+              <Text style={styles.moveCardRepetitions}>x{move.activityData.repetitions}</Text>
+            </TouchableOpacity>
+            )) }
+          </ScrollView>
+
+          { this.state.runnedMoves.length == this.state.moves.length 
+            ? <Text style={styles.finalText}>100%!</Text>
+            : <Text style={styles.finalText}>Quase!</Text> }
+
+        </Overlay>
+
+        {moves.map(move => (
 
             <View key={move.activityData._id}>
               <View style={styles.header}>
 
-                <Image source={require("../assets/moveIcons/default.png")} style={styles.headerMoveImage} />
+                <Image source={{ uri: moves.find(move => move.activityData.group_id == this.state.currentPage).moveData.image }} style={styles.headerMoveImage} />
                 <Text style={styles.moveName}>{ moves.find(move => move.activityData.group_id == this.state.currentPage).moveData.name}</Text>
                 <Text style={styles.moveRepetitions}>{ moves.find(move => move.activityData.group_id == this.state.currentPage).activityData.repetitions}x</Text>
 
               </View>
               <View style={styles.content}>
 
-              <Text style={styles.label}>Próximo</Text>
-
-                  {
-                    moves.find(move => move.activityData.group_id == this.state.currentPage + 1) ? (
+                  { moves.find(move => move.activityData.group_id == this.state.currentPage + 1) ? (
                       
                       <View>
+                        <Text style={styles.label}>Próximo</Text>
+
                         <TouchableOpacity style={styles.moveCard}>
-                        <Image source={require(`../assets/moveIcons/${moves.find(move => move.activityData.group_id == this.state.currentPage + 1).moveData.image}.png`)} style={styles.moveCardImage} />
+                          <Image source={{ uri: moves.find(move => move.activityData.group_id == this.state.currentPage + 1).moveData.image }} style={styles.moveCardImage} />
                           <View style={styles.moveCardImageBackground}></View>
                           <Text style={styles.moveCardName}>{moves.find(move => move.activityData.group_id == this.state.currentPage + 1).moveData.name}</Text>
                           <Text style={styles.moveCardRepetitions}>x{moves.find(move => move.activityData.group_id == this.state.currentPage + 1).activityData.repetitions}</Text>
                         </TouchableOpacity>
 
                         <View style={styles.bottomButtons}>
-                          <TouchableOpacity style={styles.endButton}>
+                          <TouchableOpacity onPress={() => this.setState({ isVisibleEnd: true })} style={styles.endButton}>
                             <Text style={styles.endButtonText}>Finalizar</Text>
                           </TouchableOpacity>
 
                           <TouchableOpacity onPress={this.handleNextPage} style={styles.nextButton}>
-                            <Icon name='chevron-right' type='font-awesome' size={25} color='#f1f1f1' />
+                            <Icon name='arrow-right' type='font-awesome' size={25} color='#f1f1f1' />
                           </TouchableOpacity>
                         </View>
                       </View>
 
                     ) : (
                       <View>
-                        <View style={{ height: 80  }} />
+                        <View style={{ height: 130  }} />
 
                         <View style={styles.bottomButtons}>
-                          <TouchableOpacity style={styles.endButton}>
+                          <TouchableOpacity onPress={this.finishActivity} style={styles.endButtonDark}>
                             <Text style={styles.endButtonText}>Finalizar</Text>
                           </TouchableOpacity>
                         </View>
@@ -162,7 +229,7 @@ const styles = StyleSheet.create({
     divider: {
       height: 2,
       width: Dimensions.get('window').width - 40,
-      backgroundColor: '#555',
+      backgroundColor: '#f1f1f1',
       marginHorizontal: 20
       
     },
@@ -187,6 +254,17 @@ const styles = StyleSheet.create({
     endButton: {
       height: 50,
       backgroundColor: '#ccc',
+      margin: 20,
+      borderRadius: 25,
+      flex: 1,
+      display: 'flex',
+      alignItems:  'center',
+      justifyContent: 'center'
+    },
+
+    endButtonDark: {
+      height: 50,
+      backgroundColor: '#111',
       margin: 20,
       borderRadius: 25,
       flex: 1,
@@ -244,6 +322,61 @@ const styles = StyleSheet.create({
       left: 15,
       top: 15,
       borderRadius: 20
+    },
+
+    overlayTitle: {
+      fontSize: 30,
+      margin: 20,
+      fontWeight: 'bold'
+    },
+
+    overlayText: {
+      marginHorizontal: 20,
+      marginBottom: 30
+    },  
+
+    playButton: {
+      marginTop: 30,
+      height: 50,
+      backgroundColor: '#111',
+      margin: 20,
+      borderRadius: 25,
+      width: Dimensions.get('window').width - 60,
+      display: 'flex',
+      alignItems:  'center',
+      justifyContent: 'center'
+    },
+
+    playButtonText: {
+      color: '#fff',
+      textTransform: 'uppercase',
+      fontWeight: 'bold',
+      fontSize: 16
+    },
+
+    activityAlert: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: 20,
+      paddingVertical: 30
+    },
+
+    activityAlertText: {
+      color: '#999',
+      paddingLeft: 20,
+      flex: 1
+    },
+
+    finalText: {
+      fontSize: 18,
+      paddingHorizontal: 50,
+      padding: 20,
+      backgroundColor: '#111',
+      color: '#fff',
+      borderRadius: 30,
+      fontWeight: 'bold',
+      textAlign: 'center'
     }
 
   });

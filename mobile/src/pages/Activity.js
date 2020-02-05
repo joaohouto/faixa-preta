@@ -85,7 +85,7 @@ export default class Activity extends Component {
                 { !this.state.isLoading ? 
                     kihonMoves.length > 0 ? kihonMoves.map(move => (
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { move: move })} key={move.activityData._id} style={styles.moveCard}>
-                      <Image source={require(`../assets/moveIcons/${move.moveData.image}.png`)} style={styles.moveCardImage} />
+                      <Image source={{ uri: move.moveData.image }} style={styles.moveCardImage} />
                       <View style={styles.moveCardImageBackground}></View>
                       <Text style={styles.moveCardName}>{move.moveData.name}</Text>
                       <Text style={styles.moveCardRepetitions}>x{move.activityData.repetitions}</Text>
@@ -121,8 +121,8 @@ export default class Activity extends Component {
                 : <SmallCardLoader /> }
 
             { !this.state.isLoading ? (
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityRunning', { activity: this.state.activity, kihonMoves: this.state.kihonMoves, kataMoves: this.state.kataMoves })} style={styles.startButton}>
-                <Text style={styles.startButtonText}>Iniciar</Text>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityRunning', { activity, kihonMoves, kataMoves, kumiteMoves })} style={styles.startButton}>
+                <Text style={styles.startButtonText}>Treinar</Text>
               </TouchableOpacity>
             ) : (
               <View style={styles.startButtonLoading} />
