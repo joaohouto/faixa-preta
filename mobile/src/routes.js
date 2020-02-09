@@ -12,13 +12,15 @@ import ActivityRunning from './pages/ActivityRunning';
 import ActivityList from './pages/ActivityList';
 import Move from './pages/Move';
 
+import Home from './pages/Home';
+
 const Routes = createStackNavigator({
 
     Home: {
-        screen: ExploreActivities,
+        screen: Home,
         navigationOptions: {
             title: '',
-            headerLeft: () => <Image source={require("./assets/logo-x.png")} style={{ height: 16, width: 190, marginLeft: 20 }} />,
+            headerLeft: () => <Image source={require("./assets/logo-x.png")} style={{ height: 16, width: 200, marginLeft: 20 }} />,
             headerStyle: {
                 backgroundColor: '#111',
             },
@@ -41,8 +43,7 @@ const Routes = createStackNavigator({
         screen: ActivityRunning,
         navigationOptions: {
             title: 'Treino',
-            headerLeft: () => <View style={{ marginLeft: 20 }}><Icon name='times' type='font-awesome' color="#fff" size={20}  /></View>,
-            headerRight: () =>  <Text style={{ marginRight: 20 }}>EM EXECUÇÃO</Text>,
+            headerRight: () =>  <Text style={{ marginRight: 20, color: '#fff' }}>EM EXECUÇÃO</Text>,
             headerStyle: {
                 backgroundColor: '#111',
             },

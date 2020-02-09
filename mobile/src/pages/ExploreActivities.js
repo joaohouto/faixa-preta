@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions, Image, ImageBackground } from 'react-native';
 
 import api from '../services/api';
 import CardLoader from '../components/CardLoader';
@@ -33,23 +33,29 @@ class ExploreActivities extends Component {
                 <Text style={styles.headerText}>aperfeiçoe-se.</Text>
               </View>
           </View>
-          <Image style={styles.headerThumbnail} source={require("../assets/yoko.png")} />
+          <Image style={styles.headerThumbnail} source={require("../assets/home.png")} />
           <View style={styles.content}>
 
             <Text style={styles.label}>Fundamental</Text>
 
             <View style={styles.row}>
-              <TouchableOpacity key="kihon" onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kihon" })} style={styles.tagCard}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kihon" })} style={styles.tagCard}>
                 <Text style={styles.tagCardText}>Kihon</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity key="kata" onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kata" })} style={styles.tagCard}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kata" })} style={styles.tagCard}>
                 <Text style={styles.tagCardText}>Kata</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity key="kumite" onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kumite" })} style={styles.tagCard}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kumite" })} style={styles.tagCard}>
                 <Text style={styles.tagCardText}>Kumite</Text>
               </TouchableOpacity>
+            </View>
+
+            <Text style={styles.label}>Seu progresso</Text>
+
+            <View>
+              <Text>Treinos concluídos</Text>
             </View>
 
             <Text style={styles.label}>Exame de faixa</Text>
@@ -60,10 +66,16 @@ class ExploreActivities extends Component {
                   {activity.tags.map(tag => <Text key={Math.floor((Math.random() * 100) + 1)} style={styles.activityCardCategory}>{tag}</Text>)}
                 </View>
                 <Text style={styles.activityCardName}>{activity.name}</Text>
+
+                <Image style={styles.activityCardImage} source={require('../assets/faixa.png')} />
               </TouchableOpacity>
             )) : (
               <CardLoader />
             )}
+
+            <View style={styles.center}>
+              <TouchableOpacity style={styles.plusDot} />
+            </View>
 
           </View>
       </ScrollView>
@@ -74,7 +86,7 @@ class ExploreActivities extends Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#000',
+      backgroundColor: '#111',
     },
 
     header: {
@@ -124,9 +136,11 @@ const styles = StyleSheet.create({
     tagCard: {
       flex: 1,
       padding: 20,
-      backgroundColor: 'rgba(0,0,0,0.5)',
+      backgroundColor: '#555',
       borderRadius: 10,
-      marginHorizontal: 5
+      marginHorizontal: 5,
+      height: 57,
+      width: 110,
     },
 
     tagCardText: {
@@ -143,6 +157,16 @@ const styles = StyleSheet.create({
       borderRadius: 10,
 
     },  
+
+    activityCardImage: {
+      height: 105,
+      width: Dimensions.get('window').width - 40,
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      borderRadius: 10,
+      zIndex: -1
+    },
 
     activityCardName: {
       color: '#f1f1f1',
@@ -166,6 +190,22 @@ const styles = StyleSheet.create({
       borderRadius: 100,
       marginRight: 5
     },
+
+    center: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+
+    plusDot: {
+      height: 30,
+      width: 30,
+      backgroundColor: '#ddd',
+      borderRadius: 30,
+      borderColor: '#f1f1f1',
+      borderWidth: 5,
+      margin: 20
+    }
   });
 
 export default ExploreActivities;

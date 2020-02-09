@@ -45,10 +45,6 @@ export default class Activity extends Component {
 
   }
 
-  organizeGroups = () => {
-
-  }
-
   render() {
 
     const { activity } = this.state;
@@ -80,11 +76,15 @@ export default class Activity extends Component {
 
             <View style={styles.divider}></View>
 
-              { kihonMoves.length > 0 && !this.state.isLoading ? <Text style={styles.label}>Kihon</Text>  : <View /> }
+              { !this.state.isLoading ? 
+                  kihonMoves.length > 0 ? 
+                    <Text style={styles.label}>Kihon</Text>  
+                    : <View />
+                : <View style={{ height: 18, width: 60, borderRadius: 15, backgroundColor: '#f1f1f1', margin: 20 }} /> }
               
                 { !this.state.isLoading ? 
                     kihonMoves.length > 0 ? kihonMoves.map(move => (
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { move: move })} key={move.activityData._id} style={styles.moveCard}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { move: move.moveData })} key={move.activityData._id} style={styles.moveCard}>
                       <Image source={{ uri: move.moveData.image }} style={styles.moveCardImage} />
                       <View style={styles.moveCardImageBackground}></View>
                       <Text style={styles.moveCardName}>{move.moveData.name}</Text>
@@ -98,7 +98,8 @@ export default class Activity extends Component {
 
               { !this.state.isLoading ? 
                 kataMoves.length > 0 ? kataMoves.map(move => (
-                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { move: move })} key={move.activityData._id} style={styles.moveCard}>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { move: move.moveData })} key={move.activityData._id} style={styles.moveCard}>
+                    <Image source={{ uri: move.moveData.image }} style={styles.moveCardImage} />
                     <View style={styles.moveCardImageBackground}></View>
                     <Text style={styles.moveCardName}>{move.moveData.name}</Text>
                     <Text style={styles.moveCardRepetitions}>x{move.activityData.repetitions}</Text>
@@ -111,7 +112,8 @@ export default class Activity extends Component {
 
               { !this.state.isLoading ? 
                 kumiteMoves.length > 0 ? kumiteMoves.map(move => (
-                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { move: move })} key={move.activityData._id} style={styles.moveCard}>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Move', { move: move.moveData })} key={move.activityData._id} style={styles.moveCard}>
+                    <Image source={{ uri: move.moveData.image }} style={styles.moveCardImage} />
                     <View style={styles.moveCardImageBackground}></View>
                     <Text style={styles.moveCardName}>{move.moveData.name}</Text>
                     <Text style={styles.moveCardRepetitions}>x{move.activityData.repetitions}</Text>

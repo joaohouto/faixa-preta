@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image, Dimensions, Animated } from 'react-native';
 
 import { Icon, Overlay } from 'react-native-elements'
 
@@ -11,7 +11,9 @@ export default class ActivityRunning extends Component {
     runnedMoves: [],
     currentPage: 1,
     isVisiblePlay: true,
-    isVisibleEnd: false
+    isVisibleEnd: false,
+    isVisibleConfirm: false
+
   }
 
   componentDidMount() {
@@ -49,14 +51,17 @@ export default class ActivityRunning extends Component {
     this.setState({ isVisibleEnd: true });
   }
 
+
   render() {
 
     const { moves } = this.state;
 
     return (
       <View style={styles.container}>
+
+        {/* Modal "Prepare-se" */}
         
-        <Overlay
+        <Overlay 
           isVisible={this.state.isVisiblePlay}
           windowBackgroundColor="rgba(0, 0, 0, .9)"
           width={Dimensions.get('window').width}
@@ -82,6 +87,9 @@ export default class ActivityRunning extends Component {
           </View>
         </Overlay>
 
+
+        {/* Modal "Treino finalizado" */}
+
         <Overlay
           isVisible={this.state.isVisibleEnd}
           windowBackgroundColor="rgba(0, 0, 0, .9)"
@@ -90,29 +98,64 @@ export default class ActivityRunning extends Component {
           borderRadius={25}
 
         >
-          <TouchableOpacity  style={{ position: 'absolute', right: 30, top: 30 }}>
-            <Icon name='times' type='font-awesome' size={25} color='#ccc' />
-          </TouchableOpacity>
 
-          <Text style={styles.overlayTitle}>Atividade finalizada</Text>
+    
+            <Text style={styles.overlayTitle}>Treino finalizado</Text>
 
-          <Text style={styles.label}>Resumo</Text>
-        
-          <ScrollView>
-          { this.state.runnedMoves.map(move => (
-            <TouchableOpacity key={move.activityData._id} style={styles.moveCard}>
-              <Image source={{ uri: move.moveData.image }} style={styles.moveCardImage} />
-              <View style={styles.moveCardImageBackground}></View>
-              <Text style={styles.moveCardName}>{move.moveData.name}</Text>
-              <Text style={styles.moveCardRepetitions}>x{move.activityData.repetitions}</Text>
-            </TouchableOpacity>
-            )) }
-          </ScrollView>
+            { this.state.runnedMoves.length >= this.state.moves.length 
+              ? <Text style={styles.finalText}>100%!</Text>
+              : <Text style={styles.finalText}>Quase!</Text> }
 
-          { this.state.runnedMoves.length == this.state.moves.length 
-            ? <Text style={styles.finalText}>100%!</Text>
-            : <Text style={styles.finalText}>Quase!</Text> }
+            <Text style={styles.label}>Resumo</Text>
 
+            <ScrollView>
+            { this.state.runnedMoves.map(move => (
+              <View key={move.activityData._id} style={styles.moveCard}>
+                <Image source={{ uri: move.moveData.image }} style={styles.moveCardImage} />
+                <View style={styles.moveCardImageBackground}></View>
+                <Text style={styles.moveCardName}>{move.moveData.name}</Text>
+                <Text style={styles.moveCardRepetitions}>x{move.activityData.repetitions}</Text>
+              </View>
+              )) }
+            </ScrollView>
+
+            <View style={{ display: 'flex', alignItems: 'center' }}>
+              <TouchableOpacity style={styles.backToHomeButton} onPress={() => this.props.navigation.goBack()}>
+                <Text style={styles.backToHomeButtonText}>Fechar</Text>
+              </TouchableOpacity>
+            </View>
+          
+
+        </Overlay>
+
+
+        {/* Modal "Confirmação finalizar treino" */}
+
+        <Overlay
+          isVisible={this.state.isVisibleConfirm}
+          windowBackgroundColor="rgba(0, 0, 0, .9)"
+          width={Dimensions.get('window').width}
+          height="auto"
+          borderRadius={25}
+
+        >
+
+          <View>
+            <Text style={styles.overlayTitle}>Certeza?</Text>
+
+            <Text style={styles.overlayText}>Está certo de que quer finalizar o treino agora?</Text>
+
+            <View style={styles.bottomButtons}>
+                <TouchableOpacity onPress={() => this.setState({ isVisibleConfirm: false })} style={styles.endButton}>
+                  <Text style={styles.endButtonText}>Cancelar</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => this.setState({ isVisibleEnd: true })} style={styles.endButtonDark}>
+                  <Text style={styles.endButtonText}>Finalizar</Text>
+                </TouchableOpacity>
+            </View>
+
+          </View>
         </Overlay>
 
         {moves.map(move => (
@@ -132,15 +175,15 @@ export default class ActivityRunning extends Component {
                       <View>
                         <Text style={styles.label}>Próximo</Text>
 
-                        <TouchableOpacity style={styles.moveCard}>
+                        <View style={styles.moveCard}>
                           <Image source={{ uri: moves.find(move => move.activityData.group_id == this.state.currentPage + 1).moveData.image }} style={styles.moveCardImage} />
                           <View style={styles.moveCardImageBackground}></View>
                           <Text style={styles.moveCardName}>{moves.find(move => move.activityData.group_id == this.state.currentPage + 1).moveData.name}</Text>
                           <Text style={styles.moveCardRepetitions}>x{moves.find(move => move.activityData.group_id == this.state.currentPage + 1).activityData.repetitions}</Text>
-                        </TouchableOpacity>
+                        </View>
 
                         <View style={styles.bottomButtons}>
-                          <TouchableOpacity onPress={() => this.setState({ isVisibleEnd: true })} style={styles.endButton}>
+                          <TouchableOpacity onPress={() => this.setState({ isVisibleConfirm: true })} style={styles.endButton}>
                             <Text style={styles.endButtonText}>Finalizar</Text>
                           </TouchableOpacity>
 
@@ -152,7 +195,10 @@ export default class ActivityRunning extends Component {
 
                     ) : (
                       <View>
-                        <View style={{ height: 130  }} />
+                        <View style={{ height: 130, display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
+                          <Text style={{ fontSize: 30, fontWeight: 'bold', marginBottom: 20 }}>Legal!</Text>
+                          <Text>Você concluiu 100% do treino.</Text>
+                        </View>
 
                         <View style={styles.bottomButtons}>
                           <TouchableOpacity onPress={this.finishActivity} style={styles.endButtonDark}>
@@ -370,13 +416,34 @@ const styles = StyleSheet.create({
 
     finalText: {
       fontSize: 18,
-      paddingHorizontal: 50,
       padding: 20,
       backgroundColor: '#111',
       color: '#fff',
       borderRadius: 30,
       fontWeight: 'bold',
-      textAlign: 'center'
-    }
+      textAlign: 'center',
+      position: 'absolute',
+      top: 20,
+      right: 20
+    },
+
+    backToHomeButton: {
+      marginTop: 30,
+      height: 50,
+      backgroundColor: '#ccc',
+      margin: 20,
+      borderRadius: 25,
+      width: Dimensions.get('window').width - 60,
+      display: 'flex',
+      alignItems:  'center',
+      justifyContent: 'center'
+    },
+
+    backToHomeButtonText: {
+      color: '#fff',
+      textTransform: 'uppercase',
+      fontWeight: 'bold',
+      fontSize: 16
+    },
 
   });

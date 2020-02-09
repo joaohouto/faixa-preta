@@ -16,7 +16,8 @@ export default class Move extends Component {
 
     const { navigation } = this.props;  
     const move = navigation.getParam('move', '0');
-    this.setState({ move: move.moveData });
+    
+    this.setState({ move });
     
   }
 

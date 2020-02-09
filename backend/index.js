@@ -19,6 +19,12 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost/");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.listen(port, () =>{
   console.log("[dev] Server running on port " + port);
 });
