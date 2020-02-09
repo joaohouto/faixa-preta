@@ -99,7 +99,7 @@ export default class ActivityRunning extends Component {
 
         >
 
-    
+          <View style={{ height: Dimensions.get('window').height-120 }}>
             <Text style={styles.overlayTitle}>Treino finalizado</Text>
 
             { this.state.runnedMoves.length >= this.state.moves.length 
@@ -124,7 +124,7 @@ export default class ActivityRunning extends Component {
                 <Text style={styles.backToHomeButtonText}>Fechar</Text>
               </TouchableOpacity>
             </View>
-          
+          </View>         
 
         </Overlay>
 
@@ -196,13 +196,17 @@ export default class ActivityRunning extends Component {
                     ) : (
                       <View>
                         <View style={{ height: 130, display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
-                          <Text style={{ fontSize: 30, fontWeight: 'bold', marginBottom: 20 }}>Legal!</Text>
-                          <Text>Você concluiu 100% do treino.</Text>
+                          <Text style={{ fontSize: 30, fontWeight: 'bold', marginBottom: 20 }}>Quase...</Text>
+                          <Text>Só mais esse para concluir.</Text>
                         </View>
 
                         <View style={styles.bottomButtons}>
-                          <TouchableOpacity onPress={this.finishActivity} style={styles.endButtonDark}>
+                          <TouchableOpacity onPress={() => this.setState({ isVisibleConfirm: true })} style={styles.endButton}>
                             <Text style={styles.endButtonText}>Finalizar</Text>
+                          </TouchableOpacity>
+
+                          <TouchableOpacity onPress={this.finishActivity} style={styles.endButtonDark}>
+                            <Text style={styles.endButtonText}>Concluir</Text>
                           </TouchableOpacity>
                         </View>
                       </View>

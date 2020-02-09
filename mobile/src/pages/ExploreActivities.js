@@ -52,12 +52,6 @@ class ExploreActivities extends Component {
               </TouchableOpacity>
             </View>
 
-            <Text style={styles.label}>Seu progresso</Text>
-
-            <View>
-              <Text>Treinos concluídos</Text>
-            </View>
-
             <Text style={styles.label}>Exame de faixa</Text>
 
             { activities.length > 0 ? activities.map(activity => (

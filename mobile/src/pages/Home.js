@@ -9,16 +9,6 @@ import News from './News';
 
 const Home = createMaterialBottomTabNavigator({
 
-    News: {
-        screen: News,
-        navigationOptions: () => ({
-            tabBarIcon: ({ focused }) => (
-            <Icon name='newspaper' type='material-community' size={20} color={focused ? '#555' : '#999'} />
-            ),
-        title: 'Notícias'
-        }),
-    },
-
     ExploreActivities: {
         screen: ExploreActivities,
         navigationOptions: () => ({
@@ -36,6 +26,16 @@ const Home = createMaterialBottomTabNavigator({
             <Icon name='file-document-box-multiple' type='material-community' size={20} color={focused ? '#555' : '#999'} />
             ),
         title: 'Movimentos'
+        }),
+    },
+
+    News: {
+        screen: News,
+        navigationOptions: () => ({
+            tabBarIcon: ({ focused }) => (
+            <Icon name='newspaper' type='material-community' size={20} color={focused ? '#555' : '#999'} />
+            ),
+        title: 'Notícias'
         }),
     },
 

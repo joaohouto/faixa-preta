@@ -1,41 +1,22 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image, Dimensions, Linking } from 'react-native';
 import { Icon } from 'react-native-elements'
-
 import * as rssParser from 'react-native-rss-parser';
+
+import CarouselLoader from '../components/CarouselLoader'
+import ItemListLinkLoader from '../components/ItemLinkListLoader'
 
 export default class Activity extends Component {
 
   state = {
     wkfPosts: [],
-    fkmsPosts: [], 
-    cbkPosts: []
+    cbkPosts: [], 
+    isLoading: true
   }
 
   componentDidMount() {
-    this.loadPostsFKMS();
     this.loadPostsCBK();
     this.loadPostsWKF();
-  }
-
-  loadPostsFKMS = async () => {
-    var feedPosts = [];
-
-    return fetch('http://fetchrss.com/rss/5e3f443f8a93f8dc158b45675e3f43d48a93f895118b4567.xml')
-      .then(response => response.text())
-      .then(responseData => rssParser.parse(responseData))
-      .then(rss => {
-                
-        rss.items.forEach(item => {
-            if(feedPosts.length <= 5){
-                feedPosts.push({ item }) 
-            }
-        });
-        
-        this.setState({ postFKMS: feedPosts });
-        console.log(feedPosts);
-
-      });
   }
 
   loadPostsCBK = async () => {
@@ -48,11 +29,15 @@ export default class Activity extends Component {
                 
         rss.items.forEach(item => {
             if(feedPosts.length <= 5){
-                feedPosts.push({ id: item.url, title: item.title, link: item.url, date: item.published }) 
+                feedPosts.push({ title: item.title, link: item.links[0].url, date: item.published }) 
             }
         });
         
         this.setState({ cbkPosts: feedPosts });
+
+        if(this.state.cbkPosts.length > 0 && this.state.wkfPosts.length > 0)
+          this.setState({ isLoading: false });
+
 
       });
   }
@@ -72,13 +57,15 @@ export default class Activity extends Component {
         });
         
         this.setState({ wkfPosts: feedPosts });
+
+        if(this.state.cbkPosts.length > 0 && this.state.wkfPosts.length > 0)
+          this.setState({ isLoading: false });
       });
   }
   render() {
 
     const { cbkPosts } = this.state;
     const { wkfPosts } = this.state;
-    const { fkmsPosts } = this.state;
 
     return (
       <ScrollView style={styles.container}>
@@ -100,7 +87,7 @@ export default class Activity extends Component {
 
               <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.carousel}>
 
-                {wkfPosts.map(post => (
+                { !this.state.isLoading ? wkfPosts.map(post => (
                   <TouchableOpacity onPress={() => Linking.openURL("https://www.youtube.com/watch?v=" + post.item.id.replace('yt:video:', ''))} key={post.item.id} style={styles.carouselItem}>
                     <View style={styles.carouselItemIcon}>
                       <Icon name='youtube' type='material-community' size={25} color='#fff' />
@@ -111,30 +98,9 @@ export default class Activity extends Component {
 
                     <Image style={styles.carouselImage} source={{ uri: "https://img.youtube.com/vi/"+ post.item.id.replace('yt:video:', '') +"/0.jpg" }} />
                   </TouchableOpacity>
-                ))}          
-
-                <View style={{ height: 150, display: 'flex', justifyContent: 'center' }}>
-                  <TouchableOpacity onPress={() => Linking.openURL("https://www.youtube.com/user/WKFKarateWorldChamps")} style={styles.plusDot} />
-                </View>
-
-              </ScrollView>
-
-              <Text style={styles.label}>FKMS</Text>
-
-              <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.carousel}>
-
-                {fkmsPosts.map(post => (
-                  <TouchableOpacity onPress={() => Linking.openURL("")} key={post.item.id} style={styles.carouselItem}>
-                    <View style={styles.carouselItemIcon}>
-                      <Icon name='youtube' type='material-community' size={25} color='#fff' />
-                    </View>
-                    
-                    <Text style={styles.carouselDate}>{post.item.published.slice(0, -15)}</Text>
-                    <Text style={styles.carouselTitle}>{post.item.title}</Text>
-
-                    <Image style={styles.carouselImage} source={{ uri: "https://img.youtube.com/vi/"+ post.item.id.replace('yt:video:', '') +"/0.jpg" }} />
-                  </TouchableOpacity>
-                ))}          
+                )) : (
+                  <CarouselLoader />
+                )}          
 
                 <View style={{ height: 150, display: 'flex', justifyContent: 'center' }}>
                   <TouchableOpacity onPress={() => Linking.openURL("https://www.youtube.com/user/WKFKarateWorldChamps")} style={styles.plusDot} />
@@ -145,12 +111,15 @@ export default class Activity extends Component {
               <Text style={styles.label}>CBK</Text>
 
               <View>
-                {cbkPosts.map(post => (
-                  <TouchableOpacity onPress={() => Linking.openURL(post.url)} style={styles.postItem}>
+                {!this.state.isLoading ? cbkPosts.map(post => (
+                  <TouchableOpacity onPress={() => Linking.openURL(post.link)} style={styles.postItem} key={post.date}>
                     <Icon name='link' type='material-community' size={20} color='#ccc' />
-                    <Text style={styles.postItemTitle}>{post.title}</Text>
+                    <View>
+                      <Text style={styles.postItemDate}>{post.date.slice(0, -19)}</Text>
+                      <Text style={styles.postItemTitle}>{post.title}</Text>
+                    </View>
                   </TouchableOpacity>
-                ))}
+                )) : <ItemListLinkLoader />}
 
                 <View style={{ height: 150, display: 'flex', alignItems: 'center' }}>
                   <TouchableOpacity onPress={() => Linking.openURL("https://cbkarate.blogspot.com/")} style={styles.plusDot} />
@@ -285,7 +254,11 @@ const styles = StyleSheet.create({
 
     postItemTitle: {
       margin: 4,
-      
+    },
+
+    postItemDate: {
+      margin: 4,
+      fontSize: 11,
     }
 
   });
