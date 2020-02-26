@@ -9,7 +9,7 @@ export default class ActivityRunning extends Component {
   state = {
     moves: [],
     runnedMoves: [],
-    currentPage: 1,
+    currentPage: 0,
     isVisiblePlay: true,
     isVisibleEnd: false,
     isVisibleConfirm: false
@@ -32,6 +32,8 @@ export default class ActivityRunning extends Component {
     moves = moves.concat(kumiteMoves);
 
     this.setState({ moves });
+
+    console.log(this.state.moves.length);
     
 
   }
@@ -41,13 +43,13 @@ export default class ActivityRunning extends Component {
 
       this.setState({ currentPage: this.state.currentPage + 1 }); //Atualiza a página de movimento atual
       
-      this.setState({ runnedMoves: this.state.runnedMoves.concat(this.state.moves.find(move => move.activityData.group_id == this.state.currentPage)) });
+      this.setState({ runnedMoves: this.state.runnedMoves.concat(this.state.moves[this.state.currentPage]) });
     }
 
   }
 
   finishActivity = () => {
-    this.setState({ runnedMoves: this.state.runnedMoves.concat(this.state.moves.find(move => move.activityData.group_id == this.state.currentPage)) });
+    this.setState({ runnedMoves: this.state.runnedMoves.concat(this.state.moves[this.state.currentPage]) });
     this.setState({ isVisibleEnd: true });
   }
 
@@ -163,23 +165,23 @@ export default class ActivityRunning extends Component {
             <View key={move.activityData._id}>
               <View style={styles.header}>
 
-                <Image source={{ uri: moves.find(move => move.activityData.group_id == this.state.currentPage).moveData.image }} style={styles.headerMoveImage} />
-                <Text style={styles.moveName}>{ moves.find(move => move.activityData.group_id == this.state.currentPage).moveData.name}</Text>
-                <Text style={styles.moveRepetitions}>{ moves.find(move => move.activityData.group_id == this.state.currentPage).activityData.repetitions}x</Text>
+                <Image source={{ uri: moves[this.state.currentPage].moveData.image }} style={styles.headerMoveImage} />
+                <Text style={styles.moveName}>{moves[this.state.currentPage].moveData.name}</Text>
+                <Text style={styles.moveRepetitions}>{ moves[this.state.currentPage].activityData.repetitions}x</Text>
 
               </View>
               <View style={styles.content}>
 
-                  { moves.find(move => move.activityData.group_id == this.state.currentPage + 1) ? (
+                  { (this.state.currentPage + 1) != moves.length ? (
                       
                       <View>
                         <Text style={styles.label}>Próximo</Text>
 
                         <View style={styles.moveCard}>
-                          <Image source={{ uri: moves.find(move => move.activityData.group_id == this.state.currentPage + 1).moveData.image }} style={styles.moveCardImage} />
+                          <Image source={{ uri: moves[this.state.currentPage + 1].moveData.image }} style={styles.moveCardImage} />
                           <View style={styles.moveCardImageBackground}></View>
-                          <Text style={styles.moveCardName}>{moves.find(move => move.activityData.group_id == this.state.currentPage + 1).moveData.name}</Text>
-                          <Text style={styles.moveCardRepetitions}>x{moves.find(move => move.activityData.group_id == this.state.currentPage + 1).activityData.repetitions}</Text>
+                          <Text style={styles.moveCardName}>{moves[this.state.currentPage + 1].moveData.name}</Text>
+                          <Text style={styles.moveCardRepetitions}>x{moves[this.state.currentPage + 1].activityData.repetitions}</Text>
                         </View>
 
                         <View style={styles.bottomButtons}>

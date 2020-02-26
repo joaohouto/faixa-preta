@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 
 const ActivitySchema = mongoose.Schema({
     name: {
@@ -20,7 +21,6 @@ const ActivitySchema = mongoose.Schema({
 
     moves: [ {
         category: String,
-        group_id: String,
         move_id: String,
         repetitions: Number,
     } ],
@@ -30,5 +30,7 @@ const ActivitySchema = mongoose.Schema({
         default: Date.now
     }
 });
+
+ActivitySchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('activity', ActivitySchema);

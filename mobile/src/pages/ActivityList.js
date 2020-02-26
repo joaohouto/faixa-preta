@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, TextInput, Dimensions } from 'react-native';
 import { Icon } from 'react-native-elements'
 
+
 import api from '../services/api';
 import CardLoader from '../components/CardLoader';
 
@@ -17,6 +18,8 @@ class ActivityList extends Component {
 
   componentDidMount(){
     this.loadCustomActivities();
+
+    
   }
 
   loadCustomActivities = async () => {

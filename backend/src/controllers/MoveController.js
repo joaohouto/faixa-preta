@@ -1,13 +1,17 @@
 const Move = require('../models/Move');
 
 exports.findAll = (req, res) => {
-    Move.find().then(moves => {
-        res.send(moves);
-    }).catch(err => {
-        res.status(500).send({
-            message: err.message || "Something went wrong while retrieving moves"
+    const { page = 1 } = req.query;
+
+    Move.paginate({}, { page, limit: 10 })
+        .then(moves => {
+            res.send(moves);
+
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message || "Something went wrong while retrieving moves"
+            });
         });
-    });
 };
 
 exports.create = (req, res) => {
@@ -64,13 +68,6 @@ exports.update = (req, res) => {
             message: "Item content can not be empty"
         });
     }
-
-    const move = new Move({
-        name: req.body.name,
-        details: req.body.details,
-        videoUrl: req.body.videoUrl,
-        image: req.body.image
-    });
 
     Move.findByIdAndUpdate(req.params.move_id, {
         name: req.body.name,

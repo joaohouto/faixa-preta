@@ -20,7 +20,7 @@ const Routes = createStackNavigator({
         screen: Home,
         navigationOptions: {
             title: '',
-            headerLeft: () => <Image source={require("./assets/logo-x.png")} style={{ height: 16, width: 200, marginLeft: 20 }} />,
+            headerLeft: () => <Image source={require("./assets/logo-x.png")} style={{ height: 14, width: 120, marginLeft: 20 }} />,
             headerStyle: {
                 backgroundColor: '#111',
             },

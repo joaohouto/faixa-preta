@@ -20,8 +20,10 @@ export default class ExploreMoves extends Component {
 
   loadMoves = async () => {
     const response = await api.get('/moves');
+
+    const moves = response.data.sort(m => m.name);
  
-    this.setState({ moves: response.data, displayMoves: response.data, isLoading: false });
+    this.setState({ moves, displayMoves: response.data, isLoading: false });
   }
 
   handleSearchInputChange(input) {
@@ -30,11 +32,11 @@ export default class ExploreMoves extends Component {
 
     if(!input == ""){
 
-      const filteredMoves = this.state.moves.filter(move => 
-        move.name.toLowerCase().includes(input.toLowerCase())
-      );
+      const displayMoves = this.state.moves.filter(move => 
+                              move.name.toLowerCase().includes(input.toLowerCase())
+                            );
 
-      this.setState({ displayMoves: filteredMoves });
+      this.setState({ displayMoves });
     }else {
       this.setState({ displayMoves: this.state.moves });
     }

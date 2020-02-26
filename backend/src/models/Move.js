@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 
 const MoveSchema = mongoose.Schema({
     name: {
@@ -26,5 +27,7 @@ const MoveSchema = mongoose.Schema({
         default: Date.now
     }
 });
+
+MoveSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('move', MoveSchema);
