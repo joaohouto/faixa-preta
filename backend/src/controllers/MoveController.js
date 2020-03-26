@@ -2,8 +2,11 @@ const Move = require('../models/Move');
 
 exports.findAll = (req, res) => {
     const { page = 1 } = req.query;
+    
+    var category = new RegExp(req.query.category, 'i');
+    var name = new RegExp(req.query.name, 'i');
 
-    Move.paginate({}, { page, limit: 10 })
+    Move.paginate({ name, category }, { page, limit: 5 })
         .then(moves => {
             res.send(moves);
 
@@ -24,6 +27,7 @@ exports.create = (req, res) => {
 
     const move = new Move({
         name: req.body.name,
+        category: req.body.category,
         details: req.body.details,
         videoUrl: req.body.videoUrl,
         image: req.body.image
@@ -71,6 +75,7 @@ exports.update = (req, res) => {
 
     Move.findByIdAndUpdate(req.params.move_id, {
         name: req.body.name,
+        category: req.body.category,
         details: req.body.details,
         videoUrl: req.body.videoUrl,
         image: req.body.image

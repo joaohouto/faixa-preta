@@ -7,6 +7,11 @@ const MoveSchema = mongoose.Schema({
         required: true
     },
 
+    category: {
+        type: String,
+        required: true
+    },
+
     details: {
         type: String,
         required: true

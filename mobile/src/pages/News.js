@@ -10,8 +10,7 @@ export default class Activity extends Component {
 
   state = {
     wkfPosts: [],
-    cbkPosts: [], 
-    isLoading: true
+    cbkPosts: []
   }
 
   componentDidMount() {
@@ -29,14 +28,11 @@ export default class Activity extends Component {
                 
         rss.items.forEach(item => {
             if(feedPosts.length <= 5){
-                feedPosts.push({ title: item.title, link: item.links[0].url, date: item.published }) 
+                feedPosts.push({ title: item.title, link: item.links[1].url.replace("#comment-form", ""), date: this.parseDate(item.published.slice(0, -19)) }) 
             }
         });
         
         this.setState({ cbkPosts: feedPosts });
-
-        if(this.state.cbkPosts.length > 0 && this.state.wkfPosts.length > 0)
-          this.setState({ isLoading: false });
 
 
       });
@@ -58,10 +54,16 @@ export default class Activity extends Component {
         
         this.setState({ wkfPosts: feedPosts });
 
-        if(this.state.cbkPosts.length > 0 && this.state.wkfPosts.length > 0)
-          this.setState({ isLoading: false });
       });
   }
+
+  parseDate(date) {
+    date = date.split('-');
+
+    return date[2] + "/" + date[1] + "/" + date[0];
+  }
+
+
   render() {
 
     const { cbkPosts } = this.state;
@@ -87,13 +89,13 @@ export default class Activity extends Component {
 
               <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.carousel}>
 
-                { !this.state.isLoading ? wkfPosts.map(post => (
+                { wkfPosts.length > 0 ? wkfPosts.map(post => (
                   <TouchableOpacity onPress={() => Linking.openURL("https://www.youtube.com/watch?v=" + post.item.id.replace('yt:video:', ''))} key={post.item.id} style={styles.carouselItem}>
                     <View style={styles.carouselItemIcon}>
                       <Icon name='youtube' type='material-community' size={25} color='#fff' />
                     </View>
                     
-                    <Text style={styles.carouselDate}>{post.item.published.slice(0, -15)}</Text>
+                    <Text style={styles.carouselDate}>{this.parseDate(post.item.published.slice(0, -15))}</Text>
                     <Text style={styles.carouselTitle}>{post.item.title}</Text>
 
                     <Image style={styles.carouselImage} source={{ uri: "https://img.youtube.com/vi/"+ post.item.id.replace('yt:video:', '') +"/0.jpg" }} />
@@ -111,17 +113,17 @@ export default class Activity extends Component {
               <Text style={styles.label}>CBK</Text>
 
               <View>
-                {!this.state.isLoading ? cbkPosts.map(post => (
-                  <TouchableOpacity onPress={() => Linking.openURL(post.link)} style={styles.postItem} key={post.date}>
+                { cbkPosts.length > 0 ? cbkPosts.map(post => (
+                  <TouchableOpacity onPress={() => Linking.openURL(post.link)} style={styles.postItem} key={post.link}>
                     <Icon name='link' type='material-community' size={20} color='#ccc' />
                     <View>
-                      <Text style={styles.postItemDate}>{post.date.slice(0, -19)}</Text>
+                      <Text style={styles.postItemDate}>{post.date}</Text>
                       <Text style={styles.postItemTitle}>{post.title}</Text>
                     </View>
                   </TouchableOpacity>
                 )) : <ItemListLinkLoader />}
 
-                <View style={{ height: 150, display: 'flex', alignItems: 'center' }}>
+                <View style={{ display: 'flex', alignItems: 'center' }}>
                   <TouchableOpacity onPress={() => Linking.openURL("https://cbkarate.blogspot.com/")} style={styles.plusDot} />
                 </View>
               </View>
@@ -254,6 +256,7 @@ const styles = StyleSheet.create({
 
     postItemTitle: {
       margin: 4,
+      maxWidth: Dimensions.get('window').width - 90
     },
 
     postItemDate: {

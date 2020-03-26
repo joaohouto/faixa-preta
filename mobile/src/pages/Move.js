@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, Linking } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, Linking, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements'
+
+import { Divider, Details } from '../styles';
 
 export default class Move extends Component {
 
@@ -26,24 +28,44 @@ export default class Move extends Component {
     const { move } = this.state;
 
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
           <View style={styles.header}>
 
-            <TouchableOpacity onPress={() => Linking.openURL("https://www.youtube.com/watch?v=" + move.videoUrl)}><Icon name='play-circle' type='font-awesome' size={60} color='#ccc' /></TouchableOpacity>
+            <Image source={{ uri: move.image }} style={styles.moveImage} />
 
           </View>
-          <Image style={styles.headerThumbnail} source={{ uri: "https://img.youtube.com/vi/"+ move.videoUrl +"/0.jpg" }} />
+          <Image style={styles.headerThumbnail} source={{  }} />
           <View style={styles.content}>
             <Text style={styles.contentTitle}>{move.name}</Text>
 
             <Text style={styles.label}>Detalhes</Text>
 
-            <Text style={styles.details}>{move.details}</Text>
+            <Details>{move.details}</Details>
 
-            <View style={styles.divider}></View>
+            <View style={{ height: 30 }} />
+
+            <Text style={styles.label}>Youtube</Text>
+
+
+            { /* Youtube Links */ }
+
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.carousel}>
+
+                  <TouchableOpacity onPress={() => Linking.openURL("https://www.youtube.com/watch?v=" + move.videoUrl)} style={styles.carouselItem}>
+                    <View style={styles.carouselItemIcon}>
+                      <Icon name='youtube' type='material-community' size={25} color='#fff' />
+                    </View>
+                    
+                    <Text style={styles.carouselTitle}></Text>
+
+                    <Image style={styles.carouselImage} source={{ uri: "https://img.youtube.com/vi/"+ move.videoUrl +"/0.jpg" }} />
+                  </TouchableOpacity>       
+                       
+
+              </ScrollView>
 
           </View>
-      </View>
+      </ScrollView>
   );
   }
 }
@@ -52,6 +74,11 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#000',
+    },
+
+    moveImage: {
+      height: 200,
+      width: 200
     },
 
     header: {
@@ -75,6 +102,7 @@ const styles = StyleSheet.create({
       borderTopRightRadius: 25,
       borderTopLeftRadius: 25,
       backgroundColor: '#111',
+      minHeight: Dimensions.get('window').height - 300
     },
 
     contentTitle: {
@@ -102,6 +130,47 @@ const styles = StyleSheet.create({
       backgroundColor: '#333',
       margin: 20,
       
+    },
+
+    carousel: {
+      marginHorizontal: 10,
+      maxHeight: 150, 
+    },
+
+    carouselItem: {
+      height: 150,
+      width: 250,
+      backgroundColor: '#000',
+      borderRadius: 10,
+      marginHorizontal: 10,
+      display: 'flex',
+      justifyContent: 'flex-end', 
+      alignItems: 'flex-start',
+      padding: 20
+    },
+
+    carouselTitle: {
+      color: '#fff',
+      fontSize: 20
+    },
+
+    carouselDate: {
+      color: '#fff'
+    },
+    carouselImage:{
+      height: 150,
+      width: 250,
+      borderRadius: 10,
+      padding: 20,
+      position: 'absolute', 
+      zIndex: -1,
+      opacity: 0.5
+    }, 
+
+    carouselItemIcon: {
+      position: 'absolute',
+      right: 20, 
+      top: 20
     },
 
   });

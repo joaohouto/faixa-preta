@@ -15,8 +15,7 @@ const ActivitySchema = mongoose.Schema({
     tags: [ String ],
 
     image: {
-        type: String,
-        required: true
+        type: String
     },
 
     moves: [ {

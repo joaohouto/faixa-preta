@@ -1,28 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions, Image, ImageBackground } from 'react-native';
-
-import api from '../services/api';
-import CardLoader from '../components/CardLoader';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions, Image } from 'react-native';
 
 class ExploreActivities extends Component {
 
-  state = {
-    activities: []
-  }
-
   componentDidMount(){
-    this.loadCustomActivities();
-  }
-
-  loadCustomActivities = async () => {
-    const response = await api.get('/activities/tag/Exame');
-
-    this.setState({ activities: response.data });
+    
   }
 
   render(){
-
-    const { activities } = this.state;
 
     return (
       <ScrollView style={styles.container}>
@@ -41,35 +26,35 @@ class ExploreActivities extends Component {
             <View style={styles.row}>
               <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kihon" })} style={styles.tagCard}>
                 <Text style={styles.tagCardText}>Kihon</Text>
+                <Image style={styles.tagCardImage} source={require('../assets/kihon.png')} />
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kata" })} style={styles.tagCard}>
                 <Text style={styles.tagCardText}>Kata</Text>
+                <Image style={styles.tagCardImage} source={require('../assets/kata.png')} />
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kumite" })} style={styles.tagCard}>
                 <Text style={styles.tagCardText}>Kumite</Text>
+                <Image style={styles.tagCardImage} source={require('../assets/kumite.png')} />
               </TouchableOpacity>
             </View>
+            
 
-            <Text style={styles.label}>Exame de faixa</Text>
+            <Text style={styles.label}>Especiais</Text>
 
-            { activities.length > 0 ? activities.map(activity => (
-              <TouchableOpacity key={activity._id} onPress={() => this.props.navigation.navigate('Activity', { activity: activity })} style={styles.activityCard}>
-                <View style={styles.categoryBox}>
-                  {activity.tags.map(tag => <Text key={Math.floor((Math.random() * 100) + 1)} style={styles.activityCardCategory}>{tag}</Text>)}
-                </View>
-                <Text style={styles.activityCardName}>{activity.name}</Text>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Exame" })} style={styles.activityCard}>
+              
+              <View style={styles.categoryBox}>
+                <Text style={styles.activityCardCategory}>Kihon</Text>
+                <Text style={styles.activityCardCategory}>Kata</Text>
+                <Text style={styles.activityCardCategory}>Kumite</Text>
+              </View>
 
-                <Image style={styles.activityCardImage} source={require('../assets/faixa.png')} />
-              </TouchableOpacity>
-            )) : (
-              <CardLoader />
-            )}
+              <Text style={styles.activityCardName}>Exame de faixa</Text>
 
-            <View style={styles.center}>
-              <TouchableOpacity style={styles.plusDot} />
-            </View>
+              <Image style={styles.activityCardImage} source={require('../assets/exame.png')} />
+            </TouchableOpacity>  
 
           </View>
       </ScrollView>
@@ -109,7 +94,7 @@ const styles = StyleSheet.create({
     
     content: {
       flex: 1,
-      minHeight: Dimensions.get('window').height - 330,
+      minHeight: Dimensions.get('window').height - 380,
       borderTopRightRadius: 25,
       borderTopLeftRadius: 25,
       backgroundColor: '#fff',
@@ -137,6 +122,17 @@ const styles = StyleSheet.create({
       width: 110,
     },
 
+    tagCardImage: {
+      height: 57,
+      width: 110,
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      borderRadius: 10,
+      zIndex: -1,
+      opacity: 0.8
+    },
+
     tagCardText: {
       fontSize: 16,
       color: '#fff',
@@ -144,7 +140,8 @@ const styles = StyleSheet.create({
     },
 
     activityCard: {
-      backgroundColor: 'rgba(0,0,0,0.5)',
+      height: 105,
+      backgroundColor: '#555',
       margin: 10,
       marginHorizontal: 20,
       padding: 20,
@@ -159,7 +156,9 @@ const styles = StyleSheet.create({
       top: 0,
       left: 0,
       borderRadius: 10,
-      zIndex: -1
+      zIndex: -1,
+      opacity: 0.8
+
     },
 
     activityCardName: {
@@ -167,6 +166,27 @@ const styles = StyleSheet.create({
       fontSize: 18,
       fontWeight: 'bold',
       marginTop: 20
+    },
+
+    extraCard: {
+      height: 80,
+      backgroundColor: '#999',
+      margin: 10,
+      marginHorizontal: 20,
+      padding: 20,
+      borderRadius: 10,
+    },
+
+    extraCardImage: {
+      height: 80,
+      width: Dimensions.get('window').width - 40,
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      borderRadius: 10,
+      zIndex: -1,
+      opacity: 0.8
+
     },
 
     categoryBox: {

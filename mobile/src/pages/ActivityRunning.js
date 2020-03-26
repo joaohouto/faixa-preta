@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image, Dimensions, Animated } from 'react-native';
+import { Text, View, Dimensions, Animated } from 'react-native';
 
-import { Icon, Overlay } from 'react-native-elements'
+import { Icon, Overlay } from 'react-native-elements';
+import { OverlayTitle, OverlayText, Divider, AlmostText, ActivityAlert, BottomButtons, EndButtonDarkText, ActivityAlertText, PlayButton, PlayButtonText, EndButton, EndButtonText, EndButtonDark, ActivityRunningHeader, ActivityRunningHeaderImage, ActivityRunningMoveName, ActivityRunningMoveRepetitions, ActivityRunningContent, Label, MoveCard, MoveCardImage, MoveCardBackground, MoveCardName, MoveCardRepetitions, Container, CenteredContent } from '../styles';
 
 
 export default class ActivityRunning extends Component {
@@ -11,7 +12,6 @@ export default class ActivityRunning extends Component {
     runnedMoves: [],
     currentPage: 0,
     isVisiblePlay: true,
-    isVisibleEnd: false,
     isVisibleConfirm: false
 
   }
@@ -24,16 +24,14 @@ export default class ActivityRunning extends Component {
 
     const { navigation } = this.props;  
 
-    var kihonMoves = navigation.getParam('kihonMoves', 'null');
-    var kataMoves = navigation.getParam('kataMoves', 'null');
-    var kumiteMoves = navigation.getParam('kumiteMoves', 'null');
+    let kihonMoves = navigation.getParam('kihonMoves', 'null');
+    let kataMoves = navigation.getParam('kataMoves', 'null');
+    let kumiteMoves = navigation.getParam('kumiteMoves', 'null');
 
-    var moves = kihonMoves.concat(kataMoves);
+    let moves = kihonMoves.concat(kataMoves);
     moves = moves.concat(kumiteMoves);
 
     this.setState({ moves });
-
-    console.log(this.state.moves.length);
     
 
   }
@@ -50,16 +48,29 @@ export default class ActivityRunning extends Component {
 
   finishActivity = () => {
     this.setState({ runnedMoves: this.state.runnedMoves.concat(this.state.moves[this.state.currentPage]) });
-    this.setState({ isVisibleEnd: true });
+    this.props.navigation.goBack();
+    this.props.navigation.navigate('ActivityFinished', { activity: this.state.activity, runnedMoves: this.state.runnedMoves });
+
   }
 
+  finishUndoneActivity = () =>  {
+    this.setState({ isVisibleConfirm: false });
+    this.props.navigation.goBack();
+  }
+
+  finishActivityInTheMiddle = () =>  {
+    this.setState({ isVisibleConfirm: false });
+    this.props.navigation.goBack();
+    this.props.navigation.navigate('ActivityFinished', { activity: this.state.activity, runnedMoves: this.state.runnedMoves });
+    
+  }
 
   render() {
 
     const { moves } = this.state;
 
     return (
-      <View style={styles.container}>
+      <Container>
 
         {/* Modal "Prepare-se" */}
         
@@ -71,65 +82,23 @@ export default class ActivityRunning extends Component {
           borderRadius={25}
         >
           <View>
-              <Text style={styles.overlayTitle}>Prepare-se</Text>
-              <Text style={styles.overlayText}>A partir de agora o seu treino será monitorado.</Text>
-              <Text style={styles.overlayText}>Execute os movimentos propostos no seu ritmo e, então, toque no (>) para seguir para o próximo grupo de movimentos. Ao final da atividade, seu progresso será exibido.</Text>
+              <OverlayTitle>Prepare-se</OverlayTitle>
+              <OverlayText>A partir de agora o seu treino será monitorado.</OverlayText>
+              <OverlayText>Execute os movimentos propostos no seu ritmo e, então, toque no (>) para seguir para o próximo grupo de movimentos. Ao final da atividade, seu progresso será exibido.</OverlayText>
 
-              <View style={styles.divider}></View>
+              <Divider />
 
-              <View style={styles.activityAlert}>
-                <Icon name='warning' size={35} color='#ccc' style={styles.activityAlertIcon} />
-                <Text style={styles.activityAlertText}>Não se esqueça: treine sempre em locais seguros e não exceda fisicamente seus limites.</Text>
-              </View>
+              <ActivityAlert>
+                <Icon name='warning' size={35} color='#ccc' />
+                <ActivityAlertText>Não se esqueça: treine sempre em locais seguros e não exceda fisicamente seus limites.</ActivityAlertText>
+              </ActivityAlert>
 
-              <TouchableOpacity onPress={() => this.setState({ isVisiblePlay: false })} style={styles.playButton}>
-                <Text style={styles.playButtonText}>Iniciar</Text>
-              </TouchableOpacity>
+              <PlayButton style={{ width: Dimensions.get('window').width - 60 }} onPress={() => this.setState({ isVisiblePlay: false })} >
+                <PlayButtonText>Iniciar</PlayButtonText>
+              </PlayButton>
 
           </View>
         </Overlay>
-
-
-        {/* Modal "Treino finalizado" */}
-
-        <Overlay
-          isVisible={this.state.isVisibleEnd}
-          windowBackgroundColor="rgba(0, 0, 0, .9)"
-          width={Dimensions.get('window').width}
-          height={Dimensions.get('window').height-100}
-          borderRadius={25}
-
-        >
-
-          <View style={{ height: Dimensions.get('window').height-120 }}>
-            <Text style={styles.overlayTitle}>Treino finalizado</Text>
-
-            { this.state.runnedMoves.length >= this.state.moves.length 
-              ? <Text style={styles.finalText}>100%!</Text>
-              : <Text style={styles.finalText}>Quase!</Text> }
-
-            <Text style={styles.label}>Resumo</Text>
-
-            <ScrollView>
-            { this.state.runnedMoves.map(move => (
-              <View key={move.activityData._id} style={styles.moveCard}>
-                <Image source={{ uri: move.moveData.image }} style={styles.moveCardImage} />
-                <View style={styles.moveCardImageBackground}></View>
-                <Text style={styles.moveCardName}>{move.moveData.name}</Text>
-                <Text style={styles.moveCardRepetitions}>x{move.activityData.repetitions}</Text>
-              </View>
-              )) }
-            </ScrollView>
-
-            <View style={{ display: 'flex', alignItems: 'center' }}>
-              <TouchableOpacity style={styles.backToHomeButton} onPress={() => this.props.navigation.goBack()}>
-                <Text style={styles.backToHomeButtonText}>Fechar</Text>
-              </TouchableOpacity>
-            </View>
-          </View>         
-
-        </Overlay>
-
 
         {/* Modal "Confirmação finalizar treino" */}
 
@@ -143,313 +112,100 @@ export default class ActivityRunning extends Component {
         >
 
           <View>
-            <Text style={styles.overlayTitle}>Certeza?</Text>
+            <OverlayTitle>Certeza?</OverlayTitle>
 
-            <Text style={styles.overlayText}>Está certo de que quer finalizar o treino agora?</Text>
+            <OverlayText>Está certo de que quer finalizar o treino agora?</OverlayText>
 
-            <View style={styles.bottomButtons}>
-                <TouchableOpacity onPress={() => this.setState({ isVisibleConfirm: false })} style={styles.endButton}>
-                  <Text style={styles.endButtonText}>Cancelar</Text>
-                </TouchableOpacity>
+            <BottomButtons>
+                <EndButton onPress={() => this.setState({ isVisibleConfirm: false })} >
+                  <EndButtonText>Cancelar</EndButtonText>
+                </EndButton>
 
-                <TouchableOpacity onPress={() => this.setState({ isVisibleEnd: true })} style={styles.endButtonDark}>
-                  <Text style={styles.endButtonText}>Finalizar</Text>
-                </TouchableOpacity>
-            </View>
+                {
+                  this.state.currentPage > 0 ? (
+                    <EndButtonDark onPress={this.finishActivityInTheMiddle} >
+                      <EndButtonText>Finalizar</EndButtonText>
+                    </EndButtonDark>
+                  ) : (
+                    <EndButtonDark onPress={this.finishUndoneActivity} >
+                      <EndButtonText>Finalizar</EndButtonText>
+                    </EndButtonDark>
+                  )
+                }
+            </BottomButtons>
 
           </View>
         </Overlay>
 
-        {moves.map(move => (
 
-            <View key={move.activityData._id}>
-              <View style={styles.header}>
 
-                <Image source={{ uri: moves[this.state.currentPage].moveData.image }} style={styles.headerMoveImage} />
-                <Text style={styles.moveName}>{moves[this.state.currentPage].moveData.name}</Text>
-                <Text style={styles.moveRepetitions}>{ moves[this.state.currentPage].activityData.repetitions}x</Text>
+        {/* Exibição do treino */}
+        
+        { moves.length > 0 ? (
 
-              </View>
-              <View style={styles.content}>
+            <View>
+
+              <ActivityRunningHeader style={{ height: Dimensions.get('window').height - 310 }}>
+
+                <ActivityRunningHeaderImage source={{ uri: moves[this.state.currentPage].moveData.image }} />
+                <ActivityRunningMoveName>{moves[this.state.currentPage].moveData.name}</ActivityRunningMoveName>
+                <ActivityRunningMoveRepetitions>{ moves[this.state.currentPage].activityData.repetitions}x</ActivityRunningMoveRepetitions>
+
+              </ActivityRunningHeader>
+
+              <ActivityRunningContent>
 
                   { (this.state.currentPage + 1) != moves.length ? (
                       
                       <View>
-                        <Text style={styles.label}>Próximo</Text>
+                        <Label>Próximo</Label>
 
-                        <View style={styles.moveCard}>
-                          <Image source={{ uri: moves[this.state.currentPage + 1].moveData.image }} style={styles.moveCardImage} />
-                          <View style={styles.moveCardImageBackground}></View>
-                          <Text style={styles.moveCardName}>{moves[this.state.currentPage + 1].moveData.name}</Text>
-                          <Text style={styles.moveCardRepetitions}>x{moves[this.state.currentPage + 1].activityData.repetitions}</Text>
-                        </View>
+                        <MoveCard>
+                          <MoveCardImage source={{ uri: moves[this.state.currentPage + 1].moveData.image }} />
+                          <MoveCardBackground />
+                          <MoveCardName>{moves[this.state.currentPage + 1].moveData.name}</MoveCardName>
+                          <MoveCardRepetitions>x{moves[this.state.currentPage + 1].activityData.repetitions}</MoveCardRepetitions>
+                        </MoveCard>
 
-                        <View style={styles.bottomButtons}>
-                          <TouchableOpacity onPress={() => this.setState({ isVisibleConfirm: true })} style={styles.endButton}>
-                            <Text style={styles.endButtonText}>Finalizar</Text>
-                          </TouchableOpacity>
+                        <BottomButtons>
+                          <EndButton onPress={() => this.setState({ isVisibleConfirm: true })} >
+                            <EndButtonText>Cancelar</EndButtonText>
+                          </EndButton>
 
-                          <TouchableOpacity onPress={this.handleNextPage} style={styles.nextButton}>
+                          <EndButtonDark onPress={this.handleNextPage}>
                             <Icon name='arrow-right' type='font-awesome' size={25} color='#f1f1f1' />
-                          </TouchableOpacity>
-                        </View>
+                          </EndButtonDark>
+                        </BottomButtons>
                       </View>
 
                     ) : (
                       <View>
-                        <View style={{ height: 130, display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
-                          <Text style={{ fontSize: 30, fontWeight: 'bold', marginBottom: 20 }}>Quase...</Text>
-                          <Text>Só mais esse para concluir.</Text>
-                        </View>
+                        
+                        <CenteredContent style={{ height: 136 }} >
+                          <AlmostText>Último...</AlmostText>
+                          <Text>Só mais esse para concluir!</Text>
+                        </CenteredContent>
 
-                        <View style={styles.bottomButtons}>
-                          <TouchableOpacity onPress={() => this.setState({ isVisibleConfirm: true })} style={styles.endButton}>
-                            <Text style={styles.endButtonText}>Finalizar</Text>
-                          </TouchableOpacity>
+                        <BottomButtons>
+                          <EndButton onPress={() => this.setState({ isVisibleConfirm: true })} >
+                            <EndButtonText>Cancelar</EndButtonText>
+                          </EndButton>
 
-                          <TouchableOpacity onPress={this.finishActivity} style={styles.endButtonDark}>
-                            <Text style={styles.endButtonText}>Concluir</Text>
-                          </TouchableOpacity>
-                        </View>
+                          <EndButtonDark onPress={this.finishActivity}>
+                            <EndButtonText>Finalizar</EndButtonText>
+                          </EndButtonDark>
+                          
+                        </BottomButtons>
                       </View>
                     )
                   }
 
 
-              </View>
+              </ActivityRunningContent>
             </View>
-          ))
-        }
-
-      </View>
+            
+        ) : <View />}
+      </Container>
   );
   }
 }
-
-const styles = StyleSheet.create({
-    container: {
-      backgroundColor: '#111',
-    },
-
-    header: {
-      height: 500,
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-
-    headerMoveImage: {
-      height: 150,
-      width: 150,
-      margin: 20
-    },  
-
-    moveName: {
-      fontSize: 30,
-      fontWeight: 'bold',
-      color: '#f1f1f1',
-      padding: 20
-    },  
-
-    moveRepetitions: {
-      fontSize: 25,
-      fontWeight: 'bold',
-      color: '#ccc',
-      padding: 20,
-      paddingTop: 0
-    },  
-
-    moveDetails: {
-      color: '#ccc',
-      padding: 20,
-      marginTop: 10
-    },  
-
-    content: {
-      minHeight: 230,
-      borderTopRightRadius: 25,
-      borderTopLeftRadius: 25,
-      backgroundColor: '#fff',
-    },
-
-    label: {
-      padding: 20,
-      textTransform: 'uppercase',
-      fontWeight: 'bold'
-    },
-
-    divider: {
-      height: 2,
-      width: Dimensions.get('window').width - 40,
-      backgroundColor: '#f1f1f1',
-      marginHorizontal: 20
-      
-    },
-
-    bottomButtons: {
-      display: 'flex',
-      flexDirection: 'row'
-    },  
-
-    nextButton: {
-      height: 50,
-      width: 50,
-      margin: 20,
-      marginLeft: 0,
-      backgroundColor: '#111',
-      borderRadius: 25,
-      display: 'flex',
-      alignItems:  'center',
-      justifyContent: 'center'
-    },
-
-    endButton: {
-      height: 50,
-      backgroundColor: '#ccc',
-      margin: 20,
-      borderRadius: 25,
-      flex: 1,
-      display: 'flex',
-      alignItems:  'center',
-      justifyContent: 'center'
-    },
-
-    endButtonDark: {
-      height: 50,
-      backgroundColor: '#111',
-      margin: 20,
-      borderRadius: 25,
-      flex: 1,
-      display: 'flex',
-      alignItems:  'center',
-      justifyContent: 'center'
-    },
-
-    endButtonText: {
-      color: '#fff',
-      textTransform: 'uppercase',
-      fontWeight: 'bold',
-      fontSize: 16
-    },
-
-    moveCard: {
-      backgroundColor: '#f1f1f1',
-      margin: 10,
-      marginHorizontal: 20,
-      padding: 20,
-      borderRadius: 10,
-      height: 60
-    },
-    
-    moveCardName: {
-      position: 'absolute',
-      left: 70,
-      bottom: 20
-    },  
-
-    moveCardRepetitions: {
-      color: '#999',
-      fontSize: 20,
-      fontWeight: 'bold',
-      position: 'absolute',
-      right: 0,
-      bottom: 0,
-      padding: 20
-    },
-
-    moveCardImage: {
-      height: 40,
-      width: 40,
-      position: 'absolute',
-      left: 10,
-      top: 10,
-      zIndex: 2
-    },
-
-    moveCardImageBackground: {
-      backgroundColor: "#ccc",
-      height: 30,
-      width: 30,
-      position: 'absolute',
-      left: 15,
-      top: 15,
-      borderRadius: 20
-    },
-
-    overlayTitle: {
-      fontSize: 30,
-      margin: 20,
-      fontWeight: 'bold'
-    },
-
-    overlayText: {
-      marginHorizontal: 20,
-      marginBottom: 30
-    },  
-
-    playButton: {
-      marginTop: 30,
-      height: 50,
-      backgroundColor: '#111',
-      margin: 20,
-      borderRadius: 25,
-      width: Dimensions.get('window').width - 60,
-      display: 'flex',
-      alignItems:  'center',
-      justifyContent: 'center'
-    },
-
-    playButtonText: {
-      color: '#fff',
-      textTransform: 'uppercase',
-      fontWeight: 'bold',
-      fontSize: 16
-    },
-
-    activityAlert: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      paddingHorizontal: 20,
-      paddingVertical: 30
-    },
-
-    activityAlertText: {
-      color: '#999',
-      paddingLeft: 20,
-      flex: 1
-    },
-
-    finalText: {
-      fontSize: 18,
-      padding: 20,
-      backgroundColor: '#111',
-      color: '#fff',
-      borderRadius: 30,
-      fontWeight: 'bold',
-      textAlign: 'center',
-      position: 'absolute',
-      top: 20,
-      right: 20
-    },
-
-    backToHomeButton: {
-      marginTop: 30,
-      height: 50,
-      backgroundColor: '#ccc',
-      margin: 20,
-      borderRadius: 25,
-      width: Dimensions.get('window').width - 60,
-      display: 'flex',
-      alignItems:  'center',
-      justifyContent: 'center'
-    },
-
-    backToHomeButtonText: {
-      color: '#fff',
-      textTransform: 'uppercase',
-      fontWeight: 'bold',
-      fontSize: 16
-    },
-
-  });

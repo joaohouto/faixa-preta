@@ -3,7 +3,10 @@ const Activity = require('../models/Activity');
 exports.findAll = (req, res) => {
     const { page = 1 } = req.query;
 
-    Activity.paginate({}, { page, limit: 10 })
+    var tags = new RegExp(req.query.tags, 'i');
+    var name = new RegExp(req.query.name, 'i');
+
+    Activity.paginate({ tags, name }, { page, limit: 10 })
         .then(activities => {
             res.send(activities);
 
@@ -122,11 +125,14 @@ exports.delete = (req, res) => {
     });
 };
 
-exports.findByTag = (req, res) => {
-    Activity.find({ tags: { $eq: req.params.tag_name } })
+exports.search = (req, res) => {
+    const { page = 1 } = req.query;
+    
+
+    Activity.paginate({ name: regex }, { page, limit: 10 })
         .then(activities => {
             res.send(activities);
-            
+
         }).catch(err => {
             res.status(500).send({
                 message: err.message || "Something went wrong while retrieving items"

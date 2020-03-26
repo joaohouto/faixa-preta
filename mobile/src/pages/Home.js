@@ -1,10 +1,8 @@
 import React from 'react';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import { Icon } from 'react-native-elements'
 
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-
 import ExploreActivities from './ExploreActivities';
-import ExploreMoves from './ExploreMoves';
 import News from './News';
 
 const Home = createMaterialBottomTabNavigator({
@@ -16,16 +14,6 @@ const Home = createMaterialBottomTabNavigator({
             <Icon name='dumbbell' type='material-community' size={20} color={focused ? '#555' : '#999'} />
             ),
             title: 'Treino'
-        }),
-    },
-
-    ExploreMoves: {
-        screen: ExploreMoves,
-        navigationOptions: () => ({
-            tabBarIcon: ({ focused }) => (
-            <Icon name='file-document-box-multiple' type='material-community' size={20} color={focused ? '#555' : '#999'} />
-            ),
-        title: 'Movimentos'
         }),
     },
 

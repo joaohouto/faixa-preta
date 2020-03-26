@@ -1,18 +1,15 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
-import { Icon } from 'react-native-elements'
-
+import { Text, Image, View, TouchableOpacity, Linking } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-
-import ExploreActivities from './pages/ExploreActivities';
-import News from './pages/News';
-import Activity from './pages/Activity';
-import ActivityRunning from './pages/ActivityRunning';
-import ActivityList from './pages/ActivityList';
-import Move from './pages/Move';
+import { Icon } from 'react-native-elements'
 
 import Home from './pages/Home';
+import Activity from './pages/Activity';
+import ActivityRunning from './pages/ActivityRunning';
+import ActivityFinished from './pages/ActivityFinished';
+import ActivityList from './pages/ActivityList';
+import Move from './pages/Move';
 
 const Routes = createStackNavigator({
 
@@ -43,7 +40,18 @@ const Routes = createStackNavigator({
         screen: ActivityRunning,
         navigationOptions: {
             title: 'Treino',
-            headerRight: () =>  <Text style={{ marginRight: 20, color: '#fff' }}>EM EXECUÇÃO</Text>,
+            headerRight: () =>  <Text style={{ color: '#fff', marginRight: 20 }}>EM EXECUÇÃO</Text>,
+            headerStyle: {
+                backgroundColor: '#111',
+            },
+            headerTintColor: '#fff'
+        }
+    },
+
+    ActivityFinished: {
+        screen: ActivityFinished,
+        navigationOptions: {
+            title: 'Treino finalizado',
             headerStyle: {
                 backgroundColor: '#111',
             },
