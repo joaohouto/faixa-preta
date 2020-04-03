@@ -8,6 +8,7 @@ import { OverlayTitle, OverlayText, Divider, AlmostText, ActivityAlert, BottomBu
 export default class ActivityRunning extends Component {
 
   state = {
+    activity: {},
     moves: [],
     runnedMoves: [],
     currentPage: 0,
@@ -24,6 +25,7 @@ export default class ActivityRunning extends Component {
 
     const { navigation } = this.props;  
 
+    let activity = navigation.getParam('activity', 'null');
     let kihonMoves = navigation.getParam('kihonMoves', 'null');
     let kataMoves = navigation.getParam('kataMoves', 'null');
     let kumiteMoves = navigation.getParam('kumiteMoves', 'null');
@@ -31,7 +33,7 @@ export default class ActivityRunning extends Component {
     let moves = kihonMoves.concat(kataMoves);
     moves = moves.concat(kumiteMoves);
 
-    this.setState({ moves });
+    this.setState({ activity, moves });
     
 
   }
@@ -44,12 +46,13 @@ export default class ActivityRunning extends Component {
       this.setState({ runnedMoves: this.state.runnedMoves.concat(this.state.moves[this.state.currentPage]) });
     }
 
+    console.log("Página: " + this.state.currentPage);
+
   }
 
   finishActivity = () => {
-    this.setState({ runnedMoves: this.state.runnedMoves.concat(this.state.moves[this.state.currentPage]) });
     this.props.navigation.goBack();
-    this.props.navigation.navigate('ActivityFinished', { activity: this.state.activity, runnedMoves: this.state.runnedMoves });
+    this.props.navigation.navigate('ActivityFinished', { activity: this.state.activity, runnedMoves: this.state.runnedMoves.concat(this.state.moves[this.state.moves.length - 1]) });
 
   }
 
@@ -182,7 +185,7 @@ export default class ActivityRunning extends Component {
                       <View>
                         
                         <CenteredContent style={{ height: 136 }} >
-                          <AlmostText>Último...</AlmostText>
+                          <AlmostText>Último</AlmostText>
                           <Text>Só mais esse para concluir!</Text>
                         </CenteredContent>
 
@@ -191,7 +194,7 @@ export default class ActivityRunning extends Component {
                             <EndButtonText>Cancelar</EndButtonText>
                           </EndButton>
 
-                          <EndButtonDark onPress={this.finishActivity}>
+                          <EndButtonDark onPress={this.finishActivity }>
                             <EndButtonText>Finalizar</EndButtonText>
                           </EndButtonDark>
                           

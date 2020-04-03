@@ -44,6 +44,8 @@ export default class Activity extends Component {
 
     this.setState({ isLoading: false });
 
+    console.log(activity);
+
   }
 
   render() {
@@ -58,7 +60,7 @@ export default class Activity extends Component {
           <Header>
           
               <HeaderText>{activity.name}</HeaderText>
-              <HeaderLabel >{activity.tags}</HeaderLabel>
+              <HeaderLabel>{activity.tags}</HeaderLabel>
 
           </Header>
           <Content>

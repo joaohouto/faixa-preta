@@ -4,10 +4,11 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { Icon } from 'react-native-elements'
 
-import Home from './pages/Home';
+import Home from './pages/HomeRoutes';
 import Activity from './pages/Activity';
 import ActivityRunning from './pages/ActivityRunning';
 import ActivityFinished from './pages/ActivityFinished';
+import ActivityOldFinished from './pages/ActivityOldFinished';
 import ActivityList from './pages/ActivityList';
 import Move from './pages/Move';
 
@@ -81,6 +82,16 @@ const Routes = createStackNavigator({
         }
     },
 
+    ActivityOldFinished: {
+        screen: ActivityOldFinished,
+        navigationOptions: {
+            title: 'Treinos antigos',
+            headerStyle: {
+                backgroundColor: '#111',
+            },
+            headerTintColor: '#fff'
+        }
+    },
 });
 
 export default createAppContainer(Routes);

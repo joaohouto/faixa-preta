@@ -185,7 +185,7 @@ export const PlusDot = styled.TouchableOpacity`
     margin: 20px;
 `
 
-export const CenteredContent = styled.TouchableOpacity`
+export const CenteredContent = styled.View`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -387,4 +387,87 @@ export const FinalizedActivityText = styled.Text`
     font-size: 30px;
     font-weight: bold;
     margin: 20px;
+`
+
+//Profile
+export const ProfileCard = styled.View`
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+`
+
+export const ProfileCardTitle = styled.Text`
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+`
+
+export const ProfileCardSubtitle = styled.Text`
+    color: #999;
+    margin-left: 5px;
+`
+export const ExperienceInfoButton = styled.TouchableOpacity`
+    position: absolute;
+    top: 20px;
+    right: 20px;
+`
+
+export const ExperienceBox = styled.View`
+    background: #f1f1f1;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+`
+
+export const ExperienceBar = styled.View`
+    background: #ddd;
+    height: 10px;
+    border-radius: 20px
+    margin-top: 10px;
+`
+
+export const ExperienceBarFill = styled.View`
+    background: #777;
+    height: 10px;
+    border-radius: 20px
+    
+`
+
+export const ExperienceLabel = styled.Text`
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+`
+
+export const ExperienceLabelXp = styled.Text`
+    color: #999;
+`
+
+export const Badge = styled.Text`
+    color: #fff;
+    background-color: #777;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 50px;
+    margin-left: 20px;
+    width: 104px;
+`
+
+export const BasicButton = styled.TouchableOpacity`
+    background-color: #111;
+    padding: 12px;
+    border-radius: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+`
+
+export const BasicButtonText = styled.Text`
+    font-size: 15px;
+    color: #fff;
 `
