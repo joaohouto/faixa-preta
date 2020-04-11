@@ -46,7 +46,7 @@ export default class Home extends Component {
                     <textarea className="input" placeholder="A sua mensagem" readOnly></textarea>
                   </p>
 
-                  <p><button className="input-button" type="submit" readOnly>Enviar</button></p>
+                  <p><button className="input-button" type="submit" disabled>Enviar</button></p>
                 </form>
 
               </div>

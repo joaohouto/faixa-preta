@@ -36,7 +36,7 @@ export default class Home extends Component {
                   </div>
 
                   <div className="team-card"> 
-                    <img alt="Ygão" />
+                    <img alt="Ygo" />
                     <p><b>Ygo Brito</b><br />
                       Orientador</p>
                   </div>

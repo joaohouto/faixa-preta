@@ -52,7 +52,7 @@ export default class ActivityNew extends Component {
     getMoveName = async (id) => {
         const response =  await api.get('/moves/' + id);
 
-        return '?';
+        return response.data.name;
     }
 
     addMoveToActivity(move_id, category) {
