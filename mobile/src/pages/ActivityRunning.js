@@ -51,19 +51,19 @@ export default class ActivityRunning extends Component {
   }
 
   finishActivity = () => {
-    this.props.navigation.goBack();
+    this.props.navigation.popToTop();
     this.props.navigation.navigate('ActivityFinished', { activity: this.state.activity, runnedMoves: this.state.runnedMoves.concat(this.state.moves[this.state.moves.length - 1]) });
 
   }
 
   finishUndoneActivity = () =>  {
     this.setState({ isVisibleConfirm: false });
-    this.props.navigation.goBack();
+    this.props.navigation.popToTop();
   }
 
   finishActivityInTheMiddle = () =>  {
     this.setState({ isVisibleConfirm: false });
-    this.props.navigation.goBack();
+    this.props.navigation.popToTop();
     this.props.navigation.navigate('ActivityFinished', { activity: this.state.activity, runnedMoves: this.state.runnedMoves });
     
   }
@@ -87,7 +87,7 @@ export default class ActivityRunning extends Component {
           <View>
               <OverlayTitle>Prepare-se</OverlayTitle>
               <OverlayText>A partir de agora o seu treino será monitorado.</OverlayText>
-              <OverlayText>Execute os movimentos propostos no seu ritmo e, então, toque no (>) para seguir para o próximo grupo de movimentos. Ao final da atividade, seu progresso será exibido.</OverlayText>
+              <OverlayText>Execute os movimentos propostos no seu ritmo e ao final seu progresso será exibido..</OverlayText>
 
               <Divider />
 
@@ -175,8 +175,8 @@ export default class ActivityRunning extends Component {
                             <EndButtonText>Cancelar</EndButtonText>
                           </EndButton>
 
-                          <EndButtonDark onPress={this.handleNextPage}>
-                            <Icon name='arrow-right' type='font-awesome' size={25} color='#f1f1f1' />
+                          <EndButtonDark style={{ width: 30 }} onPress={this.handleNextPage}>
+                            <Icon name='chevron-right' type='material-community' size={30} color='#f1f1f1' />
                           </EndButtonDark>
                         </BottomButtons>
                       </View>

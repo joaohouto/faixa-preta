@@ -2,9 +2,9 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import { Icon } from 'react-native-elements'
 
-import Profile from './Profile';
-import ExploreActivities from './ExploreActivities';
-import News from './News';
+import Profile from './pages/Profile';
+import ExploreActivities from './pages/ExploreActivities';
+import News from './pages/News';
 
 const Home = createMaterialBottomTabNavigator({
 

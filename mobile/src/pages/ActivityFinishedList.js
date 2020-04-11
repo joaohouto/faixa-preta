@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { Text, View, Dimensions, AsyncStorage, Alert } from 'react-native';
 import { Icon } from 'react-native-elements'
 
-import api from '../services/api';
-import { Header, Container, FinalizedActivityText, HeaderText, HeaderLabel, Content, Label, Details, ActivityAlert, ActivityAlertText, MoveCard, MoveCardImage, MoveCardBackground, MoveCardName, MoveCardRepetitions, StartButton, StartButtonLoading, Divider, StartButtonText, CenteredContent, BasicButton, BasicButtonText } from '../styles';
+import { Header, Container, FinalizedActivityText, HeaderText, HeaderLabel, Content, Label, Details, ActivityAlert, ActivityAlertText, MoveCard, MoveCardImage, MoveCardBackground, MoveCardName, MoveCardRepetitions, StartButton, StartButtonLoading, Divider, StartButtonText, CenteredContent, BasicButton, BasicButtonText, MessageBox, MessageText } from '../styles';
 import SmallCardLoader from '../components/SmallCardLoader';
 
 export default class Activity extends Component {
 
   state = {
-    oldActivities: []
+    oldActivities: [],
+    isLoading: true
   }
 
   componentDidMount() {
@@ -23,7 +23,7 @@ export default class Activity extends Component {
       if (oldActivities !== null) {
         let act = JSON.parse(oldActivities);
         console.log(act);
-        this.setState({ oldActivities: act });
+        this.setState({ oldActivities: act.reverse(), isLoading: false });
       }
     } catch (e) {
       console.log(e);
@@ -38,23 +38,30 @@ export default class Activity extends Component {
       <Container>
           <Header>
           
-              <HeaderText>Treinos antigos</HeaderText>
-              <HeaderLabel>Info</HeaderLabel>
+              <HeaderText>Detalhes</HeaderText>
+              <HeaderLabel>Treinos antigos</HeaderLabel>
 
           </Header>
           <Content style={{ minHeight: Dimensions.get('window').height - 230 }}>
 
-            <Label>Todos</Label>
+            <Label>Todo o período</Label>
 
-                { oldActivities ? oldActivities.map(activity => (
+                { !this.state.isLoading ? oldActivities.length > 0 ? oldActivities.map(activity => (
                     <MoveCard key={Math.random()} >
                       <View style={{ position: 'absolute', left: 15, top: 15 }}>
                         <Icon name='check-decagram' type='material-community' size={30} color='#999' />
                       </View>
-                      <MoveCardName>{activity.activityName} - {activity.date}</MoveCardName>
+                      <MoveCardName>[{activity.date}] {activity.activityName}</MoveCardName>
                       <MoveCardRepetitions>+{activity.xpEarned}xp</MoveCardRepetitions>
                     </MoveCard>
-                )) : <View />}          
+                )) : <MessageBox><MessageText>Não existem registros de treinos!</MessageText></MessageBox> 
+                   : (
+                     <View>
+                       <SmallCardLoader />
+                       <SmallCardLoader />
+                       <SmallCardLoader />
+                     </View>
+                   )}          
             
           </Content>
       </Container>

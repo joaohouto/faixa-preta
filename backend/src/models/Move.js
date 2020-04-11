@@ -17,13 +17,15 @@ const MoveSchema = mongoose.Schema({
         required: true
     },
 
-    videoUrl: {
+    videoUrl: [String],
+
+    image: {
         type: String,
         required: true
     },
 
-    image: {
-        type: String,
+    difficulty: {
+        type: Number,
         required: true
     },
 

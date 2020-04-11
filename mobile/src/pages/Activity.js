@@ -3,7 +3,7 @@ import { Text, View, Dimensions } from 'react-native';
 import { Icon } from 'react-native-elements'
 
 import api from '../services/api';
-import { Header, Container, HeaderBox, HeaderText, HeaderLabel, Content, Label, Details, ActivityAlert, ActivityAlertText, MoveCard, MoveCardImage, MoveCardBackground, MoveCardName, MoveCardRepetitions, StartButton, StartButtonLoading, Divider, StartButtonText } from '../styles';
+import { Header, Container, HeaderBox, HeaderLabelBoxItem, HeaderLabelBox, HeaderText, HeaderLabel, Content, Label, Details, ActivityAlert, ActivityAlertText, MoveCard, MoveCardImage, MoveCardBackground, MoveCardName, MoveCardRepetitions, StartButton, StartButtonLoading, Divider, StartButtonText } from '../styles';
 import SmallCardLoader from '../components/SmallCardLoader';
 
 export default class Activity extends Component {
@@ -60,7 +60,11 @@ export default class Activity extends Component {
           <Header>
           
               <HeaderText>{activity.name}</HeaderText>
-              <HeaderLabel>{activity.tags}</HeaderLabel>
+              <HeaderLabelBox>
+              {activity.tags ? activity.tags.map(tag => (
+                <HeaderLabelBoxItem key={tag}>{tag}</HeaderLabelBoxItem>
+              )) : <View />}
+              </HeaderLabelBox>
 
           </Header>
           <Content>

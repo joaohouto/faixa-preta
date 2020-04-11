@@ -1,5 +1,7 @@
 const Activity = require('../models/Activity');
 
+
+//FindAll
 exports.findAll = (req, res) => {
     const { page = 1 } = req.query;
 
@@ -17,6 +19,8 @@ exports.findAll = (req, res) => {
         });
 };
 
+
+//Create
 exports.create = (req, res) => {
 
     if(!req.body) {
@@ -42,6 +46,8 @@ exports.create = (req, res) => {
     });
 };
 
+
+//FindOne
 exports.findOne = (req, res) => {
     Activity.findById(req.params.activity_id).then(activity => {
 
@@ -65,6 +71,8 @@ exports.findOne = (req, res) => {
     });
 };
 
+
+//Update
 exports.update = (req, res) => {
 
     if(!req.body) {
@@ -101,6 +109,8 @@ exports.update = (req, res) => {
     });
 };
 
+
+//Delete
 exports.delete = (req, res) => {
     Activity.findByIdAndDelete(req.params.activity_id)
     .then(activity => {
@@ -125,6 +135,8 @@ exports.delete = (req, res) => {
     });
 };
 
+
+//Search
 exports.search = (req, res) => {
     const { page = 1 } = req.query;
     

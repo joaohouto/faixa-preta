@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { View, Dimensions, Image } from 'react-native';
+import { View, Dimensions, Image, AsyncStorage } from 'react-native';
 import { Icon } from 'react-native-elements'
 
 import api from '../services/api';
-import { Container, Header, HeaderBox, HeaderText, HeaderLabel, Content, Label, ActivityCard, ActivityCardImage, ActivityCardName, CategoryBox , ActivityCardCategory, SearchBox, SearchInput, SearchIcon, PlusDot, CenteredContent, MessageBox, MessageText, HeaderThumbnail } from '../styles';
+import { Container, Header, HeaderImage, HeaderText, HeaderLabel, Content, Label, ActivityCard, ActivityCardImage, ActivityCardName, CategoryBox , ActivityCardCategory, SearchBox, SearchInput, SearchIcon, PlusDot, CenteredContent, MessageBox, MessageText, HeaderThumbnail } from '../styles';
 import CardLoader from '../components/CardLoader';
 
 class ActivityList extends Component {
 
   state = {
     activityTag: null,
+    activityImage: 'https://firebasestorage.googleapis.com/v0/b/faixa-preta.appspot.com/o/activities%2Fexame.png?alt=media&token=76bbe38d-c1bc-44a5-92de-a842b625e00d',
     activities: [],
     displayActivities: [],
     page: 2,
@@ -28,7 +29,10 @@ class ActivityList extends Component {
     let activityTag = JSON.stringify(navigation.getParam('activityTag', '0'));
     activityTag = activityTag.substring(1, (activityTag.length - 1));
 
-    this.setState({ activityTag });
+    let activityImage = JSON.stringify(navigation.getParam('activityImage', '0'));
+    activityImage = activityImage.substring(1, (activityImage.length - 1));
+
+    this.setState({ activityTag, activityImage });
 
     //Pegar da API as atividades
     const response = await api.get('/activities?tags=' + activityTag);
@@ -36,6 +40,9 @@ class ActivityList extends Component {
                     displayActivities: response.data.docs, 
                     isLoading: false 
                   });
+
+    //Salvar no dispositivo
+    this.saveActivitiesOnDevice();
   }
 
   loadMoreActivities = async () => {
@@ -65,6 +72,19 @@ class ActivityList extends Component {
 
   }
 
+  saveActivitiesOnDevice = async () => {
+
+    try {
+
+      await AsyncStorage.setItem('@' + this.state.tag + 'Activities', JSON.stringify(this.state.activities));
+      console.log("Atividades salvas no dispositivo!");
+
+    } catch(e){
+      console.log(e);
+    }
+
+  }
+
   
   render(){
 
@@ -78,6 +98,7 @@ class ActivityList extends Component {
               <HeaderLabel>{displayActivities.length} treinos</HeaderLabel>
 
           </Header>
+          <HeaderImage source={{ uri: this.state.activityImage ? this.state.activityImage : '' }} />
           <Content style={{ minHeight: Dimensions.get("window").height - 230 }}>
 
             <SearchBox>

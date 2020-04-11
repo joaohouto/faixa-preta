@@ -11,6 +11,7 @@ export default class Activity extends Component {
   state = {
     activity: {},
     runnedMoves: [],
+    userXp: 0,
     xpEarned: 0, 
     oldActivities: []
   }
@@ -18,6 +19,7 @@ export default class Activity extends Component {
   componentDidMount() {
     this.loadRunnedMoves();
     this.getOldActivities();
+    this.getUserXp();
   }
 
   loadRunnedMoves = () => {
@@ -54,7 +56,7 @@ export default class Activity extends Component {
     });
 
     this.setState({ xpEarned });
-    console.log(xpEarned);
+    console.log("XP ganho: " + xpEarned);
   }
 
   saveXpEarned = async () => {
@@ -65,27 +67,64 @@ export default class Activity extends Component {
       activityName: this.state.activity.name
     };
 
-    let oldActivities = this.state.oldActivities.unshift(activityFinishedData);
+    let oldActivities = this.state.oldActivities;
+    oldActivities = oldActivities.concat(activityFinishedData);
+
+    console.log(oldActivities);
 
     try {
 
       await AsyncStorage.setItem('@atividadesFinalizadas', JSON.stringify(oldActivities));
-      Alert.alert("Salvar atividade", "Feito! Sua atividade foi salva.");
+      this.props.navigation.goBack();
 
     } catch(e){
       console.log(e);
     }
+
+    this.updateUserXp();
+
+  }
+
+  getUserXp = async () => {
+
+    try {
+      const userXp = await AsyncStorage.getItem('@userXp');
+      console.log("Pego: " + userXp)
+
+      if (userXp !== null) {
+          this.setState({ userXp });
+          console.log("Estado: " + this.state.userXp)
+
+      }
+    } catch(e){
+      console.log(e);
+    }
+
+  }
+
+  updateUserXp = async () => {
+
+    try {
+      if(this.state.userXp == null){
+        await AsyncStorage.setItem('@userXp', this.state.xpEarned);
+
+      } else {
+        let soma = this.state.userXp + this.state.xpEarned
+        console.log(soma)
+        await AsyncStorage.setItem('@userXp', soma );
+      }
+    } catch(e){
+      console.log(e);
+    }
+
   }
 
   getDate() {
-    // Obtém a data/hora atual
     var data = new Date();
 
-    // Guarda cada pedaço em uma variável
-    var dia     = data.getDate();           // 1-31
-    var mes     = data.getMonth();          // 0-11 (zero=janeiro)
-    var ano4    = data.getFullYear();       // 4 dígitos
-
+    var dia     = data.getDate();          
+    var mes     = data.getMonth();          
+    var ano4    = data.getFullYear();       
     mes += 1;
 
     if(dia < 10){
@@ -104,10 +143,16 @@ export default class Activity extends Component {
       const oldActivities = await AsyncStorage.getItem('@atividadesFinalizadas');
 
       if (oldActivities !== null) {
-        let act = JSON.parse(oldActivities);
-        this.setState({ oldActivities: act });
+        if(oldActivities == "1"){
+          this.setState({ oldActivities: [] });
+
+        } else {
+          let act = JSON.parse(oldActivities);
+          this.setState({ oldActivities: act });
+        }
       }
-    } catch (e) {
+
+    } catch(e){
       console.log(e);
     }
   }

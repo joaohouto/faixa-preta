@@ -30,6 +30,7 @@ exports.create = (req, res) => {
         category: req.body.category,
         details: req.body.details,
         videoUrl: req.body.videoUrl,
+        difficulty: req.body.difficulty,
         image: req.body.image
     });
 
@@ -78,6 +79,7 @@ exports.update = (req, res) => {
         category: req.body.category,
         details: req.body.details,
         videoUrl: req.body.videoUrl,
+        difficulty: req.body.difficulty,
         image: req.body.image
     }, {new: true})
     .then(move => {

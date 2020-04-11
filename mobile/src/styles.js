@@ -36,6 +36,27 @@ export const HeaderLabel = styled.Text`
     margin: 20px;
 `
 
+export const HeaderLabelBoxItem = styled.Text`
+    font-size: 14px;
+    color: #b3b3b3;
+    background-color: #666666;
+    padding: 4px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 100px;
+    margin: 20px;
+    margin-right: 5px;
+    margin-left: 0px;
+`
+
+export const HeaderLabelBox = styled.View`
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 0;
+    padding-left: 20px;
+`
+
 export const HeaderBoxLabel = styled.Text`
     font-size: 14px;
     color: #b3b3b3;
@@ -45,6 +66,13 @@ export const HeaderBoxLabel = styled.Text`
     padding-right: 15px;
     border-radius: 100px;
     margin: 20px;
+`
+
+export const HeaderImage = styled.Image`
+    height: 200px;
+    z-index: -2;
+    position: absolute;
+    right: 0;
 `
 
 export const Content = styled.View`
@@ -395,6 +423,7 @@ export const ProfileCard = styled.View`
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
 `
 
 export const ProfileCardTitle = styled.Text`
@@ -470,4 +499,25 @@ export const BasicButton = styled.TouchableOpacity`
 export const BasicButtonText = styled.Text`
     font-size: 15px;
     color: #fff;
+`
+
+//Profile Edit
+
+export const H1 = styled.Text`
+    color: #fff;
+    font-size: 40px;
+    margin: 20px;
+`
+
+export const SimpleInput = styled.TextInput`
+    margin: 20px;
+    margin-top: 15px;
+    margin-bottom: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 50px;
+    border-radius: 25px;
+    color: #555555;
+    background-color: #f1f1f1;
+    flex: 1;
 `

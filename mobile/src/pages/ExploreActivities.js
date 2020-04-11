@@ -24,17 +24,17 @@ class ExploreActivities extends Component {
             <Text style={styles.label}>Fundamental</Text>
 
             <View style={styles.row}>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kihon" })} style={styles.tagCard}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kihon", activityImage: "https://firebasestorage.googleapis.com/v0/b/faixa-preta.appspot.com/o/activities%2Fkihon.png?alt=media&token=1ab16fea-93fa-455e-baab-bfab7dcf862d" })} style={styles.tagCard}>
                 <Text style={styles.tagCardText}>Kihon</Text>
                 <Image style={styles.tagCardImage} source={require('../assets/kihon.png')} />
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kata" })} style={styles.tagCard}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kata", activityImage: "https://firebasestorage.googleapis.com/v0/b/faixa-preta.appspot.com/o/activities%2Fkata.png?alt=media&token=066e82ec-211a-4b6b-8716-3857090e5582" })} style={styles.tagCard}>
                 <Text style={styles.tagCardText}>Kata</Text>
                 <Image style={styles.tagCardImage} source={require('../assets/kata.png')} />
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kumite" })} style={styles.tagCard}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kumite", activityImage: "https://firebasestorage.googleapis.com/v0/b/faixa-preta.appspot.com/o/activities%2Fkumite.png?alt=media&token=e9e3744a-4a6e-45ce-9012-00249fc22933" })} style={styles.tagCard}>
                 <Text style={styles.tagCardText}>Kumite</Text>
                 <Image style={styles.tagCardImage} source={require('../assets/kumite.png')} />
               </TouchableOpacity>
@@ -43,7 +43,7 @@ class ExploreActivities extends Component {
 
             <Text style={styles.label}>Especiais</Text>
 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Exame" })} style={styles.activityCard}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Exame", activityImage: "https://firebasestorage.googleapis.com/v0/b/faixa-preta.appspot.com/o/activities%2Fexame.png?alt=media&token=76bbe38d-c1bc-44a5-92de-a842b625e00d" })} style={styles.activityCard}>
               
               <View style={styles.categoryBox}>
                 <Text style={styles.activityCardCategory}>Kihon</Text>
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
 
     tagCardImage: {
       height: 57,
-      width: 110,
+      width: 105,
       position: 'absolute',
       top: 0,
       right: 0,

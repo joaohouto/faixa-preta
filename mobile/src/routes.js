@@ -2,17 +2,20 @@ import React from 'react';
 import { Text, Image, View, TouchableOpacity, Linking } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { Icon } from 'react-native-elements'
 
-import Home from './pages/HomeRoutes';
+import Home from './homeRoutes';
+
 import Activity from './pages/Activity';
 import ActivityRunning from './pages/ActivityRunning';
 import ActivityFinished from './pages/ActivityFinished';
-import ActivityOldFinished from './pages/ActivityOldFinished';
+import ActivityFinishedList from './pages/ActivityFinishedList';
 import ActivityList from './pages/ActivityList';
 import Move from './pages/Move';
 
+import ProfileEdit from './pages/ProfileEdit';
+
 const Routes = createStackNavigator({
+
 
     Home: {
         screen: Home,
@@ -82,10 +85,21 @@ const Routes = createStackNavigator({
         }
     },
 
-    ActivityOldFinished: {
-        screen: ActivityOldFinished,
+    ActivityFinishedList: {
+        screen: ActivityFinishedList,
         navigationOptions: {
             title: 'Treinos antigos',
+            headerStyle: {
+                backgroundColor: '#111',
+            },
+            headerTintColor: '#fff'
+        }
+    },
+
+    ProfileEdit: {
+        screen: ProfileEdit,
+        navigationOptions: {
+            title: 'Editar perfil',
             headerStyle: {
                 backgroundColor: '#111',
             },

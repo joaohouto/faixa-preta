@@ -12,7 +12,10 @@ const ActivitySchema = mongoose.Schema({
         required: true
     },
 
-    tags: [ String ],
+    tags: [{
+        type: String,
+        required: true
+    }],
 
     image: {
         type: String
