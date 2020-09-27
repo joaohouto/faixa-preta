@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 
 export const Container = styled.ScrollView`
     flex:1;
@@ -38,7 +38,7 @@ export const HeaderLabel = styled.Text`
 
 export const HeaderLabelBoxItem = styled.Text`
     font-size: 14px;
-    color: #b3b3b3;
+    color: #f1f1f1;
     background-color: #666666;
     padding: 4px;
     padding-left: 15px;
@@ -69,10 +69,12 @@ export const HeaderBoxLabel = styled.Text`
 `
 
 export const HeaderImage = styled.Image`
-    height: 200px;
-    z-index: -2;
+    height: 150px;
+    width: 250px;
     position: absolute;
-    right: 0;
+    right: -20px;
+    top: 0;
+    z-index: -99;
 `
 
 export const Content = styled.View`
@@ -114,8 +116,8 @@ export const ActivityAlertText = styled.Text`
 export const Divider = styled.View`
     height: 2px;
     background-color: #f1f1f1;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     margin-left: 20px;
     margin-right: 20px;
 `
@@ -204,12 +206,12 @@ export const MessageText = styled.Text`
 `
 
 export const PlusDot = styled.TouchableOpacity`
-    height: 30px;
-    width: 30px;
+    height: 35px;
+    width: 35px;
     background-color: #dddddd;
     border-radius: 30px;
     border-color: #f1f1f1;
-    border-width: 5px;
+    border-width: 8px;
     margin: 20px;
 `
 
@@ -255,18 +257,15 @@ export const MoveCard = styled.TouchableOpacity`
 
 export const MoveCardName = styled.Text`
     position: absolute;
-    left: 60px;
+    left: 100px;
     bottom: 20px;
 `
 
 export const MoveCardRepetitions = styled.Text`
-    color: #999;
-    font-size: 20px;
     font-weight: bold;
     position: absolute;
-    right: 0;
-    bottom: 0;
-    padding: 20px;
+    left: 75px;
+    bottom: 20px;
 `
 
 export const MoveCardImage = styled.Image`
@@ -275,17 +274,18 @@ export const MoveCardImage = styled.Image`
     position: absolute;
     left: 5px;
     top: 5px;
-    z-index: 2;
+    border-radius: 10px;
 `
 
 export const MoveCardBackground = styled.View`
-    background-color: #777;
-    height: 30px;
-    width: 30px;
+    background-color: #111;
+    height: 60px;
+    width: 60px;
     position: absolute;
-    left: 15px;
-    top: 15px;
-    border-radius: 25px;
+    left: 0px;
+    top: 0px;
+    border-radius: 10px;
+    z-index: -1;
 `
 
 export const HeaderThumbnail = styled.Image`
@@ -296,7 +296,6 @@ export const HeaderThumbnail = styled.Image`
 `
 
 //ActivityRunning
-
 export const ActivityRunningHeader = styled.View`
     display: flex;
     justify-content: center;
@@ -350,6 +349,7 @@ export const EndButton = styled.TouchableOpacity`
     flex: 1;
     height: 50px;
     margin: 20px;
+    margin-right: 10px;
     background-color: #ccc;
     border-radius: 25px;
     display: flex;
@@ -361,6 +361,7 @@ export const EndButtonDark = styled.TouchableOpacity`
     flex: 1;
     height: 50px;
     margin: 20px;
+    margin-left: 10px;
     background-color: #111;
     border-radius: 25px;
     display: flex;
@@ -417,6 +418,21 @@ export const FinalizedActivityText = styled.Text`
     margin: 20px;
 `
 
+export const ProgressBar = styled.View`
+    height: 5px;
+    border-radius: 3px;
+    background-color: #333;
+    width: 300px;
+    margin: 20px;
+`
+
+export const ProgressBarFill = styled.View`
+    height: 5px;
+    border-radius: 3px;
+    background-color: #999;
+    flex: 1;
+`
+
 //Profile
 export const ProfileCard = styled.View`
     padding: 20px;
@@ -436,53 +452,7 @@ export const ProfileCardSubtitle = styled.Text`
     color: #999;
     margin-left: 5px;
 `
-export const ExperienceInfoButton = styled.TouchableOpacity`
-    position: absolute;
-    top: 20px;
-    right: 20px;
-`
 
-export const ExperienceBox = styled.View`
-    background: #f1f1f1;
-    border-radius: 10px;
-    padding: 20px;
-    margin: 20px;
-`
-
-export const ExperienceBar = styled.View`
-    background: #ddd;
-    height: 10px;
-    border-radius: 20px
-    margin-top: 10px;
-`
-
-export const ExperienceBarFill = styled.View`
-    background: #777;
-    height: 10px;
-    border-radius: 20px
-    
-`
-
-export const ExperienceLabel = styled.Text`
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 5px;
-`
-
-export const ExperienceLabelXp = styled.Text`
-    color: #999;
-`
-
-export const Badge = styled.Text`
-    color: #fff;
-    background-color: #777;
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 50px;
-    margin-left: 20px;
-    width: 104px;
-`
 
 export const BasicButton = styled.TouchableOpacity`
     background-color: #111;
@@ -501,23 +471,69 @@ export const BasicButtonText = styled.Text`
     color: #fff;
 `
 
-//Profile Edit
-
-export const H1 = styled.Text`
-    color: #fff;
-    font-size: 40px;
-    margin: 20px;
-`
-
+//Settings
 export const SimpleInput = styled.TextInput`
-    margin: 20px;
-    margin-top: 15px;
-    margin-bottom: 0;
+    margin: 10px 0 0 0;
     padding-left: 20px;
     padding-right: 20px;
     height: 50px;
-    border-radius: 25px;
-    color: #555555;
-    background-color: #f1f1f1;
+    border-radius: 3px;
+    color: #f1f1f1;
+    background-color: #333;
+    text-align: right;
     flex: 1;
+`
+export const SimpleInputLabel = styled.Text`
+    font-weight: bold;
+    padding: 20px 20px 15px;
+    width: 150px;
+    border-radius: 3px;
+    color: #f1f1f1;
+    background-color: #333;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    z-index: 1;
+`
+
+// Finished Activities List
+export const Badge = styled.Text`
+    color: #fff;
+    background-color: #777;
+    padding: 5px;
+    border-radius: 50px;
+    margin-left: 20px;
+    width: 130px;
+    text-align: center;
+`
+
+export const FinishedActivityCard = styled.View`
+    background-color: #f1f1f1;
+    margin: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    height: 70px;
+`
+
+export const FinishedActivityCardName = styled.Text`
+    position: absolute;
+    bottom: 20px;
+    left: 80px;
+`
+
+export const FinishedActivityCardDate = styled.Text`
+    position: absolute;
+    bottom: 40px;
+    left: 80px;
+    font-size: 11px;
+`
+
+export const FinishedActivityCardXp = styled.Text`
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-weight: bold;
+    font-size: 20px;
 `

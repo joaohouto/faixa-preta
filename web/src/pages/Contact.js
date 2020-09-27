@@ -23,31 +23,7 @@ export default class Home extends Component {
             <div className="content animate-opacity">
               <div className="section">
                 <h2>Contato.</h2>
-                <p>Para elogios, críticas e outros, envie um email para <a href="mailto:appfaixapreta@gmail.com">appfaixapreta@gmail.com</a> ou use o formulário abaixo.</p>
-
-                <form>
-                  <p>
-                    <label>Nome</label><br />
-                    <input className="input" placeholder="O seu nome" readOnly/>
-                  </p>
-
-                  <p>
-                    <label>Email</label><br />
-                    <input className="input" placeholder="O seu email" readOnly />
-                  </p>
-
-                  <p>
-                    <label>Assunto</label><br />
-                    <input className="input" placeholder="O que te motiva a nos contatar?" readOnly />
-                  </p>
-
-                  <p>
-                    <label>Mensagem</label><br />
-                    <textarea className="input" placeholder="A sua mensagem" readOnly></textarea>
-                  </p>
-
-                  <p><button className="input-button" type="submit" disabled>Enviar</button></p>
-                </form>
+                <p>Para elogios, críticas e outros, envie um email para <a href="mailto:appfaixapreta@gmail.com">appfaixapreta@gmail.com</a>.</p>
 
               </div>
 

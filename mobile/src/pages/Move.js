@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity, Linking, ScrollView } from 'react-native';
-import { Icon } from 'react-native-elements'
 
-import { Divider, Details } from '../styles';
+import { Icon } from 'react-native-elements'
+import { Font } from 'expo';  
+
+import { Divider, Details, Label } from '../styles';
 
 export default class Move extends Component {
 
   state = {
-    move: {}
+    move: {}, 
+    loading: true
   }
 
   componentDidMount() {
@@ -22,6 +25,7 @@ export default class Move extends Component {
     this.setState({ move });
     
   }
+
 
   render() {
 
@@ -38,11 +42,11 @@ export default class Move extends Component {
           <View style={styles.content}>
             <Text style={styles.contentTitle}>{move.name}</Text>
 
-            <Text style={styles.label}>Detalhes</Text>
+            <Label>Detalhes</Label>
 
             <Details>{move.details}</Details>
 
-            <View style={{ height: 30 }} />
+            <Divider />
 
             <Text style={styles.label}>Youtube</Text>
 
@@ -51,15 +55,17 @@ export default class Move extends Component {
 
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.carousel}>
 
-                  <TouchableOpacity onPress={() => Linking.openURL("https://www.youtube.com/watch?v=" + move.videoUrl)} style={styles.carouselItem}>
-                    <View style={styles.carouselItemIcon}>
-                      <Icon name='youtube' type='material-community' size={25} color='#fff' />
-                    </View>
-                    
-                    <Text style={styles.carouselTitle}></Text>
+                  { move.videoUrl ? move.videoUrl.map(url => (
+                    <TouchableOpacity key={url} onPress={() => Linking.openURL("https://www.youtube.com/watch?v=" + url)} style={styles.carouselItem}>
+                      <View style={styles.carouselItemIcon}>
+                        <Icon name='youtube' type='material-community' size={25} color='#fff' />
+                      </View>
+                      
+                      <Text style={styles.carouselTitle}></Text>
 
-                    <Image style={styles.carouselImage} source={{ uri: "https://img.youtube.com/vi/"+ move.videoUrl +"/0.jpg" }} />
-                  </TouchableOpacity>       
+                      <Image style={styles.carouselImage} source={{ uri: "https://img.youtube.com/vi/"+ url +"/0.jpg" }} />
+                    </TouchableOpacity>       
+                  )) : <View /> }
                        
 
               </ScrollView>
@@ -73,7 +79,7 @@ export default class Move extends Component {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#000',
+      backgroundColor: '#111',
     },
 
     moveImage: {
@@ -85,8 +91,7 @@ const styles = StyleSheet.create({
       height: 250,
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'rgba(0,0,0,0.5)'
+      alignItems: 'center'
     },
 
     headerThumbnail: {
@@ -101,7 +106,7 @@ const styles = StyleSheet.create({
       flex: 1,
       borderTopRightRadius: 25,
       borderTopLeftRadius: 25,
-      backgroundColor: '#111',
+      backgroundColor: '#fff',
       minHeight: Dimensions.get('window').height - 300
     },
 
@@ -110,19 +115,19 @@ const styles = StyleSheet.create({
       padding: 20,
       paddingBottom: 0,
       fontWeight: 'bold',
-      color: '#ddd'
+      color: '#111'
     },
 
     label: {
       padding: 20,
       textTransform: 'uppercase',
       fontWeight: 'bold',
-      color: '#999'
+      color: '#111'
     },
 
     details: {
       paddingHorizontal: 20,
-      color: '#999'
+      color: '#111'
     },
 
     divider: {
@@ -164,13 +169,14 @@ const styles = StyleSheet.create({
       padding: 20,
       position: 'absolute', 
       zIndex: -1,
-      opacity: 0.5
+      opacity: 1
     }, 
 
     carouselItemIcon: {
       position: 'absolute',
       right: 20, 
-      top: 20
+      top: 20,
+      opacity: 0.5
     },
 
   });

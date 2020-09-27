@@ -1,161 +1,31 @@
 import React, { Component } from 'react';
-import { View, Dimensions, Linking, AsyncStorage } from 'react-native';
+import { View, Dimensions, Text, Linking, AsyncStorage } from 'react-native';
 import { Icon, Avatar } from 'react-native-elements'
 
-import { Header, Container, Badge, BasicButton, ExperienceInfoButton, ExperienceLabelXp, BasicButtonText, HeaderText, HeaderLabel, Content, Label, Divider, ProfileCard, ProfileCardImage, ProfileCardTitle, ProfileCardSubtitle, EndButtonText, ExperienceBox, ExperienceLabel, ExperienceBar, ExperienceBarFill } from '../styles';
-import { BarChart, LineChart } from 'react-native-chart-kit'
+import { Header, Container, CategoryBox, ActivityCardCategory, BasicButton, ActivityCard, ActivityCardName, ActivityCardImage, ActivityHistoryCard, ActivityHistoryCardText, BasicButtonText, HeaderText, HeaderLabel, Content, Label, Divider, ProfileCard, ProfileCardImage, ProfileCardTitle, ProfileCardSubtitle, EndButtonText, ExperienceBox, ExperienceLabel, ExperienceBar, ExperienceBarFill, HeaderLabelBox, HeaderLabelBoxItem } from '../styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default class Profile extends Component {
 
   state = {
-    userName: '',
-    userDesc: '',
+    userName: null,
+    userDesc: null,
     oldActivities: [],
-    userXp: 0,
     weekPeriod: '',
     weekXpData: []
   }
 
   componentDidMount() {
-    this.preencherGraficos();
+
+    const { navigation } = this.props;
+
+    this.focusListener = navigation.addListener('didFocus', () => {
+      this.getUserInfo();
+    });
+
     this.getUserInfo();
   }
 
-  preencherGraficos = async () => {
-
-    //Pega treinos antigos
-    try {
-      const value = await AsyncStorage.getItem('@atividadesFinalizadas');
-
-      if (value !== null) {
-        this.setState({ oldActivities: JSON.parse(value) });
-      }
-    } catch (e) {
-      console.log(e);
-    }
-
-    //Preenche o gráfico de barras
-    let { oldActivities } = this.state;
-    
-    let semana = this.pegarSemanaAtual();
-    let xpSemana = [];
-
-    this.setState({ weekPeriod: semana[0].slice(0,5) + " - " + semana[6].slice(0,5) });
-
-    semana.forEach(data => {
-      let xpNesseDia = 0;
-
-      oldActivities.forEach(actv => {
-        if(data == actv.date){
-          xpNesseDia = xpNesseDia + actv.xpEarned;
-        }
-      });
-
-      xpSemana.push(xpNesseDia);
-      xpNesseDia = 0;
-
-    });
-
-    this.setState({ weekXpData: xpSemana });
-
-    console.log("Semana:");
-    console.log(xpSemana);
-
-  };
-
-  getUserXp = async () => {
-
-    try {
-      const userXp = await AsyncStorage.getItem('@userXp');
-
-      if (userXp !== null) {
-          this.setState({ userXp });
-      }
-    } catch(e){
-      console.log(e);
-    }
-
-  }
-
-
-  gerarCalendario(anoAtual, mesAtual){
-
-    mesAtual--;
-  
-    let semanasMes = [];
-    let qtdDiasMeses = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  
-    //Verifica se o ano é bissexto
-    if(new Date(anoAtual, 1, 29).getMonth() == 1) {
-        qtdDiasMeses[1] = 29;
-    }
-  
-    let diaUm = new Date(anoAtual, mesAtual, 1);
-    let diaUmSemana = diaUm.getDay(); //Dom, Seg, Ter, Qua, Qui, Sex ou Sáb - posição na semana do dia 01
-  
-    let semana = [];
-  
-    //Se o dia não começa no domingo, pega os outros dias da última semana do mes passado
-    if(diaUmSemana > 0) {
-        for(let i=diaUmSemana-1; i>=0; i--){
-            let qtdDiasMesPassado = qtdDiasMeses[mesAtual-1];
-            semana.push(qtdDiasMesPassado -i + '/' + this.tratarNumero(mesAtual) + "/" + anoAtual);
-        }
-    }
-  
-    //Preenche o mês todo
-    for(let contagemDiasMes=1; contagemDiasMes<=qtdDiasMeses[mesAtual]; contagemDiasMes++){
-        if(semana.length < 7){
-            semana.push(this.tratarNumero(contagemDiasMes) + '/' + this.tratarNumero(mesAtual + 1) + "/" + anoAtual);
-        } else {
-            semanasMes.push(semana);
-            semana = [];
-  
-            semana.push(this.tratarNumero(contagemDiasMes) + '/' + this.tratarNumero(mesAtual + 1) + "/" + anoAtual);
-        }
-    }
-  
-    //Preenche a última do mês com os dias do próximo mês
-    for(let contagemDiasMes=1; contagemDiasMes<=semana.length+1; contagemDiasMes++){
-        if(semana.length < 7){
-            semana.push(this.tratarNumero(contagemDiasMes) + '/' + this.tratarNumero(mesAtual + 2) + "/" + anoAtual);
-        } else {
-            semanasMes.push(semana);
-            semana = [];
-        }
-    }
-  
-    return semanasMes;
-  }
-  
-  tratarNumero(num){
-    num < 10 ? num = "0" + num : num = num;
-    return num;        
-  }
-  
-  pegarSemanaAtual(){
-    let now = new Date();
-  
-    let dia = now.getDate();
-    let mes = now.getMonth()+1;
-    let ano = now.getFullYear();
-  
-    let dataAtual = this.tratarNumero(dia) +"/"+ this.tratarNumero(mes) +"/"+ ano;
-    let calendario = this.gerarCalendario(ano, mes);
-  
-    let semanaAtual;
-  
-    calendario.forEach(semana => {
-        for(let i=0; i<7; i++){
-            if(semana[i] == dataAtual){
-              semanaAtual = semana;
-            }
-        }
-    });
-  
-    return semanaAtual;
-  }
 
   getUserInfo = async () => {
 
@@ -168,6 +38,8 @@ export default class Profile extends Component {
 
       if (user !== null) {
           this.setState({ userName: user.name, userDesc: user.description });
+      } else {
+        this.setState({ userName: 'Usuário', userDesc: 'Faixa Branca' });
       }
     } catch(e){
       console.log(e);
@@ -200,7 +72,10 @@ export default class Profile extends Component {
           <Header>
           
               <HeaderText>Perfil</HeaderText>
-              <HeaderLabel>Estatísticas de treinos</HeaderLabel>
+              <HeaderLabelBox>
+                <HeaderLabelBoxItem>Estatísticas</HeaderLabelBoxItem>
+                <HeaderLabelBoxItem>Sobre</HeaderLabelBoxItem>
+              </HeaderLabelBox>
 
           </Header>
           <Content style={{ minHeight: Dimensions.get('window').height - 250 }}>
@@ -211,7 +86,7 @@ export default class Profile extends Component {
                 <Avatar
                   rounded
                   size="large"
-                  title={this.state.userName.slice(0, 1)}
+                  title={this.state.userName ? this.state.userName.slice(0, 1) : ''}
                   activeOpacity={0.7}
                   source={{ uri: 'no' }}
                 />
@@ -223,33 +98,29 @@ export default class Profile extends Component {
                     <Icon name='information' type='material-community' size={15} color='#999' />
                     <ProfileCardSubtitle>{this.state.userDesc}</ProfileCardSubtitle>
                   </View>
+
                 </View>
               </View>
 
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('ProfileEdit')} style={{ margin: 10 }}>
-                <Icon name='pencil' type='material-community' size={20} color='#999' />
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Settings')} style={{ padding: 10 }}>
+                <Icon name='gear' type='font-awesome' size={20} color='#999' />
               </TouchableOpacity>
             
             </ProfileCard>
 
-
-            <Label>Semana</Label>
- 
-            <Badge>{this.state.weekPeriod}</Badge>
-
-            <BarChart
-              data={dataWeek}
-              width={Dimensions.get('window').width - 40 }
-              height={200}
-              chartConfig={chartConfig}
-              style={{ margin: 20 }}
-            />
-
-            <BasicButton onPress={() => this.props.navigation.navigate('ActivityFinishedList')}>
-              <BasicButtonText>Detalhes</BasicButtonText>
-            </BasicButton>
-
             <Divider style={{ width: Dimensions.get('window').width - 40 }} />
+
+
+
+            <ActivityCard onPress={() => this.props.navigation.navigate('ActivityFinishedList')} >
+              <CategoryBox>
+                <ActivityCardCategory>Treinos antigos</ActivityCardCategory>
+              </CategoryBox>
+              <ActivityCardName>Histórico</ActivityCardName>
+
+              <ActivityCardImage style={{ width: Dimensions.get('window').width - 40 }} source={require('../assets/historico.png')} />
+            </ActivityCard>
+
 
             <Label>Sobre</Label>
 

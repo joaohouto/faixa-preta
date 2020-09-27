@@ -1,17 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors =  require('cors');
-
-const routes = require("./routes");
-require('./src/config/database');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3333;
 
-app.use(bodyParser.urlencoded({ extended: true }));
+const routes = require('./routes');
+require('./config/database');
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
-app.use('/api', routes);
+app.use(routes);
 
 app.listen(port, () => console.log("[dev] Server running on port " + port));

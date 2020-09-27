@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import { View, Dimensions, Image, AsyncStorage } from 'react-native';
+import { View, Dimensions, AsyncStorage } from 'react-native';
 import { Icon } from 'react-native-elements'
 
 import api from '../services/api';
-import { Container, Header, HeaderImage, HeaderText, HeaderLabel, Content, Label, ActivityCard, ActivityCardImage, ActivityCardName, CategoryBox , ActivityCardCategory, SearchBox, SearchInput, SearchIcon, PlusDot, CenteredContent, MessageBox, MessageText, HeaderThumbnail } from '../styles';
+import { Container, Header, HeaderImage, HeaderText, Details, HeaderLabel, Content, ActivityCard, ActivityCardImage, ActivityCardName, CategoryBox , ActivityCardCategory, SearchBox, SearchInput, SearchIcon, PlusDot, CenteredContent, MessageBox, MessageText, HeaderThumbnail } from '../styles';
 import CardLoader from '../components/CardLoader';
 
 class ActivityList extends Component {
 
   state = {
     activityTag: null,
-    activityImage: 'https://firebasestorage.googleapis.com/v0/b/faixa-preta.appspot.com/o/activities%2Fexame.png?alt=media&token=76bbe38d-c1bc-44a5-92de-a842b625e00d',
+    activityImage: 'deafault',
     activities: [],
     displayActivities: [],
     page: 2,
+    pages: 1,
     search: '',
     isLoading: true
   }
@@ -23,7 +24,27 @@ class ActivityList extends Component {
 
   }
 
+  getActivitiesOnDevice = async () => {
+
+    //Pegar atividades do dispositivo
+    try {
+      const localActivities = await AsyncStorage.getItem('@' + activityTag + 'Activities');
+      
+      if(localActivities == null) {
+        this.loadActivities();
+
+      } else {
+        this.setState({ activities: localActivities });
+      }
+    
+    } catch(e){
+      console.log(e);
+    }
+
+  }
+
   loadActivities = async () => {
+
     //Pegar tag das atividades
     const { navigation } = this.props;  
     let activityTag = JSON.stringify(navigation.getParam('activityTag', '0'));
@@ -38,11 +59,24 @@ class ActivityList extends Component {
     const response = await api.get('/activities?tags=' + activityTag);
     this.setState({ activities: response.data.docs, 
                     displayActivities: response.data.docs, 
-                    isLoading: false 
+                    isLoading: false,
+                    pages: response.data.pages
                   });
 
     //Salvar no dispositivo
     this.saveActivitiesOnDevice();
+  }
+
+  saveActivitiesOnDevice = async () => {
+
+    try {
+      await AsyncStorage.setItem('@' + this.state.activityTag + 'Activities', JSON.stringify(this.state.activities));
+      console.log("Atividades salvas no dispositivo!");
+
+    } catch(e){
+      console.log(e);
+    }
+
   }
 
   loadMoreActivities = async () => {
@@ -72,19 +106,6 @@ class ActivityList extends Component {
 
   }
 
-  saveActivitiesOnDevice = async () => {
-
-    try {
-
-      await AsyncStorage.setItem('@' + this.state.tag + 'Activities', JSON.stringify(this.state.activities));
-      console.log("Atividades salvas no dispositivo!");
-
-    } catch(e){
-      console.log(e);
-    }
-
-  }
-
   
   render(){
 
@@ -93,13 +114,15 @@ class ActivityList extends Component {
     return (
       <Container>
           <Header>
-            
+
               <HeaderText>{this.state.activityTag}</HeaderText>
               <HeaderLabel>{displayActivities.length} treinos</HeaderLabel>
 
           </Header>
-          <HeaderImage source={{ uri: this.state.activityImage ? this.state.activityImage : '' }} />
-          <Content style={{ minHeight: Dimensions.get("window").height - 230 }}>
+
+          <HeaderImage source={{ uri: this.state.activityImage }} />
+
+          <Content style={{ minHeight: Dimensions.get("screen").height * 0.75 }}>
 
             <SearchBox>
               <SearchInput onChangeText={e => this.handleSearchInputChange(e)} value={this.state.search} name="search" placeholderTextColor="#999" placeholder="Buscar" />
@@ -108,8 +131,8 @@ class ActivityList extends Component {
                   ? <Icon name='search' type='font-awesome' size={20} color='#999' /> 
                   : <Icon onPress={() => this.setState({ search: "", displayActivities: this.state.activities })} name='times' type='font-awesome' size={20} color='#999' /> }
               </SearchIcon>
-            </SearchBox>        
-
+            </SearchBox>      
+            
             { !this.state.isLoading ? 
                 displayActivities.length > 0 ? displayActivities.map(activity => (
 
@@ -128,7 +151,7 @@ class ActivityList extends Component {
             }
 
             {
-              displayActivities.length > 0 ? (
+              displayActivities.length > 0 && this.state.pages > 1 ? (
                 <CenteredContent>
                   <PlusDot onPress={this.loadMoreActivities} />
                 </CenteredContent>

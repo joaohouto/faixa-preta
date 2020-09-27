@@ -6,9 +6,12 @@ import background from '../assets/background.jpg';
 
 export default class Home extends Component {
 
+
   render() {
+
     return (
         <div className="home">
+
             <div className="header">
                 <a href="/"><img id="logo" src={logo} alt="Faixa Preta" /></a>
 
@@ -23,12 +26,12 @@ export default class Home extends Component {
             <div className="content animate-opacity">
               <div className="section">
                 <h2>O treino que vai além da academia.</h2>
-                <p>O <i>Faixa Preta</i> é a proposta de um app para ajudar karatecas em seus treinos individuais, contando com recursos que facilitam o aprendizado e o seu aperfeiçoamento.</p>
-                
-                <a href="https://expo.io/@joaohouto/faixa-preta">
-                  <button className="button"><i className="fa fa-link"></i> Testar</button>
-                </a>
+                <p>O <i>Faixa Preta</i> é a proposta de um app para ajudar karatecas em seus treinos individuais, contando com recursos que facilitam o o seu aprendizado e aperfeiçoamento. Além disso, ele é totalmente <i>open-source</i>!</p>
 
+                <a href="https://expo.io/@joaohouto/faixa-preta">
+                  <button className="button"><i className="fa fa-link"></i> Download</button>
+                </a>
+      
               </div>
 
               <img src={background} id="belt" alt="Faixa" />

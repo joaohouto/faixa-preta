@@ -91,7 +91,24 @@ export default class Activities extends Component {
 
                     <a className="btn btn-block" href="/activities/new/0"><button type="button" className="btn btn-secondary btn-lg btn-block">+ NOVO</button></a>
 
-                    
+                    <center>
+                        <nav style={{ display: 'flex', justifyContent: 'center' }}>
+                            <ul className="pagination">
+                                { pageList.length > 0 ? pageList.map(page => (
+                                    page == this.state.page ? (
+                                        <li className="page-item active">
+                                            <a href={`/activities/${page}`} className="page-link">{page}</a>
+                                        </li>
+                                    ) : (
+                                        <li className="page-item">
+                                            <a href={`/activities/${page}`} className="page-link">{page}</a>
+                                        </li>
+                                    )
+                                )) : <li className="page-item"><Link className="page-link">...</Link></li> }
+                            </ul>
+                        </nav>
+                    </center>
+
 
                     <div>
 
@@ -111,24 +128,6 @@ export default class Activities extends Component {
                     )) : <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 100 }}><FillSpinner  size={30} color="#999" loading={true} /></div> }
 
                     </div>
-
-                    <center>
-                        <nav style={{ display: 'flex', justifyContent: 'center' }}>
-                            <ul className="pagination">
-                                { pageList.length > 0 ? pageList.map(page => (
-                                    page == this.state.page ? (
-                                        <li className="page-item active">
-                                            <a href={`/activities/${page}`} className="page-link">{page}</a>
-                                        </li>
-                                    ) : (
-                                        <li className="page-item">
-                                            <a href={`/activities/${page}`} className="page-link">{page}</a>
-                                        </li>
-                                    )
-                                )) : <li className="page-item"><Link className="page-link">...</Link></li> }
-                            </ul>
-                        </nav>
-                    </center>
 
 
                 </div>

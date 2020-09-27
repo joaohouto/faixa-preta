@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, Dimensions, AsyncStorage, Alert } from 'react-native';
-import { Icon } from 'react-native-elements'
+import { Text, View, Dimensions, AsyncStorage, Image , Animated, Easing,} from 'react-native';
 
-import api from '../services/api';
+import { Icon } from 'react-native-elements'
+import Confetti from 'react-native-confetti';
+
 import { Header, Container, FinalizedActivityText, HeaderText, HeaderLabel, Content, Label, Details, ActivityAlert, ActivityAlertText, MoveCard, MoveCardImage, MoveCardBackground, MoveCardName, MoveCardRepetitions, StartButton, StartButtonLoading, Divider, StartButtonText, CenteredContent, BasicButton, BasicButtonText } from '../styles';
-import SmallCardLoader from '../components/SmallCardLoader';
 
 export default class Activity extends Component {
 
@@ -13,13 +13,42 @@ export default class Activity extends Component {
     runnedMoves: [],
     userXp: 0,
     xpEarned: 0, 
-    oldActivities: []
+    oldActivities: [],
+    fadeAnim: new Animated.Value(0)
   }
 
   componentDidMount() {
     this.loadRunnedMoves();
     this.getOldActivities();
     this.getUserXp();
+
+    if(this._confettiView) {
+      this._confettiView.startConfetti();
+    }
+
+    this.animate();
+  
+  }
+
+    
+  animate() {
+    Animated.loop(
+
+      Animated.timing(
+        this.state.fadeAnim,
+        {
+          toValue: 50,
+          duration: 1000,
+          easing: Easing.linear
+        }
+      )
+    ).start();
+  }
+
+  componentWillUnmount() {
+    if(this._confettiView) {
+        this._confettiView.stopConfetti();
+    }
   }
 
   loadRunnedMoves = () => {
@@ -35,23 +64,12 @@ export default class Activity extends Component {
     let xpEarned = 0;
     runnedMoves.forEach(move => {
 
-      switch(move.activityData.category){
-        case 'Kihon':
-          xpEarned = xpEarned + move.activityData.repetitions;
-          break;
-
-        case 'Kata': 
-          xpEarned = xpEarned + (move.activityData.repetitions * 5);
-          break;
-
-        case 'Kumite': 
-          xpEarned = xpEarned + move.activityData.repetitions;
-          break;
-        
-        default:
-          xpEarned = xpEarned + move.activityData.repetitions;
-        
+      if(move.moveData.difficulty) {
+        xpEarned = xpEarned + (move.activityData.repetitions * move.moveData.difficulty);
+      } else {
+        xpEarned = xpEarned + (move.activityData.repetitions * 1);
       }
+
 
     });
 
@@ -160,10 +178,12 @@ export default class Activity extends Component {
   render() {
 
     const { runnedMoves } = this.state;
-    const { activity } = this.state;
 
     return (
       <Container>
+          <View style={{ position: 'absolute', top: 0, zIndex: 1 }}>
+            <Confetti ref={(node) => this._confettiView = node} timeout={5} confettiCount={50} duration={4000} />
+          </View>
           <Header>
           
               <HeaderText>Resumo</HeaderText>
@@ -175,9 +195,8 @@ export default class Activity extends Component {
           <Label>Info</Label>
 
             <CenteredContent>
-                
               <Icon name='trophy' type='material-community' size={80} color='#999' />
-
+              
               <FinalizedActivityText>+{this.state.xpEarned}xp</FinalizedActivityText>
               <Text>É isso aí. Você acaba de finalizar mais um treino.</Text>
               <Text>Continue treinando e não perca o foco!</Text>
@@ -201,7 +220,7 @@ export default class Activity extends Component {
                 )) : <View />}          
 
                 <StartButton onPress={this.saveXpEarned}>
-                  <StartButtonText>Salvar</StartButtonText>
+                  <StartButtonText>Salvar e Fechar</StartButtonText>
                 </StartButton>
             
           </Content>

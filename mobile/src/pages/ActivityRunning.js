@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Dimensions, Animated } from 'react-native';
 
 import { Icon, Overlay } from 'react-native-elements';
-import { OverlayTitle, OverlayText, Divider, AlmostText, ActivityAlert, BottomButtons, EndButtonDarkText, ActivityAlertText, PlayButton, PlayButtonText, EndButton, EndButtonText, EndButtonDark, ActivityRunningHeader, ActivityRunningHeaderImage, ActivityRunningMoveName, ActivityRunningMoveRepetitions, ActivityRunningContent, Label, MoveCard, MoveCardImage, MoveCardBackground, MoveCardName, MoveCardRepetitions, Container, CenteredContent } from '../styles';
+import { OverlayTitle, OverlayText, Divider, AlmostText, ActivityAlert, BottomButtons, EndButtonDarkText, ActivityAlertText, PlayButton, PlayButtonText, EndButton, EndButtonText, EndButtonDark, ActivityRunningHeader, ActivityRunningHeaderImage, ActivityRunningMoveName, ActivityRunningMoveRepetitions, ActivityRunningContent, Label, MoveCard, MoveCardImage, MoveCardBackground, MoveCardName, MoveCardRepetitions, Container, CenteredContent, ProgressBar, ProgressBarFill } from '../styles';
 
 
 export default class ActivityRunning extends Component {
@@ -12,6 +12,7 @@ export default class ActivityRunning extends Component {
     moves: [],
     runnedMoves: [],
     currentPage: 0,
+    progress: 0,
     isVisiblePlay: true,
     isVisibleConfirm: false
 
@@ -20,6 +21,11 @@ export default class ActivityRunning extends Component {
   componentDidMount() {
     this.loadActivity();
   }
+
+  componentWillUnmount() {
+    clearInterval(this.state.timer);
+  }
+
 
   loadActivity = () => {
 
@@ -45,6 +51,9 @@ export default class ActivityRunning extends Component {
       
       this.setState({ runnedMoves: this.state.runnedMoves.concat(this.state.moves[this.state.currentPage]) });
     }
+
+    let progress = ((this.state.currentPage + 1) * 100) / this.state.moves.length ;
+    this.setState({ progress });
 
     console.log("Página: " + this.state.currentPage);
 
@@ -73,7 +82,7 @@ export default class ActivityRunning extends Component {
     const { moves } = this.state;
 
     return (
-      <Container>
+      <View style={{ flex: 1 }}>
 
         {/* Modal "Prepare-se" */}
         
@@ -86,8 +95,7 @@ export default class ActivityRunning extends Component {
         >
           <View>
               <OverlayTitle>Prepare-se</OverlayTitle>
-              <OverlayText>A partir de agora o seu treino será monitorado.</OverlayText>
-              <OverlayText>Execute os movimentos propostos no seu ritmo e ao final seu progresso será exibido..</OverlayText>
+              <OverlayText>A partir de agora o seu treino será monitorado. Execute os movimentos propostos no seu ritmo e ao final seu progresso será exibido.</OverlayText>
 
               <Divider />
 
@@ -117,7 +125,7 @@ export default class ActivityRunning extends Component {
           <View>
             <OverlayTitle>Certeza?</OverlayTitle>
 
-            <OverlayText>Está certo de que quer finalizar o treino agora?</OverlayText>
+            <OverlayText>Tem certeza de que quer finalizar o treino agora?</OverlayText>
 
             <BottomButtons>
                 <EndButton onPress={() => this.setState({ isVisibleConfirm: false })} >
@@ -146,17 +154,24 @@ export default class ActivityRunning extends Component {
         
         { moves.length > 0 ? (
 
-            <View>
+            <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flex: 1, backgroundColor: '#111' }}>
+              <View />
 
-              <ActivityRunningHeader style={{ height: Dimensions.get('window').height - 310 }}>
+              <ActivityRunningHeader>
 
                 <ActivityRunningHeaderImage source={{ uri: moves[this.state.currentPage].moveData.image }} />
                 <ActivityRunningMoveName>{moves[this.state.currentPage].moveData.name}</ActivityRunningMoveName>
                 <ActivityRunningMoveRepetitions>{ moves[this.state.currentPage].activityData.repetitions}x</ActivityRunningMoveRepetitions>
+                <ProgressBar>
+                  <ProgressBarFill style={{ width: this.state.progress + '%' }} />
+                </ProgressBar>
 
               </ActivityRunningHeader>
 
               <ActivityRunningContent>
+
+                  <View style={{ position: 'absolute', top: 10, right: 10 }}>
+                  </View>
 
                   { (this.state.currentPage + 1) != moves.length ? (
                       
@@ -175,7 +190,7 @@ export default class ActivityRunning extends Component {
                             <EndButtonText>Cancelar</EndButtonText>
                           </EndButton>
 
-                          <EndButtonDark style={{ width: 30 }} onPress={this.handleNextPage}>
+                          <EndButtonDark style={{ maxWidth: 80 }} onPress={this.handleNextPage}>
                             <Icon name='chevron-right' type='material-community' size={30} color='#f1f1f1' />
                           </EndButtonDark>
                         </BottomButtons>
@@ -208,7 +223,7 @@ export default class ActivityRunning extends Component {
             </View>
             
         ) : <View />}
-      </Container>
+      </View>
   );
   }
 }

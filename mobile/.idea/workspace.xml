@@ -2,8 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05e3259a-7b7e-473a-a39c-2a75a1d8de23" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/assets/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../console/src/pages/Activities.js" beforeDir="false" afterPath="$PROJECT_DIR$/../console/src/pages/Activities.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../console/src/pages/ActivityEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/../console/src/pages/ActivityEdit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../console/src/pages/Moves.js" beforeDir="false" afterPath="$PROJECT_DIR$/../console/src/pages/Moves.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SmallCardLoader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SmallCardLoader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/homeRoutes.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Activity.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Activity.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ActivityFinished.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ActivityFinished.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ActivityFinishedList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ActivityFinishedList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ActivityList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ActivityList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ActivityRunning.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ActivityRunning.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ExploreActivities.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ExploreActivities.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Move.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Move.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/News.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/News.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ProfileEdit.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/.firebase/hosting.YnVpbGQ.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../web/.firebase/hosting.YnVpbGQ.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../web/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../web/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/pages/About.js" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/pages/About.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/pages/Contact.js" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/pages/Contact.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/pages/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/pages/NotFound.js" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/pages/NotFound.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/pages/Privacy.js" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/pages/Privacy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/src/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../web/yarn.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,12 +42,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/Activity.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="85" column="24" selection-start-line="85" selection-start-column="24" selection-end-line="85" selection-end-column="24" />
+            <state relative-caret-position="348">
+              <caret line="79" column="38" lean-forward="true" selection-start-line="79" selection-start-column="38" selection-end-line="79" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -67,8 +97,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -103,29 +133,30 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.17633928" />
-      <window_info id="Structure" side_tool="true" />
-      <window_info id="Image Layers" />
-      <window_info id="Designer" />
-      <window_info id="Resources Explorer" />
-      <window_info id="Capture Tool" />
-      <window_info id="Favorites" side_tool="true" />
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="TODO" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Palette&#9;" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.17633928" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Designer" order="4" />
+      <window_info id="Resources Explorer" order="5" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info id="Favorites" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="0" />
+      <window_info anchor="bottom" id="TODO" order="1" />
+      <window_info anchor="bottom" id="Terminal" order="2" />
+      <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" order="0" />
+      <window_info anchor="right" id="Theme Preview" order="1" />
+      <window_info anchor="right" id="Palette&#9;" order="2" />
     </layout>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/pages/Activity.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="85" column="24" selection-start-line="85" selection-start-column="24" selection-end-line="85" selection-end-column="24" />
+        <state relative-caret-position="348">
+          <caret line="79" column="38" lean-forward="true" selection-start-line="79" selection-start-column="38" selection-end-line="79" selection-end-column="38" />
         </state>
       </provider>
     </entry>

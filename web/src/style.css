@@ -12,6 +12,11 @@ html, body {
     width: 100%;
 }
 
+iframe {
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
 a {
     font-weight: bold;
     color: #999;
@@ -76,7 +81,7 @@ label {
 
 .team-card {
     background: #f1f1f1;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 20px;
     margin: 20px;
     margin-left: 0;
@@ -84,13 +89,13 @@ label {
     width: 300px;
 }
 
-.team-card img {
+.team-card img, #img {
     height: 80px;
     width: 80px;
     border-radius: 50%;
     margin-right: 20px;
-    background: #ccc;
-    padding: 10 px;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
 }
 
 .team-card p {
@@ -147,6 +152,7 @@ label {
     margin-right: 10%;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .content {
@@ -219,6 +225,27 @@ label {
     opacity: 0.5;
 }
 
+.lang-box {
+    padding: 20px;
+    padding-left: 10%;
+    padding-right: 10%;
+    background-color: #f1f1f1;
+    display: flex;
+    align-items: center;
+}
+
+.lang-box a {
+    text-decoration: none !important;
+    margin-right: 20px;
+    color: #999;
+}
+
+.lang-box a i:first-child {
+    font-size: 25px;
+    color: #999;
+
+}
+
 /*Loading*/
 .loadbox{
     position: absolute;
@@ -255,8 +282,14 @@ label {
   }
 
 @media screen and (max-width: 600px) {
+
+    iframe { 
+        width: 100%;
+    }
+
     .header {
         margin: 0;
+        flex-wrap: wrap;
     }
 
     .content {
@@ -286,7 +319,7 @@ label {
     }
     
     ul li {
-        display: inline-block;
+        padding-bottom: 10px !important;
     }
 
     .team-box {

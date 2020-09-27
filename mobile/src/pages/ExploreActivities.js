@@ -33,7 +33,7 @@ class ExploreActivities extends Component {
                 <Text style={styles.tagCardText}>Kata</Text>
                 <Image style={styles.tagCardImage} source={require('../assets/kata.png')} />
               </TouchableOpacity>
-
+ 
               <TouchableOpacity onPress={() => this.props.navigation.navigate('ActivityList', { activityTag: "Kumite", activityImage: "https://firebasestorage.googleapis.com/v0/b/faixa-preta.appspot.com/o/activities%2Fkumite.png?alt=media&token=e9e3744a-4a6e-45ce-9012-00249fc22933" })} style={styles.tagCard}>
                 <Text style={styles.tagCardText}>Kumite</Text>
                 <Image style={styles.tagCardImage} source={require('../assets/kumite.png')} />
@@ -55,6 +55,8 @@ class ExploreActivities extends Component {
 
               <Image style={styles.activityCardImage} source={require('../assets/exame.png')} />
             </TouchableOpacity>  
+
+
 
           </View>
       </ScrollView>
@@ -94,7 +96,7 @@ const styles = StyleSheet.create({
     
     content: {
       flex: 1,
-      minHeight: Dimensions.get('window').height - 380,
+      minHeight: Dimensions.get('window').height * 0.55,
       borderTopRightRadius: 25,
       borderTopLeftRadius: 25,
       backgroundColor: '#fff',

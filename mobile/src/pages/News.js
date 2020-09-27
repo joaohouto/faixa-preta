@@ -6,6 +6,8 @@ import * as rssParser from 'react-native-rss-parser';
 import CarouselLoader from '../components/CarouselLoader'
 import ItemListLinkLoader from '../components/ItemLinkListLoader'
 
+import { HeaderLabelBox, HeaderLabelBoxItem, HeaderText } from '../styles';
+
 export default class Activity extends Component {
 
   state = {
@@ -72,15 +74,12 @@ export default class Activity extends Component {
     return (
       <ScrollView style={styles.container}>
           <View style={styles.header}>
-            
-            <View style={styles.headerBox}>
-              <Text style={styles.headerText}>Notícias</Text>
-              <View style={styles.categoryBox}>
-                <Text style={styles.headerLabel}>WKF</Text>
-                <Text style={styles.headerLabel}>CBK</Text>
-                <Text style={styles.headerLabel}>FKMS</Text>
-              </View>
-            </View>
+          
+            <HeaderText>Notícias</HeaderText>
+              <HeaderLabelBox>
+                <HeaderLabelBoxItem>WKF</HeaderLabelBoxItem>
+                <HeaderLabelBoxItem>CBK</HeaderLabelBoxItem>
+              </HeaderLabelBox>
 
           </View>
           <View style={styles.content}>
@@ -235,12 +234,12 @@ const styles = StyleSheet.create({
     },
 
     plusDot: {
-      height: 30,
-      width: 30,
+      height: 35,
+      width: 35,
       backgroundColor: '#ddd',
       borderRadius: 30,
       borderColor: '#f1f1f1',
-      borderWidth: 5,
+      borderWidth: 8,
       margin: 20
     },
 

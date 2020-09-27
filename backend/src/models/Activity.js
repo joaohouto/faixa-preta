@@ -17,12 +17,12 @@ const ActivitySchema = mongoose.Schema({
         required: true
     }],
 
-    image: {
-        type: String
+    imageUrl: {
+        type: String,
+        required: true
     },
 
     moves: [ {
-        category: String,
         move_id: String,
         repetitions: Number,
     } ],

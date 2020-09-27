@@ -12,5 +12,4 @@ mongoose.connect(
 
 }).catch(err => {
     console.log("[dev] " + err);
-
 });

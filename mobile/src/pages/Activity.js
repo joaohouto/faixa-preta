@@ -3,7 +3,7 @@ import { Text, View, Dimensions } from 'react-native';
 import { Icon } from 'react-native-elements'
 
 import api from '../services/api';
-import { Header, Container, HeaderBox, HeaderLabelBoxItem, HeaderLabelBox, HeaderText, HeaderLabel, Content, Label, Details, ActivityAlert, ActivityAlertText, MoveCard, MoveCardImage, MoveCardBackground, MoveCardName, MoveCardRepetitions, StartButton, StartButtonLoading, Divider, StartButtonText } from '../styles';
+import { Header, Container, HeaderLabelBoxItem, HeaderLabelBox, HeaderText, Content, Label, Details, ActivityAlert, ActivityAlertText, MoveCard, MoveCardImage, MoveCardBackground, MoveCardName, MoveCardRepetitions, StartButton, StartButtonLoading, Divider, StartButtonText } from '../styles';
 import SmallCardLoader from '../components/SmallCardLoader';
 
 export default class Activity extends Component {

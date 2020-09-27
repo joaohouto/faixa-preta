@@ -12,7 +12,9 @@ export default class ActivityEdit extends Component {
         activity: null,
         moves: [],
         search: '',
-        activityMoves: []
+        activityMoves: [],
+        page: 1,
+        pages: null
     }
 
     componentDidMount() {
@@ -51,13 +53,23 @@ export default class ActivityEdit extends Component {
     search = async () => {
         const response = await api.get('/moves?name=' + this.state.search);
 
+        this.setState({ moves: response.data.docs, pages: response.data.pages });
+    }
+
+    handleNextPage = async () => {
+        this.setState({ page: this.state.page + 1 });
+
+        const response = await api.get('/moves?name=' + this.state.search + '&page=' + this.state.page);
+
         this.setState({ moves: response.data.docs });
     }
 
-    getMoveName = async (id) => {
-        const response =  await api.get('/moves/' + id);
+    handlePreviousPage = async () => {
+        this.setState({ page: this.state.page - 1 });
 
-        return '?';
+        const response = await api.get('/moves?name=' + this.state.search + '&page=' + this.state.page);
+
+        this.setState({ moves: response.data.docs });
     }
 
     addMoveToActivity(move_id, category) {
@@ -175,7 +187,7 @@ export default class ActivityEdit extends Component {
 
         <div style={{ maxHeight: 500, overflowY: 'auto', paddingRight: 20 }}>
                         
-        { activityMoves.length > 0 ? activityMoves.map(move => (
+        { activityMoves.length > 0 ? activityMoves.reverse().map(move => (
             <div className="card" style={{ padding: 20, marginBottom: 20 }} key={move.move_id}>
                 <div className="form-row">
 
@@ -194,7 +206,7 @@ export default class ActivityEdit extends Component {
                         <input value={move.repetitions} required onChange={(e) => this.handleMoveRepChange(e.target.value, move.move_id)} type="text" className="form-control form-control-sm" />
                     </div>
 
-                    <button onClick={() => this.deleteMove(move.move_id)} className="btn btn-secondary btn-sm"><UseAnimations animationKey="trash2" size={25} style={{ paddingBottom: 5 }} /></button>
+                    <a style={{ color: '#fff' }} onClick={() => this.deleteMove(move.move_id)} className="btn btn-secondary btn-sm"><UseAnimations animationKey="trash2" size={25} style={{ paddingBottom: 5 }} /></a>
 
                 </div>
             </div>
@@ -218,13 +230,19 @@ export default class ActivityEdit extends Component {
 
         { moves.length > 0 ? moves.map(i => (
             <div className="input-group mb-3" key={i._id}>
-                <input value={i.name} type="text" className="form-control" readOnly />
+                <input value={i.name} type="text" alt={i._id} className="form-control" readOnly />
                 <div className="input-group-append">
                     <button onClick={() => this.addMoveToActivity(i._id, i.category)} className="btn btn-secondary" type="button">+</button>
                 </div>
             </div>
         )) : <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 100 }}><p>...</p></div> }
 
+        { moves.length > 0 ? (
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <a style={{ cursor: 'pointer' }} onClick={this.handlePreviousPage} className="text-right">Anterior</a>
+                <a style={{ cursor: 'pointer' }} onClick={this.handleNextPage} className="text-right">Próximo</a>
+            </div>
+        ) : <div /> }
     </div>
 </div>
 <br/>

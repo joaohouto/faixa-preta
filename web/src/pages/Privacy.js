@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../style.css'
 
 import logo from '../assets/logo-x.svg';
-import hm from '../assets/hm.png';
 
 export default class Privacy extends Component {
 
@@ -26,6 +25,10 @@ export default class Privacy extends Component {
                 <p>A plataforma Faixa Preta se compromete a não coletar quaisquer informações pessoais de seus usuários sem aviso prévio. </p>
                 <p>Informações de acesso da plataforma podem ser coletadas pelos nossos servidores de forma anônima, para a elaboração de estatísticas de uso de nossos serviços.</p>
                 <p>Dados de treinos executados dentro de nossos apps móveis, bem como informações da seção "Perfil", são armazenados no próprio dispositivo do usuário, sendo eles de total responsabilidade do indivíduo que o utiliza.</p>
+
+                <h3>Imagens e Direitos Autorais</h3>
+                <p>Todas as imagens utilizadas em materiais de divulgação e da interface do app Faixa Preta são cedidas pelo banco de imagens gratuito <a href="https://br.freepik.com/">FreePik</a>. Imagens de <i>thumbnails</i>, para a visualização de links externos, são de autoria de seus respectivos autores.</p>
+                <p>Agradecimentos especiais aos Senseis <a href="https://www.youtube.com/channel/UCvXNiArxdbsIRkUWYDiQ3Mw">Seamus O'Dowd</a> e <a href="https://www.youtube.com/user/emrahmihyaz">Emrah Mihyaz</a> que nos autorizaram a indicar seus vídeos em nossa plataforma.</p>
               </div>
 
             </div>

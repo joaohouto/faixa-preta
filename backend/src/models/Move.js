@@ -7,27 +7,26 @@ const MoveSchema = mongoose.Schema({
         required: true
     },
 
-    category: {
-        type: String,
-        required: true
-    },
-
     details: {
         type: String,
         required: true
     },
 
-    videoUrl: [String],
-
-    image: {
+    category: {
         type: String,
         required: true
     },
 
-    difficulty: {
-        type: Number,
+    imageUrl: {
+        type: String,
         required: true
     },
+
+    videos: [{
+        url: String,
+        title: String,
+        author: String
+    }],
 
     createdAt: {
         type: Date,

@@ -51,31 +51,20 @@ const styles = StyleSheet.create({
   
       moveCardRepetitions: {
         color: '#999',
-        fontSize: 20,
         fontWeight: 'bold',
         position: 'absolute',
-        right: 0,
-        bottom: 0,
-        padding: 20
-      },
-  
-      moveCardImage: {
-        height: 40,
-        width: 40,
-        position: 'absolute',
-        left: 10,
-        top: 10,
-        zIndex: 2
+        left: 75,
+        bottom: 20,
       },
   
       moveCardImageBackground: {
         backgroundColor: "#ccc",
-        height: 40,
-        width: 40,
+        height: 60,
+        width: 60,
         position: 'absolute',
-        left: 10,
-        top: 10,
-        borderRadius: 20
+        left: 0,
+        top: 0,
+        borderRadius: 10
       }
   
 });
