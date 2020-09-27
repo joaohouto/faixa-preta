@@ -1,7 +1,4 @@
-<p align="center">
-   <img src="./web/src/assets/logo-x.svg" width="200"/>
-</p>
-
+<img src="./web/src/assets/logo-x.svg" width="200"/>
 # Faixa Preta
 
 [![Author](https://img.shields.io/badge/author-joaocou-222222)](https://github.com/joaocou)
