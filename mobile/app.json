@@ -3,7 +3,6 @@
     "name": "Faixa Preta",
     "slug": "faixa-preta",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
     "userInterfaceStyle": "automatic",
     "platforms": [
       "ios",
@@ -16,7 +15,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
