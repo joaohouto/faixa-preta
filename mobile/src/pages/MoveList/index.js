@@ -121,7 +121,7 @@ class MoveList extends React.Component {
                 <MoveItemSearched 
                   name={move.name}
                   category={move.category}
-                  source={{ uri: move.image }}
+                  source={{ uri: move.imageUrl }}
                 />
               </TouchableOpacity>
 

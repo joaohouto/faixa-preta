@@ -92,7 +92,7 @@ class Activity extends Component {
             <MoveItem 
               name={move.name}
               repetitions={move.repetitions}
-              source={{ uri: move.image }}
+              source={{ uri: move.imageUrl }}
             />
           </TouchableOpacity>
 
@@ -106,7 +106,7 @@ class Activity extends Component {
             <MoveItem 
               name={move.name}
               repetitions={move.repetitions}
-              source={{ uri: move.image }}
+              source={{ uri: move.imageUrl }}
             />
           </TouchableOpacity>
 
@@ -120,7 +120,7 @@ class Activity extends Component {
             <MoveItem 
               name={move.name}
               repetitions={move.repetitions}
-              source={{ uri: move.image }}
+              source={{ uri: move.imageUrl }}
             />
           </TouchableOpacity>
 

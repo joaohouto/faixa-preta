@@ -120,7 +120,7 @@ class ActivityRunning extends Component {
       <CustomHeader icon="x" dark={true} navigation={this.props.navigation} />
 
       <Container 
-        source={{ uri: timerOn && moves[currentMove].image }}
+        source={{ uri: timerOn && moves[currentMove].imageUrl }}
         
         style={{ resizeMode: 'contain' }}
         imageStyle={{ opacity: 0.5 }}

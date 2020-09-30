@@ -2,10 +2,19 @@ import React from 'react';
 
 import { Row, Title, Tags, ActivityImage, Section } from './styles';
 
-const Button = ({ name, tags }) => {
+const Button = ({ name, tags, source, onPress, ...rest }) => {
     return (
-        <Row>
-            <ActivityImage />
+        <Row onPress={onPress} {...rest}>
+            <ActivityImage 
+                source={source} 
+                style={{ 
+                    borderBottomLeftRadius: 20,
+                    borderBottomRightRadius: 20,
+                    borderTopRightRadius: 20,
+                    borderTopLeftRadius: 20,
+                    overflow: 'hidden' 
+                }} 
+            />
             <Section>
                 <Title>{name}</Title>
                 <Tags>

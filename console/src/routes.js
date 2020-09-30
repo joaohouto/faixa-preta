@@ -1,31 +1,31 @@
-import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import React from 'react'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import Home from './pages/Home'
+import Login from './pages/Login'
+import Activities from './pages/Activities'
+import EditActivity from './pages/EditActivity'
+import AddActivity from './pages/AddActivity'
+import Moves from './pages/Moves'
+import EditMove from './pages/EditMove'
+import AddMove from './pages/AddMove'
 
-import Activities from './pages/Activities';
-import ActivityEdit from './pages/ActivityEdit';
-import ActivityNew from './pages/ActivityNew';
+const Routes = () => {
+    return (
+        <BrowserRouter>
+            <Switch>
+                <Route exact path="/" component={Login} />
 
-import Moves from './pages/Moves';
-import MoveEdit from './pages/MoveEdit';
-import MoveNew from './pages/MoveNew';
+                <Route exact path="/moves/add" component={AddMove} />
+                <Route exact path="/moves/:page_id" component={Moves} />
+                <Route exact path="/moves/edit/:move_id" component={EditMove} />
 
-const Routes = () => (
-    <BrowserRouter>
-        <Switch>
-            <Route exact path="/" component={Home} />
+                <Route exact path="/activities/add" component={AddActivity} />
+                <Route exact path="/activities/:page_id" component={Activities} />
+                <Route exact path="/activities/edit/:activity_id" component={EditActivity} />
 
-            <Route exact path="/activities/:page_id" component={Activities} />
-            <Route exact path="/activities/edit/:actv_id" component={ActivityEdit} />
-            <Route exact path="/activities/new/0" component={ActivityNew} />
-
-            <Route exact path="/moves/:page_id" component={Moves} />
-            <Route exact path="/moves/edit/:move_id" component={MoveEdit} />
-            <Route exact path="/moves/new/0" component={MoveNew} />
-
-        </Switch>
-    </BrowserRouter>
-);
+            </Switch>
+        </BrowserRouter>
+    );
+}
 
 export default Routes;

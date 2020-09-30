@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, Alert } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 
@@ -14,11 +14,13 @@ class ActivityFinished extends Component {
   state = {
     activity: {},
     moves: [],
-    timerTime: null
+    timerTime: null,
+    runnedActivities: []
   }
 
   componentDidMount() {
     this.loadData();
+    this.getRunnedActivities();
     setTimeout(() => this.saveData(), 2000);
   }
 
@@ -30,30 +32,34 @@ class ActivityFinished extends Component {
 
   saveData = async () => {
 
-    const data = {
-      id: this.getDate() + this.state.timerTime,
+    let activityFinishedData = {
+      id: this.state.activity.name + this.getDate() + this.state.timerTime,
       name: this.state.activity.name,
       date: this.getDate(),
       time: this.state.timerTime
-    }
+    };
+
+    let runnedActivities = this.state.runnedActivities.unshift(activityFinishedData);
 
     try {
-      const runnedActivities = JSON.parse(await AsyncStorage.getItem('@runnedActivities'));
 
-      let newRunnedActivities;
+      await AsyncStorage.setItem('@runnedActivities', JSON.stringify(runnedActivities));
+      Alert.alert("Salvar atividade", "Feito! Sua atividade foi salva.");
+
+    } catch(e){
+      console.log(e);
+    }
+  }
+
+  getRunnedActivities = async () => {
+    try {
+      const runnedActivities = await AsyncStorage.getItem('@runnedActivities');
 
       if (runnedActivities !== null) {
-        if(runnedActivities == "1"){
-          newRunnedActivities = []
-
-        } else {
-          newRunnedActivities = JSON.parse(runnedActivities);
-        }
+        let act = JSON.parse(runnedActivities);
+        this.setState({ runnedActivities: act });
       }
-      
-      await AsyncStorage.setItem('@runnedActivities', JSON.stringify(newRunnedActivities));
-    
-    } catch(e){
+    } catch (e) {
       console.log(e);
     }
   }

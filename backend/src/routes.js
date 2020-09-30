@@ -19,15 +19,12 @@ routes.get('/verifytoken', verifyToken, (req, res) => {
 routes.route('/login')
     .post(UserController.login);
 
-/* routes.route('/users')
+routes.route('/users')
     .post(UserController.create)
-    .get(UserController.findAll); */
-
-/* routes.route('/users/:user_id')
-    .put(UserController.update)
     .delete(UserController.delete)
-    .get(UserController.findOne); */
-
+    .get(UserController.findAll)
+    
+routes.route('/users/:user_id').delete(UserController.delete)
 
 //Move
 routes.route('/moves').get(MoveController.findAll);

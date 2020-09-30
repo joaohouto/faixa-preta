@@ -1,37 +1,45 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Image } from 'react-native'
-import { Icon } from 'react-native-elements'
+import { Linking } from 'react-native'
 
-import api from '../../services/api';
+import {getLinkPreview} from 'link-preview-js';
 
 import CustomHeader from '../../components/CustomHeader'
 import ActivityItem from '../../components/ActivityItem'
+import LoadingActivityItem from '../../components/LoadingActivityItem'
 
-import { ContainerLight, PageTitleDark, Row } from '../../components/Global';
-import { Label, Details, ImageBox, Title, Category, ImageBoxContent } from './styles';
+import { ContainerLight, Row } from '../../components/Global';
+import { Label, Details, ImageBox, Title, Category, ImageBoxContent, FifityFiveView } from './styles';
 
 class Move extends Component {
 
   state = {
-    move: {}
+    move: {},
+    videos: [],
+    loading: true
   }
 
   componentDidMount() {
     this.loadMove();
   }
 
-  loadMove = () => {
-
+  loadMove = async () => {
     const { move } = this.props.route.params;
-    this.setState({ move });
+    await this.setState({ move });
 
-    console.log(move.videoUrl)
+    const { videoUrl } = this.state.move;
 
+    for (const url of videoUrl) {
+      const data = await getLinkPreview('https://youtube.com/watch?v=' + url);
+
+      this.setState({ videos: this.state.videos.concat([{ title: data.title, description: data.description, id: url }]) });
+    }
+
+    this.setState({ loading: false });
   }
 
   render() {
 
-  const { move } = this.state;
+  const { move, videos, loading } = this.state;
  
   return (
     <>
@@ -39,7 +47,7 @@ class Move extends Component {
       <ContainerLight>
 
         <ImageBox>
-          <ImageBoxContent source={{ uri: move.image }} />
+          <ImageBoxContent source={{ uri: move.imageUrl }} />
         </ImageBox>
 
         <Category>{move.category}</Category>
@@ -48,16 +56,19 @@ class Move extends Component {
           {move.details}
         </Details>
 
-        { move.videos && <Label>YouTube</Label> }
+        <Label>YouTube</Label>
 
-        { move.videos && move.videos.map(video => (
+        { !loading ? videos.map(video => (
           <ActivityItem 
-            key={video.url}
-            name={video.name}
-            tags={[video.author]}
-            source={{ uri: 'https://img.youtube.com/vi/'+ video.url +'/1.jpg' }}
+            key={video.id}
+            name={video.title}
+            tags={[]}
+            source={{ uri: 'https://img.youtube.com/vi/'+ video.id +'/mqdefault.jpg' }}
+            onPress={() => Linking.openURL("https://www.youtube.com/watch?v=" + video.id)}
           />
-        )) }
+        )) : <LoadingActivityItem /> }
+
+        <FifityFiveView />
         
       </ContainerLight>
     </>

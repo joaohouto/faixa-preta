@@ -1,4 +1,5 @@
 const Move = require('../models/Move');
+const { move } = require('../routes');
 
 module.exports = {
 
@@ -30,7 +31,7 @@ module.exports = {
                 category: req.body.category,
                 details: req.body.details,
                 imageUrl: req.body.imageUrl,
-                videos: req.body.videos
+                videoUrl: req.body.videoUrl
             });
 
             const created = await move.save();
@@ -81,7 +82,7 @@ module.exports = {
                 details: req.body.details,
                 difficulty: req.body.difficulty,
                 imageUrl: req.body.imageUrl,
-                videos: req.body.videos
+                videoUrl: req.body.videoUrl
             }, {new: true});
     
             if(!move) {

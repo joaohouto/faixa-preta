@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Row = styled.View`
+export const Row = styled.TouchableOpacity`
     display: flex;
     margin-bottom: 22px;
     flex-direction: row;
@@ -10,6 +10,7 @@ export const Title = styled.Text`
     font-size: 18px;
     color: #111;
     font-weight: bold;
+    width: 200px;
 `;
 
 export const Tags = styled.Text`

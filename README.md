@@ -1,40 +1,63 @@
 <img src="./web/src/assets/logo-x.svg" width="200"/>
-# Faixa Preta
 
-[![Author](https://img.shields.io/badge/author-joaocou-222222)](https://github.com/joaocou)
-[![Languages](https://img.shields.io/github/languages/count/joaocou/faixa-preta?color=222222)](https://github.com/joaocou/faixa-preta/)
+# <a href="https://github.com/joaocou/faixa-preta">Faixa Preta</a>
 
-O Faixa Preta é a proposta de um app para ajudar karatecas em seus treinos individuais, contando com recursos que facilitam o aprendizado e o seu aperfeiçoamento.
-
-#### 📌 Requisitos
-
-- Exibir treinos para o usuário;
-- Monitorar execução de treinos;
-- Exibir desempenho durante os treinos;
-- Exibir notícias;
+[![Author](https://img.shields.io/badge/author-joaocou-222)](https://github.com/joaocou)
+[![Languages](https://img.shields.io/github/languages/count/joaocou/faixa-preta?color=222)](https://github.com/joaocou/faixa-preta/)
+[![Repo Size](https://img.shields.io/github/repo-size/joaocou/faixa-preta?color=222)](https://github.com/joaocou/faixa-preta/)
 
 
-#### ⚙️ Dependências
+> O Faixa Preta é a proposta de uma plataforma de acompanahamento de treinos individuais de Karatê Shotkan.
 
-API
-- Node.js;
-- Express;
-- Mongoose;
-- MongoDB;
 
-Console (CRUD)
-- React.js;
-- Bootstrap 4.4.1;
-- Axios;
+### 📌 Sumário
 
-Mobile
-- React Native;
-- Expo;
-- React Native Animated;
-- Axios;
-- AsyncStorage;
-- SVG Charts;
+- <a href="#Caracteristicas">Características</a>
+- <a href="#Telas">Telas</a>
+- <a href="#Tecnologias">Tecnologias</a>
 
-Web
-- React.js;
-- React Router DOM;
+<hr>
+
+### <span id="Caracteristicas">⚙️ Características</span>
+
+- Listar movimentos
+- Listar atividades
+- Gravar atividade
+- Listar atividades gravadas
+- Manter movimentos e atividades
+
+### <span id="Telas">📱 Telas</span>
+
+
+
+### <span id="Tecnologias">💻 Tecnologias</span>
+
+*Backend*
+- JavaScript
+- Express.js
+- MongoDB
+- Mongoose
+- Mongoose Paginate
+- Cors
+
+*Web*
+- JavaScript
+- React.js
+- React Router Dom
+- Axios
+- Styled Components
+
+
+*Mobile*
+- JavaScript
+- React Native
+- Expo.io 
+- React Native Elements
+- React Navigation
+- Axios
+- Styled Components
+
+
+<hr>
+
+Feito por <a href="https://github.com/joaocou">João Couto</a>

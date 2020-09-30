@@ -143,15 +143,15 @@ class ActivityList extends Component {
 
         { !loading ? 
             activities.length > 0 ? activities.map(activity => (
-              <TouchableOpacity 
+              <ActivityItem 
+                name={activity.name}
+                tags={activity.tags}
+                source={{ uri: activity.imageUrl }}
+
                 key={activity._id}
-                 onPress={() => this.props.navigation.navigate('Activity', { activity: activity })}
-              >
-                <ActivityItem 
-                  name={activity.name}
-                  tags={activity.tags}
-                />
-              </TouchableOpacity>
+                onPress={() => this.props.navigation.navigate('Activity', { activity: activity })}
+
+              />
             )) : (
               <Row>
                 <NotFoundMessage>Nada foi encontrado!</NotFoundMessage>

@@ -22,11 +22,7 @@ const MoveSchema = mongoose.Schema({
         required: true
     },
 
-    videos: [{
-        url: String,
-        title: String,
-        author: String
-    }],
+    videoUrl: [String],
 
     createdAt: {
         type: Date,

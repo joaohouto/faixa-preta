@@ -21,13 +21,13 @@ class History extends Component {
   loadData = async () => {
 
     try {
-      let runnedActivities = await AsyncStorage.getItem('@runnedActivities');
-      runnedActivities = JSON.parse(runnedActivities);
-      console.log(runnedActivities)
+      const runnedActivities = await AsyncStorage.getItem('@runnedActivities');
 
-      this.setState({ runnedActivities });
-    
-    } catch(e){
+      if (runnedActivities !== null) {
+        let act = JSON.parse(runnedActivities);
+        this.setState({ runnedActivities: act });
+      }
+    } catch (e) {
       console.log(e);
     }
   }
@@ -38,6 +38,37 @@ class History extends Component {
     const hours = ("0" + Math.floor(timerTime / 3600000)).slice(-2);
 
     return hours + ':' + minutes + ':' + seconds;
+  }
+
+  fillChart = async () => {
+
+    //Preenche o gráfico de barras
+    let { oldActivities } = this.state;
+    
+    let semana = this.pegarSemanaAtual();
+    let xpSemana = [];
+
+    this.setState({ weekPeriod: semana[0].slice(0,5) + " - " + semana[6].slice(0,5) });
+
+    semana.forEach(data => {
+      let xpNesseDia = 0;
+
+      oldActivities.forEach(actv => {
+        if(data == actv.date){
+          xpNesseDia = xpNesseDia + actv.xpEarned;
+        }
+      });
+
+      xpSemana.push(xpNesseDia);
+      xpNesseDia = 0;
+
+    });
+
+    this.setState({ weekXpData: xpSemana });
+
+    console.log("Semana:");
+    console.log(xpSemana);
+
   }
 
   render() {
@@ -56,7 +87,7 @@ class History extends Component {
           <MoveItemSearched 
             key={activity.id}
             name={activity.name}
-            category={`${activity.date} - ${this.parseTime(activity.time)}`}
+            category={`${activity.date} - ${() => this.parseTime(activity.time)}`}
           />
         )) }
 
