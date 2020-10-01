@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Linking } from 'react-native'
 
-import {getLinkPreview} from 'link-preview-js';
+//import {getLinkPreview} from 'link-preview-js';
 
 import CustomHeader from '../../components/CustomHeader'
 import ActivityItem from '../../components/ActivityItem'
@@ -27,6 +27,9 @@ class Move extends Component {
     await this.setState({ move });
 
     const { videoUrl } = this.state.move;
+    this.setState({ loading: false });
+
+    return
 
     for (const url of videoUrl) {
       const data = await getLinkPreview('https://youtube.com/watch?v=' + url);
@@ -34,7 +37,6 @@ class Move extends Component {
       this.setState({ videos: this.state.videos.concat([{ title: data.title, description: data.description, id: url }]) });
     }
 
-    this.setState({ loading: false });
   }
 
   render() {
