@@ -16,7 +16,7 @@ export const BottomContainer = styled.View`
 `;
 
 export const Timer = styled.Text`
-    font-size: 24px;
+    font-size: 20px;
     color: #999;
     font-weight: bold;
 `;
@@ -29,7 +29,7 @@ export const Do = styled.Text`
 `;
 
 export const MoveName = styled.Text`
-    font-size: 36px;
+    font-size: 34px;
     color: #fff;
     font-weight: bold;
 `;

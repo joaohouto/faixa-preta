@@ -20,10 +20,10 @@ export const Title = styled.Text`
 
 export const LittleCard = styled.ImageBackground`
     height: 66px;
-    width: 105px;
+    width: 100px;
     background: #222;
     border-radius: 20px;
-    margin-bottom: 20px;
+    margin: 10px 5px;
 `;
 
 export const LittleCardText = styled.Text`
@@ -51,4 +51,8 @@ export const BigCardText = styled.Text`
     position: absolute;
     bottom: 20px;
     left: 30px;
+`;
+
+export const FifityFiveView = styled.View`
+    height: 55px;
 `;

@@ -42,6 +42,7 @@ export const RowBoxItem = styled.View`
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    align-items: center;
     width: ${(Dimensions.get('screen').width -45) /2 }px;
 `;
 

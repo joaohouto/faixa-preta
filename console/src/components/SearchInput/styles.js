@@ -11,7 +11,7 @@ export const IconContainer = styled.button`
     position: absolute;
     right: 0;
     background: transparent;
-    `;
+`;
 
 export const Icon = styled.img`
     margin-right: 25px;
@@ -28,8 +28,8 @@ export const InputElement = styled.input`
     font-size: 14px;
     border-radius: 20px;
 
-    border: 0;
-    background: #f1f1f1;
+    border: 2px solid #ddd;
+    background: #fafafa;
     color: #222;
 
     outline: 0;

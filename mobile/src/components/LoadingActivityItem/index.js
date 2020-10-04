@@ -41,30 +41,6 @@ class LoadingActivityItem extends Component {
                     <Tags />
                 </Section>
             </Row>
-
-            <Row>
-                <ActivityImage />
-                <Section>
-                    <Title />
-                    <Tags />
-                </Section>
-            </Row>
-
-            <Row>
-                <ActivityImage />
-                <Section>
-                    <Title />
-                    <Tags />
-                </Section>
-            </Row>
-
-            <Row>
-                <ActivityImage />
-                <Section>
-                    <Title />
-                    <Tags />
-                </Section>
-            </Row>
         </Animated.View>        
     )
   }

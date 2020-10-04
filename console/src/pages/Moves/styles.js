@@ -8,6 +8,11 @@ export const Container = styled.div`
     display: grid;
     grid-template-columns: 250px auto; 
     grid-template-rows: 60px auto;
+
+    @media (max-width: 800px) {
+        display: flex;
+        flex-direction: column;
+    }
 `;
 
 export const Logo = styled.img`
@@ -19,9 +24,15 @@ export const Header = styled.div`
     height: 100%;
     width: 100%;
     background: #f1f1f1;
+    display: flex;
+    justify-content: space-between;
 
     grid-column-start: 1;
     grid-column-end: 3;
+
+    @media (max-width: 800px) {
+        height: 60px;
+    }
 `;
 
 export const LeftBar = styled.div`
@@ -31,6 +42,11 @@ export const LeftBar = styled.div`
 
     display: flex;
     flex-direction: column;
+
+    @media (max-width: 800px) {
+        height: 350px;
+        display: none;
+    }
 `;
 
 export const Main = styled.div`

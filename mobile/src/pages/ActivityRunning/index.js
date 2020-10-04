@@ -42,11 +42,14 @@ class ActivityRunning extends Component {
   showAlert = () => {
     Alert.alert(
       'Prepare-se',
-      'Quando estiver pronto para iniciar a atividade, toque em iniciar.\n\nUm cronômetro irá gravar o tempo que você levar para executar o exercício. Caso queira fazer uma pausa, utilize o grupo de botões inferiores.',
+      'Quando estiver pronto para iniciar a atividade, toque em iniciar.\n\nUm cronômetro irá gravar o tempo de execução do exercício. Caso queira fazer uma pausa, utilize o grupo de botões inferiores.',
       [
         {
           text: 'Cancelar',
-          onPress: () => console.log('Cancel Pressed'),
+          onPress: () => {
+            this.stopTimer();
+            this.props.navigation.popToTop();
+          },
           style: 'cancel'
         },
         { text: 'Iniciar', onPress: () => this.startTimer() }
@@ -89,17 +92,15 @@ class ActivityRunning extends Component {
   handleCancel = () => {
     Alert.alert(
       'Tem certeza?',
-      'O grupo de movimentos atuais não será contabilizado no relatório!',
+      'Seu progresso não será registrado!',
       [
         {
           text: 'Voltar',
-          onPress: () => console.log('Cancelado!'),
           style: 'cancel'
         },
         { text: 'Finalizar', onPress: () => {
           this.stopTimer();
-
-
+          this.props.navigation.popToTop();
         } }
       ],
       { cancelable: false }
@@ -120,26 +121,13 @@ class ActivityRunning extends Component {
       <CustomHeader icon="x" dark={true} navigation={this.props.navigation} />
 
       <Container 
-        source={{ uri: timerOn && moves[currentMove].imageUrl }}
+        source={{ uri: timerOn ? moves[currentMove].imageUrl : "default" }}
         
         style={{ resizeMode: 'contain' }}
-        imageStyle={{ opacity: 0.5 }}
+        imageStyle={{ opacity: 0.4 }}
       >
 
-        <Row style={{ justifyContent: 'flex-start' }}>
-          <View style={{ width: 30 }}>
-            <View 
-              style={{ 
-                height: 20, 
-                width: 20, 
-                borderRadius: 10, 
-                backgroundColor: '#fff' 
-                }} 
-            />
-          </View>
-
-          <Timer>{hours}:{minutes}:{seconds}</Timer>
-        </Row>
+        <Timer>{hours}:{minutes}:{seconds}</Timer>
         
         <Row style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
           

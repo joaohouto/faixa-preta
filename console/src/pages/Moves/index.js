@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
+import { logout } from '../../services/auth'
 import api from '../../api'
 
 import logoImg from '../../assets/images/logo-x.svg'
@@ -89,9 +90,13 @@ export default class Dashboard extends Component {
                 <Logo src={logoImg} alt="Faixa Preta" />
             </Header>
 
-            <LeftBar>
-                <Link to="/moves/1"><LinkItem>Movimentos</LinkItem></Link>
-                <Link to="/activities/1"><LinkItem>Atividades</LinkItem></Link>
+            <LeftBar style={{ justifyContent: 'space-between' }}>
+                <div>
+                    <Link to="/moves/1"><LinkItem>Movimentos</LinkItem></Link>
+                    <Link to="/activities/1"><LinkItem>Atividades</LinkItem></Link>
+                </div>
+
+                <Link to="#" onClick={() => logout()}><LinkItem style={{ backgroundColor: '#111' }}>Sair</LinkItem></Link>
             </LeftBar>
 
             <Main>

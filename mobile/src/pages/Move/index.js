@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Linking } from 'react-native'
 
-//import {getLinkPreview} from 'link-preview-js';
+import { getLinkPreview } from 'link-preview-js';
 
 import CustomHeader from '../../components/CustomHeader'
 import ActivityItem from '../../components/ActivityItem'
@@ -27,16 +27,16 @@ class Move extends Component {
     await this.setState({ move });
 
     const { videoUrl } = this.state.move;
-    this.setState({ loading: false });
-
-    return
-
+    
     for (const url of videoUrl) {
       const data = await getLinkPreview('https://youtube.com/watch?v=' + url);
-
-      this.setState({ videos: this.state.videos.concat([{ title: data.title, description: data.description, id: url }]) });
+      
+      this.setState({ 
+        videos: this.state.videos.concat([{ title: data.title, description: data.description, id: url }]) 
+      });
     }
-
+    
+    this.setState({ loading: false });
   }
 
   render() {
@@ -55,7 +55,7 @@ class Move extends Component {
         <Category>{move.category}</Category>
         <Title>{move.name}</Title>
         <Details>
-          {move.details}
+          { move.details }
         </Details>
 
         <Label>YouTube</Label>
@@ -63,8 +63,8 @@ class Move extends Component {
         { !loading ? videos.map(video => (
           <ActivityItem 
             key={video.id}
-            name={video.title}
-            tags={[]}
+            name={video.title.slice(0, 15)}
+            tags={[video.description.slice(0, 20) + "..."]}
             source={{ uri: 'https://img.youtube.com/vi/'+ video.id +'/mqdefault.jpg' }}
             onPress={() => Linking.openURL("https://www.youtube.com/watch?v=" + video.id)}
           />

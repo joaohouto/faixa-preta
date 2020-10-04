@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useState, useContext } from 'react'
+import { useHistory, Redirect } from 'react-router-dom'
 
 import api from '../../api'
-import { verifyAuth } from '../../services/auth'
 
 import { PageTitleDark } from '../../components/Global'
 import { Container, Form, Logo } from './styles';

@@ -5,7 +5,7 @@ import HomeHeader from '../../components/HomeHeader'
 import Badge from '../../components/Badge'
 
 import { ContainerDark, Row } from '../../components/Global'
-import { Rectangle, Title, LittleCard, LittleCardText, BigCard, BigCardText } from './styles.js'
+import { Rectangle, Title, LittleCard, LittleCardText, BigCard, BigCardText, FifityFiveView } from './styles.js'
 
 import kihonImg from '../../assets/images/kihon.png';
 import kataImg from '../../assets/images/kata.png';
@@ -49,6 +49,8 @@ const Explore = ({ navigation }) => {
             <BigCardText>Exame de Faixa</BigCardText>
           </BigCard>
         </TouchableOpacity>
+
+        <FifityFiveView />
 
       </ContainerDark>
     </>

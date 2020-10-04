@@ -18,9 +18,9 @@ const Statistics = ({ navigation }) => {
 
         <Badge dark={true}>Geral</Badge>
         <StatsRow 
-          week="45''32'" 
-          month="45''32'" 
-          total="40°45''32'" 
+          week="1h33min" 
+          month="10h50min" 
+          total="999h50min" 
         />
 
         <Badge dark={true}>Detalhado</Badge>

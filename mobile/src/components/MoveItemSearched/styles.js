@@ -10,7 +10,7 @@ export const Title = styled.Text`
     font-size: 18px;
     color: #fff;
     font-weight: bold;
-    max-width: 250px;
+    max-width: 240px;
 `;
 
 export const Tags = styled.Text`

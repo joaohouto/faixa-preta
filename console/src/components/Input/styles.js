@@ -3,14 +3,14 @@ import styled from 'styled-components';
 export const InputBox = styled.div`
     display: flex;
     flex-direction: column;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
 `;
 
 export const InputLabel = styled.label`
     font-size: 14px;
     font-weight: bold;
     color: #999;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 `;
 
 export const InputElement = styled.input`
@@ -22,8 +22,8 @@ export const InputElement = styled.input`
     font-size: 14px;
     border-radius: 20px;
 
-    border: 0;
-    background: #f1f1f1;
+    border: 2px solid #ddd;
+    background: #fafafa;
     color: #111;
 
     outline: 0;

@@ -10,7 +10,6 @@ export const Container = styled.div`
     align-items: center;
 
     @media (max-width: 800px) {
-        height: 100%;
         width: 100%;
 
         display: flex;

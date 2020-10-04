@@ -157,7 +157,10 @@ class ActivityList extends Component {
                 <NotFoundMessage>Nada foi encontrado!</NotFoundMessage>
               </Row>
           ) : (
-            <LoadingActivityItem />
+            <>
+              <LoadingActivityItem />
+              <LoadingActivityItem />
+            </>
           ) }
 
         { !loading ? currentPage < totalPages && (

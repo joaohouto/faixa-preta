@@ -17,7 +17,7 @@ export const Section = styled.View`
 `;
 
 export const Time = styled.Text`
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     color: #fff;
 `;

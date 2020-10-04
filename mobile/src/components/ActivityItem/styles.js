@@ -10,13 +10,14 @@ export const Title = styled.Text`
     font-size: 18px;
     color: #111;
     font-weight: bold;
-    width: 200px;
+    max-width: 200px;
 `;
 
 export const Tags = styled.Text`
     font-size: 14px;
     color: #999;
     font-weight: bold;
+    max-width: 200px;
 `;
 
 export const Section = styled.View`

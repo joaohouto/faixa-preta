@@ -5,3 +5,9 @@ export const verifyAuth = async () => {
 
     return response.data.auth;
 }
+    
+export const logout = () => {
+    localStorage.removeItem('@faixa-preta/token');
+
+    window.location.href = "/";
+}

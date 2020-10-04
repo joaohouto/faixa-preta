@@ -91,7 +91,7 @@ export const MoveItemTitle = styled.p`
 export const InputBox = styled.div`
     display: flex;
     flex-direction: column;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
     width: 100%;
     padding: 25px;
     border-radius: 20px;
@@ -105,8 +105,8 @@ export const InputBox = styled.div`
 export const InputLabel = styled.label`
     font-size: 14px;
     font-weight: bold;
+    margin-bottom: 8px;
     color: #999;
-    margin-bottom: 4px;
 `;
 
 export const Tags = styled.span`

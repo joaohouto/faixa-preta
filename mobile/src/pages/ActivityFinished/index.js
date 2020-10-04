@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { AsyncStorage, Alert } from 'react-native'
 import { Icon } from 'react-native-elements'
 
-
 import CustomHeader from '../../components/CustomHeader'
 import Badge from '../../components/Badge'
 
@@ -20,46 +19,49 @@ class ActivityFinished extends Component {
 
   componentDidMount() {
     this.loadData();
-    this.getRunnedActivities();
-    setTimeout(() => this.saveData(), 2000);
   }
 
   loadData = () => {
     const { activity, moves, timerTime } = this.props.route.params;
 
     this.setState({ activity, moves, timerTime });
+
+    this.getRunnedActivities();
+  }
+
+  getRunnedActivities = async () => {
+    try {
+      const runnedActivities = await AsyncStorage.getItem('@runnedActivities');
+      let act = JSON.parse(runnedActivities);
+
+      console.log(act)
+
+      if (runnedActivities !== null && runnedActivities !== undefined && runnedActivities !== "1") {
+        await this.setState({ runnedActivities: act }); 
+      }
+    } catch (e) {
+      console.log(e);
+    }
+
+    //this.saveData();
   }
 
   saveData = async () => {
 
-    let activityFinishedData = {
+    let activityFinishedData = await {
       id: this.state.activity.name + this.getDate() + this.state.timerTime,
       name: this.state.activity.name,
       date: this.getDate(),
       time: this.state.timerTime
     };
 
-    let runnedActivities = this.state.runnedActivities.unshift(activityFinishedData);
+    let runnedActivities = await this.state.runnedActivities.unshift(activityFinishedData);
 
     try {
-
       await AsyncStorage.setItem('@runnedActivities', JSON.stringify(runnedActivities));
-      Alert.alert("Salvar atividade", "Feito! Sua atividade foi salva.");
+      Alert.alert("Feito!", "Sua atividade foi salva.");
 
     } catch(e){
-      console.log(e);
-    }
-  }
-
-  getRunnedActivities = async () => {
-    try {
-      const runnedActivities = await AsyncStorage.getItem('@runnedActivities');
-
-      if (runnedActivities !== null) {
-        let act = JSON.parse(runnedActivities);
-        this.setState({ runnedActivities: act });
-      }
-    } catch (e) {
       console.log(e);
     }
   }

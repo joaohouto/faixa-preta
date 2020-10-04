@@ -26,7 +26,7 @@ export const WarningBox = styled.View`
 export const WarningBoxText = styled.Text`
     font-size: 14px;
     color: #999;
-    margin-left: 20px;
+    margin: 0px 20px;
 `;
 
 export const ButtonWrapper = styled.View`

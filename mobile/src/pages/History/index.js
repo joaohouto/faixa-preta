@@ -23,6 +23,8 @@ class History extends Component {
     try {
       const runnedActivities = await AsyncStorage.getItem('@runnedActivities');
 
+      console.log(runnedActivities)
+
       if (runnedActivities !== null) {
         let act = JSON.parse(runnedActivities);
         this.setState({ runnedActivities: act });
@@ -87,7 +89,7 @@ class History extends Component {
           <MoveItemSearched 
             key={activity.id}
             name={activity.name}
-            category={`${activity.date} - ${() => this.parseTime(activity.time)}`}
+            category={activity.date}
           />
         )) }
 
