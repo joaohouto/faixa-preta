@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { AsyncStorage, Alert } from 'react-native'
+import { Alert } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage';
 import { Icon } from 'react-native-elements'
 
 import CustomHeader from '../../components/CustomHeader'
@@ -14,56 +15,42 @@ class ActivityFinished extends Component {
     activity: {},
     moves: [],
     timerTime: null,
-    runnedActivities: []
+    oldActivities: []
   }
 
   componentDidMount() {
     this.loadData();
+    this.getOldActivities();
   }
 
   loadData = () => {
+
     const { activity, moves, timerTime } = this.props.route.params;
 
     this.setState({ activity, moves, timerTime });
-
-    this.getRunnedActivities();
-  }
-
-  getRunnedActivities = async () => {
-    try {
-      const runnedActivities = await AsyncStorage.getItem('@runnedActivities');
-      let act = JSON.parse(runnedActivities);
-
-      console.log(act)
-
-      if (runnedActivities !== null && runnedActivities !== undefined && runnedActivities !== "1") {
-        await this.setState({ runnedActivities: act }); 
-      }
-    } catch (e) {
-      console.log(e);
-    }
-
-    //this.saveData();
   }
 
   saveData = async () => {
 
-    let activityFinishedData = await {
+    let activityFinishedData = {
       id: this.state.activity.name + this.getDate() + this.state.timerTime,
-      name: this.state.activity.name,
       date: this.getDate(),
+      name: this.state.activity.name,
       time: this.state.timerTime
     };
 
-    let runnedActivities = await this.state.runnedActivities.unshift(activityFinishedData);
+    let { oldActivities } = this.state;
+    oldActivities = oldActivities.concat(activityFinishedData);
+
+    console.log(oldActivities);
 
     try {
-      await AsyncStorage.setItem('@runnedActivities', JSON.stringify(runnedActivities));
-      Alert.alert("Feito!", "Sua atividade foi salva.");
+      await AsyncStorage.setItem('@oldActivities', JSON.stringify(oldActivities));
 
     } catch(e){
       console.log(e);
     }
+
   }
 
   getDate() {
@@ -83,6 +70,27 @@ class ActivityFinished extends Component {
     }
 
     return dia + '/' + mes + '/' + ano4;
+  }
+
+  getOldActivities = async () => {
+    try {
+      const oldActivities = await AsyncStorage.getItem('@oldActivities');
+
+      if (oldActivities !== null) {
+        if(oldActivities == "1"){
+          this.setState({ oldActivities: [] });
+
+        } else {
+          let act = JSON.parse(oldActivities);
+          this.setState({ oldActivities: act });
+        }
+      }
+
+    } catch(e){
+      console.log(e);
+    }
+
+    this.saveData();
   }
 
   render() {

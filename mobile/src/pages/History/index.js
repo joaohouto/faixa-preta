@@ -3,7 +3,9 @@ import { AsyncStorage } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 import CustomHeader from '../../components/CustomHeader'
-import MoveItemSearched from '../../components/MoveItemSearched'
+import HistoryItem from '../../components/HistoryItem'
+import Badge from '../../components/Badge'
+import LoadingMoveItemSearched from '../../components/LoadingMoveItemSearched'
 
 import { ContainerDark, SimpleTextLight, PageTitleLight } from '../../components/Global';
 import { FifityFiveView } from './styles';
@@ -11,71 +13,41 @@ import { FifityFiveView } from './styles';
 class History extends Component {
 
   state = {
-    runnedActivities: []
+    oldActivities: [],
+    loading: true
   }
 
   componentDidMount() {
-    this.loadData();
+    this.getOldActivities();
   }
 
-  loadData = async () => {
-
+  getOldActivities = async () => {
     try {
-      const runnedActivities = await AsyncStorage.getItem('@runnedActivities');
+      const oldActivities = await AsyncStorage.getItem('@oldActivities');
 
-      console.log(runnedActivities)
+      if (oldActivities !== null) {
+        if(oldActivities == "1"){
+          this.setState({ oldActivities: [] });
 
-      if (runnedActivities !== null) {
-        let act = JSON.parse(runnedActivities);
-        this.setState({ runnedActivities: act });
+        } else {
+          let act = JSON.parse(oldActivities);
+
+          this.setState({ 
+            oldActivities: act.reverse(),
+            loading: false 
+          });
+        }
       }
-    } catch (e) {
+
+    } catch(e){
       console.log(e);
     }
-  }
-
-  parseTime = (timerTime) => {
-    const seconds = ("0" + (Math.floor(timerTime / 1000) % 60)).slice(-2);
-    const minutes = ("0" + (Math.floor(timerTime / 60000) % 60)).slice(-2);
-    const hours = ("0" + Math.floor(timerTime / 3600000)).slice(-2);
-
-    return hours + ':' + minutes + ':' + seconds;
-  }
-
-  fillChart = async () => {
-
-    //Preenche o gráfico de barras
-    let { oldActivities } = this.state;
-    
-    let semana = this.pegarSemanaAtual();
-    let xpSemana = [];
-
-    this.setState({ weekPeriod: semana[0].slice(0,5) + " - " + semana[6].slice(0,5) });
-
-    semana.forEach(data => {
-      let xpNesseDia = 0;
-
-      oldActivities.forEach(actv => {
-        if(data == actv.date){
-          xpNesseDia = xpNesseDia + actv.xpEarned;
-        }
-      });
-
-      xpSemana.push(xpNesseDia);
-      xpNesseDia = 0;
-
-    });
-
-    this.setState({ weekXpData: xpSemana });
-
-    console.log("Semana:");
-    console.log(xpSemana);
 
   }
 
   render() {
 
-  const { runnedActivities } = this.state;
+  const { oldActivities, loading } = this.state;
 
   return (
     <>
@@ -83,15 +55,18 @@ class History extends Component {
       <ContainerDark>
 
         <PageTitleLight>Histórico</PageTitleLight>
-        <SimpleTextLight>Detalhamento de todos os seus treinos executados.</SimpleTextLight>
+        <SimpleTextLight>Todos os treinos executados por você.</SimpleTextLight>
 
-        { runnedActivities.length > 0 && runnedActivities.map(activity => (
-          <MoveItemSearched 
+        <Badge>Tudo</Badge>
+
+        { !loading ? oldActivities.length > 0 && oldActivities.map(activity => (
+          <HistoryItem 
             key={activity.id}
             name={activity.name}
-            category={activity.date}
+            time={activity.time}
+            date={activity.date}
           />
-        )) }
+        )) : <LoadingMoveItemSearched /> }
 
         <FifityFiveView />
 

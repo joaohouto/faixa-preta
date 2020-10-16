@@ -1,10 +1,20 @@
 import React from 'react';
 
+import { parseTime } from '../../services/calendar';
+
 import { Container, FirstRow, SecondRow, SectionLeft, SectionRight, Section, LeftLabel, Overlay, Line, SectionBlank, SectionBottom, BottomLabel, Column } from './styles';
 
 const BarChart = ({ data, ...rest }) => {
 
-    const max = data.reduce((a, b) => {
+    const newValues = data.map(time => {
+        let onlyMinutes = parseTime(time);
+        onlyMinutes = onlyMinutes.split(':');
+        onlyMinutes = (onlyMinutes[0] * 60) + (onlyMinutes[1] * 1) + (onlyMinutes[2] / 60) | 0
+
+        return onlyMinutes
+    });
+
+    const max = newValues.reduce((a, b) => {
         return Math.max(a, b);
     });
 
@@ -12,9 +22,7 @@ const BarChart = ({ data, ...rest }) => {
     const half = max * 0.5;
     const quarter = max * 0.25;
 
-    const columnsHeight = data.map(value => {
-        return value * (100 / max)
-    });
+    const columnsHeight = newValues.map(value =>  value * (100 / max));
 
     return (
         <Container {...rest}>

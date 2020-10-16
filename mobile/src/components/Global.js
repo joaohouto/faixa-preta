@@ -49,3 +49,7 @@ export const Row = styled.View`
     justify-content: center;
     align-items: center;
 `;
+
+export const FifityFiveView = styled.View`
+    height: 55px;
+`;

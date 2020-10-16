@@ -1,5 +1,7 @@
-import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import React, { useEffect } from 'react';
+import { TouchableOpacity, Alert } from 'react-native';
+
+import api  from "../../services/api";
 
 import HomeHeader from '../../components/HomeHeader'
 import Badge from '../../components/Badge'
@@ -13,6 +15,27 @@ import kumiteImg from '../../assets/images/kumite.png';
 import exameImg from '../../assets/images/exame.png';
 
 const Explore = ({ navigation }) => {
+
+  useEffect(() => {
+
+    const verifyStatus = async () => {
+      try {
+        const response = await api.get('/');
+  
+        if(response.data.status !== "Online") {
+          Alert.alert('Aviso importante!', 'Os servidores do Faixa Preta estão em manutenção no momento, logo as funcionalidades do app podem não funcionar como o esperado.');
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    verifyStatus();
+  
+  }, []);
+
+  
+
   return (
     <>
       <HomeHeader />
