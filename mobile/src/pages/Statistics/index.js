@@ -44,9 +44,6 @@ export default class Statistics extends Component {
 
         } else {
           let act = JSON.parse(oldActivities);
-
-          /// console.log(act)
-
           this.setState({ oldActivities: act });
         }
       }
@@ -131,13 +128,13 @@ export default class Statistics extends Component {
       <>
         <HomeHeader />
         <ContainerDark>
-          <PageTitleLight>Desempenho</PageTitleLight>
+          <PageTitleLight>Estatísticas</PageTitleLight>
   
           <Badge dark={true}>Geral</Badge>
           <StatsRow 
-            week={weekTime} 
-            month={monthTime} 
-            total={totalTime} 
+            week={weekTime ? weekTime : "00:00:00" } 
+            month={monthTime ? monthTime : "00:00:00"} 
+            total={totalTime ? totalTime : "00:00:00"} 
           />
   
           <Badge dark={true}>Detalhado</Badge>

@@ -1,18 +1,25 @@
 import styled from 'styled-components'
+import { Dimensions } from 'react-native'
 
 export const Container = styled.ImageBackground`
-    flex: 1;
+    width: 100%;
+    height: ${Dimensions.get('screen').height - 240}px;
     background: #222;
     padding: 30px;
-
     display: flex;
     justify-content: space-between;
 `;
 
 export const BottomContainer = styled.View`
     height: 200px;
+    width: 100%;
     background: #111;
     padding: 30px;
+    border-top-right-radius: 40px;
+    border-top-left-radius: 40px;
+
+    position: absolute;
+    bottom: 0;
 `;
 
 export const Timer = styled.Text`
@@ -48,6 +55,14 @@ export const ButtonElement = styled.TouchableOpacity`
     align-items: center;
 
     background: #111;
+`;
+
+export const Label = styled.Text`
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
 `;
 
 export const TenView = styled.View`

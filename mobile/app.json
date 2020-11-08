@@ -30,8 +30,9 @@
     },
     "android": {
       "package": "com.faixapreta",
-      "versionCode": 2
+      "versionCode": 2,
+      "useNextNotificationsApi": true
     },
-    "description": "O Faixa Preta é a proposta de um app para ajudar karatecas em seus treinos individuais, contando com recursos que facilitam o aprendizado e o seu aperfeiçoamento."
+    "description": "O Faixa Preta é a proposta de um app para ajudar karatecas em seus treinos individuais."
   }
 }

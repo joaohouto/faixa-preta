@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
-import { TouchableOpacity, Alert } from 'react-native';
+import { Alert } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Icon } from 'react-native-elements';
 
 import api  from "../../services/api";
 
 import HomeHeader from '../../components/HomeHeader'
 import Badge from '../../components/Badge'
 
-import { ContainerDark, Row } from '../../components/Global'
-import { Rectangle, Title, LittleCard, LittleCardText, BigCard, BigCardText, FifityFiveView } from './styles.js'
+import { Row } from '../../components/Global';
+import { Scroll, ContainerDark, ContainerLight, LittleCard, BigCard, FifityFiveView, HorizontalRow, Avatar, Name } from './styles.js'
 
 import kihonImg from '../../assets/images/kihon.png';
 import kataImg from '../../assets/images/kata.png';
@@ -34,48 +36,51 @@ const Explore = ({ navigation }) => {
   
   }, []);
 
-  
-
   return (
     <>
       <HomeHeader />
-      <ContainerDark>
+      <Scroll>
+        <ContainerLight>
+          <Row style={{ justifyContent: 'flex-start' }}>
+            <Avatar source={{ uri: "https://avatars0.githubusercontent.com/u/31421876?s=460&u=39d86b3e443bf15e4a1d5a554c0426ae80dc9486&v=4" }} />
+          
+            <Row style={{ justifyContent: 'space-between', flex: 1 }}>
+              <Name>Olá,{'\n'}João Couto</Name>
 
-        <Rectangle>
-          <Title>
-            aprenda,{'\n'}
-            compartilhe,{'\n'}
-            aperfeiçoe-se.
-          </Title>
-        </Rectangle>
+              <TouchableOpacity>
+                <Icon name='more-vertical' type='feather' size={24} color="#fff" />
+              </TouchableOpacity>
+            </Row>
+          </Row>
+        </ContainerLight>
         
-        <Badge dark={true}>Fundamental</Badge>
+        <ContainerDark>
+          <Badge dark={true}>Fundamental</Badge>
 
-        <Row style={{ justifyContent: 'space-between' }}>
-          <TouchableOpacity onPress={() => navigation.navigate('ActivityList', { tag: 'Kihon' })}>
-            <LittleCard source={kihonImg}><LittleCardText>Kihon</LittleCardText></LittleCard>
+          <HorizontalRow horizontal={true}>
+            <TouchableOpacity onPress={() => navigation.navigate('ActivityList', { tag: 'Kihon' })}>
+              <LittleCard source={kihonImg} />
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => navigation.navigate('ActivityList', { tag: 'Kata' })}>
+              <LittleCard source={kataImg} />
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => navigation.navigate('ActivityList', { tag: 'Kumite' })}>
+              <LittleCard source={kumiteImg} />
+            </TouchableOpacity>
+          </HorizontalRow>
+
+          <Badge dark={true}>Recomendado</Badge>
+
+          <TouchableOpacity onPress={() => navigation.navigate('ActivityList', { tag: 'Exame' })}>
+            <BigCard source={exameImg} />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate('ActivityList', { tag: 'Kata' })}>
-            <LittleCard source={kataImg}><LittleCardText>Kata</LittleCardText></LittleCard>
-          </TouchableOpacity>
+          <FifityFiveView />
+        </ContainerDark>
 
-          <TouchableOpacity onPress={() => navigation.navigate('ActivityList', { tag: 'Kumite' })}>
-            <LittleCard source={kumiteImg}><LittleCardText>Kumite</LittleCardText></LittleCard>
-          </TouchableOpacity>
-        </Row>
-
-        <Badge dark={true}>Recomendado</Badge>
-
-        <TouchableOpacity onPress={() => navigation.navigate('ActivityList', { tag: 'Exame' })}>
-          <BigCard source={exameImg}>
-            <BigCardText>Exame de Faixa</BigCardText>
-          </BigCard>
-        </TouchableOpacity>
-
-        <FifityFiveView />
-
-      </ContainerDark>
+      </Scroll>
     </>
   );
 }

@@ -1,0 +1,34 @@
+import styled from 'styled-components';
+
+export const Row = styled.View`
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 22px;
+`;
+
+export const Section = styled.View`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+`;
+
+export const BlackDot = styled.View`
+    background: #333;
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+`;
+
+export const MoveName = styled.Text`
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0px 20px;
+`;
+
+export const MoveRepetitions = styled.Text`
+    color: #999;
+    font-size: 18px;
+    font-weight: bold;
+`;

@@ -1,7 +1,25 @@
 import React from 'react';
 
+import { AppLoading } from 'expo'
+
+import { Poppins_700Bold, useFonts } from '@expo-google-fonts/poppins'
+import { Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto'
+
 import Routes from './src/routes';
 
 export default function App() {
-  return <Routes />;
+
+  let [fontLoaded] = useFonts({
+    Poppins_700Bold,
+    Roboto_400Regular,
+    Roboto_700Bold
+  });
+
+  if (!fontLoaded) {
+
+    return <AppLoading />
+  } else {
+
+    return <Routes />;
+  }
 }

@@ -4,12 +4,10 @@ import { Icon } from 'react-native-elements'
 
 import CustomHeader from '../../components/CustomHeader'
 import Button from '../../components/Button'
-import MoveItem from '../../components/MoveItem'
+import MoveItemSmall from '../../components/MoveItemSmall'
 
 import { Row } from '../../components/Global';
-import { Container, BottomContainer, Timer, Do, MoveName, MoveRepetitions, ButtonElement, TenView  } from './styles';
-
-import nextImg from '../../assets/icons/next.png'
+import { Container, BottomContainer, Timer, Do, MoveName, MoveRepetitions, ButtonElement, TenView, Label } from './styles';
 
 class ActivityRunning extends Component {
 
@@ -129,7 +127,7 @@ class ActivityRunning extends Component {
 
         <Timer>{hours}:{minutes}:{seconds}</Timer>
         
-        <Row style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
+        <Row style={{ flexDirection: 'column', alignItems: 'flex-start', marginBottom: 40 }}>
           
 
           { timerOn && <Do>execute</Do> }
@@ -147,19 +145,17 @@ class ActivityRunning extends Component {
         
       </Container>
       <BottomContainer>
-        <Row style={{ justifyContent: 'flex-start' }}>
-          { moves[currentMove + 1] ? (
-            <MoveItem 
-              dark={true}
-              name={moves.length > 0 && moves[currentMove + 1].name}
-              repetitions={moves.length > 0 && moves[currentMove + 1].repetitions}
-              source={nextImg}
-            />
-          ) : (
-            <View style={{ height: 88 }}>
+        <Row style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+            <Label>Próximo</Label>
 
-            </View>
-          ) }
+            { moves[currentMove + 1] ? (
+              <MoveItemSmall 
+                name={moves.length > 0 && moves[currentMove + 1].name}
+                repetitions={moves.length > 0 && moves[currentMove + 1].repetitions}
+              />
+            ) : (
+              <View style={{ height: 60 }} />
+            ) }
         </Row>
 
         <Row>

@@ -37,13 +37,19 @@ class Activity extends Component {
       const moveResponse = await api.get('/moves/' + move.move_id);
 
       if (moveResponse.data.category === "Kihon")
-        this.setState({ kihonMoves: this.state.kihonMoves.concat({ ...moveResponse.data, repetitions: move.repetitions }) });
+        this.setState({ kihonMoves: this.state.kihonMoves.concat({ 
+          ...moveResponse.data, repetitions: move.repetitions 
+        }) });
 
       if (moveResponse.data.category === "Kata")
-        this.setState({ kataMoves: this.state.kataMoves.concat({ ...moveResponse.data, repetitions: move.repetitions }) });
+        this.setState({ kataMoves: this.state.kataMoves.concat({ 
+          ...moveResponse.data, repetitions: move.repetitions 
+        }) });
 
       if (moveResponse.data.category === "Kumite")
-        this.setState({ kumiteMoves: this.state.kumiteMoves.concat({ ...moveResponse.data, repetitions: move.repetitions }) });
+        this.setState({ kumiteMoves: this.state.kumiteMoves.concat({ 
+          ...moveResponse.data, repetitions: move.repetitions 
+        }) });
 
     }
 
@@ -125,8 +131,6 @@ class Activity extends Component {
           </TouchableOpacity>
 
         )) : <></> }
-                 
-                
 
         <FifityFiveView />
         

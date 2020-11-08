@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Alert } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
-import { Icon } from 'react-native-elements'
+
+import { getDate } from '../../services/calendar';
 
 import CustomHeader from '../../components/CustomHeader'
 import Badge from '../../components/Badge'
+import { Icon } from 'react-native-elements'
 
 import { ContainerDark, Row, PageTitleLight } from '../../components/Global';
 import { Container, GoodJob, Details, Square, RowBox, RowBoxItem, RowTitle, BlackDot, MoveName, MoveRepetitions, FifityFiveView } from './styles';
@@ -33,8 +34,8 @@ class ActivityFinished extends Component {
   saveData = async () => {
 
     let activityFinishedData = {
-      id: this.state.activity.name + this.getDate() + this.state.timerTime,
-      date: this.getDate(),
+      id: this.state.activity.name.replace(' ', '') + getDate().replace('/', '-') + this.state.timerTime,
+      date: getDate(),
       name: this.state.activity.name,
       time: this.state.timerTime
     };
@@ -51,25 +52,6 @@ class ActivityFinished extends Component {
       console.log(e);
     }
 
-  }
-
-  getDate() {
-    var data = new Date();
-
-    var dia     = data.getDate();          
-    var mes     = data.getMonth();          
-    var ano4    = data.getFullYear();       
-    mes += 1;
-
-    if(dia < 10){
-      dia = "0" + dia;
-    }
-
-    if(mes < 10){
-      mes = "0" + mes;
-    }
-
-    return dia + '/' + mes + '/' + ano4;
   }
 
   getOldActivities = async () => {

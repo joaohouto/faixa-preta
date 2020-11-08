@@ -57,7 +57,7 @@ const BottomTabs = () => {
                 name="Statistics" 
                 component={Statistics} 
                 options={{
-                    tabBarLabel: 'DESEMPENHO',
+                    tabBarLabel: 'HISTÓRICO',
                     tabBarIcon: ({ color, size, focused }) => {
                         return (
                             <Icon name='bar-chart' type='feather' size={24} color={focused ? '#ddd' : color} />
