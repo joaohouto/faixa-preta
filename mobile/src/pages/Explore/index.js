@@ -9,12 +9,26 @@ import HomeHeader from '../../components/HomeHeader'
 import Badge from '../../components/Badge'
 
 import { Row } from '../../components/Global';
-import { Scroll, ContainerDark, ContainerLight, LittleCard, BigCard, FifityFiveView, HorizontalRow, Avatar, Name } from './styles.js'
+import { 
+  Scroll, 
+  LittleContainer, 
+  ContainerLight, 
+  LittleCard, 
+  BigCard, 
+  FifityFiveView, 
+  HorizontalRow, 
+  KarateImage, 
+  Heading, 
+  DarkButton, 
+  DarkButtonText, 
+  HeadingBold
+} from './styles.js'
 
 import kihonImg from '../../assets/images/kihon.png';
 import kataImg from '../../assets/images/kata.png';
 import kumiteImg from '../../assets/images/kumite.png';
 import exameImg from '../../assets/images/exame.png';
+import karateImg from '../../assets/images/karate.png';
 
 const Explore = ({ navigation }) => {
 
@@ -41,36 +55,50 @@ const Explore = ({ navigation }) => {
       <HomeHeader />
       <Scroll>
         <ContainerLight>
-          <Row style={{ justifyContent: 'flex-start' }}>
-            <Avatar source={{ uri: "https://avatars0.githubusercontent.com/u/31421876?s=460&u=39d86b3e443bf15e4a1d5a554c0426ae80dc9486&v=4" }} />
-          
-            <Row style={{ justifyContent: 'space-between', flex: 1 }}>
-              <Name>Olá,{'\n'}João Couto</Name>
 
-              <TouchableOpacity>
-                <Icon name='more-vertical' type='feather' size={24} color="#fff" />
-              </TouchableOpacity>
+          <KarateImage source={karateImg} />
+          
+          <Row style={{ justifyContent: 'space-between', flex: 1 }}>
+            <Row style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
+              <Heading>Boa noite,</Heading>
+              <HeadingBold>João Henrique.</HeadingBold>
             </Row>
+
+            <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+              <Icon name='circle' type='feather' size={24} color="#999" />
+            </TouchableOpacity>
           </Row>
+
+          <DarkButton>
+            <Icon name='plus-circle' type='feather' size={24} color="#999" />
+          
+            <DarkButtonText 
+              onPress={() => navigation.navigate('FreeActivityRunning')}
+            >
+              TREINO LIVRE
+            </DarkButtonText>
+          </DarkButton>
         </ContainerLight>
         
-        <ContainerDark>
+        <LittleContainer>
           <Badge dark={true}>Fundamental</Badge>
+        </LittleContainer>
 
-          <HorizontalRow horizontal={true}>
-            <TouchableOpacity onPress={() => navigation.navigate('ActivityList', { tag: 'Kihon' })}>
-              <LittleCard source={kihonImg} />
-            </TouchableOpacity>
+        <HorizontalRow horizontal={true}>
+          <TouchableOpacity style={{ marginLeft: 30 }} onPress={() => navigation.navigate('ActivityList', { tag: 'Kihon' })}>
+            <LittleCard source={kihonImg} />
+          </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate('ActivityList', { tag: 'Kata' })}>
-              <LittleCard source={kataImg} />
-            </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('ActivityList', { tag: 'Kata' })}>
+            <LittleCard source={kataImg} />
+          </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate('ActivityList', { tag: 'Kumite' })}>
-              <LittleCard source={kumiteImg} />
-            </TouchableOpacity>
-          </HorizontalRow>
+          <TouchableOpacity style={{ marginRight: 30 }} onPress={() => navigation.navigate('ActivityList', { tag: 'Kumite' })}>
+            <LittleCard source={kumiteImg} />
+          </TouchableOpacity>
+        </HorizontalRow>
 
+        <LittleContainer>
           <Badge dark={true}>Recomendado</Badge>
 
           <TouchableOpacity onPress={() => navigation.navigate('ActivityList', { tag: 'Exame' })}>
@@ -78,7 +106,7 @@ const Explore = ({ navigation }) => {
           </TouchableOpacity>
 
           <FifityFiveView />
-        </ContainerDark>
+        </LittleContainer>
 
       </Scroll>
     </>

@@ -57,7 +57,7 @@ class History extends Component {
         <PageTitleLight>Histórico</PageTitleLight>
         <SimpleTextLight>Todos os treinos executados por você.</SimpleTextLight>
 
-        <Badge>Tudo</Badge>
+        <Badge dark>Tudo</Badge>
 
         { !loading ? oldActivities.length > 0 && oldActivities.map(activity => (
           <HistoryItem 

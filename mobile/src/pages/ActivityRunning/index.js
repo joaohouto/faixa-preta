@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
-import { Alert, View } from 'react-native'
+import { Alert } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 import CustomHeader from '../../components/CustomHeader'
 import Button from '../../components/Button'
 import MoveItemSmall from '../../components/MoveItemSmall'
+import BottomDrawer from '../../components/BottomDrawer'
 
 import { Row } from '../../components/Global';
-import { Container, BottomContainer, Timer, Do, MoveName, MoveRepetitions, ButtonElement, TenView, Label } from './styles';
+import { 
+  Container, 
+  ControlsContainer,
+  Timer, 
+  Do, 
+  MoveName, 
+  MoveRepetitions, 
+  ButtonElement, 
+  TenView, 
+  Label, 
+} from './styles';
 
 class ActivityRunning extends Component {
 
@@ -15,6 +26,8 @@ class ActivityRunning extends Component {
     activity: {},
     moves: [],
     currentMove: 0,
+    runnedMoves: [],
+    toRunMoves: [],
     timerOn: false,
     timerStart: 0,
     timerTime: 0
@@ -22,6 +35,7 @@ class ActivityRunning extends Component {
   componentDidMount() {
     this.loadMoves();
     this.showAlert();
+
   }
 
   componentWillUnmount() {
@@ -31,10 +45,14 @@ class ActivityRunning extends Component {
   loadMoves = () => {
     const { activity, kihonMoves, kataMoves, kumiteMoves } = this.props.route.params;
 
+    const moves = kihonMoves.concat(kataMoves.concat(kumiteMoves));
+
     this.setState({ 
       activity, 
-      moves: kihonMoves.concat(kataMoves.concat(kumiteMoves))
+      moves,
+      toRunMoves: moves.filter(move => move !== moves[0])
     });
+
   }
 
   showAlert = () => {
@@ -74,13 +92,16 @@ class ActivityRunning extends Component {
   }
 
   handleNext = () => {
-    if (this.state.currentMove + 1 < this.state.moves.length) {
-      this.setState({ currentMove: this.state.currentMove + 1 });
+    const { currentMove, moves, activity, timerTime, toRunMoves } = this.state;
+
+    if (currentMove + 1 < moves.length) {
+      this.setState({ 
+        currentMove: currentMove + 1,
+        toRunMoves: toRunMoves.filter(move => move !== moves[currentMove + 1])
+      });
       
     } else {
       this.stopTimer();
-
-      const { activity, moves, timerTime } = this.state;
 
       this.props.navigation.popToTop();
       this.props.navigation.navigate('ActivityFinished', { activity, moves, timerTime });
@@ -107,7 +128,7 @@ class ActivityRunning extends Component {
 
   render() {
 
-  const { activity, moves, currentMove } = this.state;
+  const { moves, currentMove, runnedMoves, toRunMoves } = this.state;
 
   const { timerTime, timerOn } = this.state;
   let seconds = ("0" + (Math.floor(timerTime / 1000) % 60)).slice(-2);
@@ -120,14 +141,11 @@ class ActivityRunning extends Component {
 
       <Container 
         source={{ uri: timerOn ? moves[currentMove].imageUrl : "default" }}
-        
         style={{ resizeMode: 'contain' }}
         imageStyle={{ opacity: 0.4 }}
       >
-
-        <Timer>{hours}:{minutes}:{seconds}</Timer>
         
-        <Row style={{ flexDirection: 'column', alignItems: 'flex-start', marginBottom: 40 }}>
+        <Row style={{ flexDirection: 'column', alignItems: 'flex-start', marginBottom: 60 }}>
           
 
           { timerOn && <Do>execute</Do> }
@@ -144,20 +162,8 @@ class ActivityRunning extends Component {
         </Row>
         
       </Container>
-      <BottomContainer>
-        <Row style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-            <Label>Próximo</Label>
 
-            { moves[currentMove + 1] ? (
-              <MoveItemSmall 
-                name={moves.length > 0 && moves[currentMove + 1].name}
-                repetitions={moves.length > 0 && moves[currentMove + 1].repetitions}
-              />
-            ) : (
-              <View style={{ height: 60 }} />
-            ) }
-        </Row>
-
+      <ControlsContainer>
         <Row>
           <Button 
             onPress={this.handleCancel}
@@ -184,7 +190,29 @@ class ActivityRunning extends Component {
             <Icon name="arrow-right" type='feather' size={24} color={timerOn ? "#fff" : "#999"} />
           </ButtonElement>
         </Row>
-      </BottomContainer>
+      </ControlsContainer>
+
+      <BottomDrawer>
+
+        <Row style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+          <Label>Tempo</Label>
+          <Timer>{hours}:{minutes}:{seconds}</Timer>
+        </Row>
+
+        <Row style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+          <Label>Próximo</Label>
+
+          { toRunMoves.length > 0 && toRunMoves.map(move => (
+            <MoveItemSmall 
+              key={move._id}
+              name={move.name}
+              repetitions={move.repetitions}
+            />
+          )) }
+          
+        </Row>
+
+      </BottomDrawer>
     </>
   );
   }

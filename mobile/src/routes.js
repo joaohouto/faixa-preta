@@ -6,8 +6,10 @@ import ActivityList from './pages/ActivityList';
 import Activity from './pages/Activity';
 import Move from './pages/Move';
 import ActivityRunning from './pages/ActivityRunning';
+import FreeActivityRunning from './pages/FreeActivityRunning';
 import ActivityFinished from './pages/ActivityFinished';
 import History from './pages/History';
+import Settings from './pages/Settings';
 
 import BottomTabs from './BottomTabs';
 
@@ -23,8 +25,10 @@ const Routes = () => {
                 <Screen name="Activity" component={Activity} />
                 <Screen name="Move" component={Move} />
                 <Screen name="ActivityRunning" component={ActivityRunning} />
+                <Screen name="FreeActivityRunning" component={FreeActivityRunning} />
                 <Screen name="ActivityFinished" component={ActivityFinished} />
                 <Screen name="History" component={History} />
+                <Screen name="Settings" component={Settings} />
             </Navigator>
         </NavigationContainer>
     )

@@ -8,7 +8,7 @@ import ActivityItem from '../../components/ActivityItem'
 import LoadingActivityItem from '../../components/LoadingActivityItem'
 
 import { ContainerLight, Row } from '../../components/Global';
-import { Label, Details, ImageBox, Title, Category, ImageBoxContent, FifityFiveView } from './styles';
+import { Label, Details, ImageBox, Title, Category, FifityFiveView } from './styles';
 
 class Move extends Component {
 
@@ -29,11 +29,13 @@ class Move extends Component {
     const { videoUrl } = this.state.move;
     
     for (const url of videoUrl) {
-      const data = await getLinkPreview('https://youtube.com/watch?v=' + url);
+      if (url !== "default") {
+        const data = await getLinkPreview('https://youtube.com/watch?v=' + url);
       
-      this.setState({ 
-        videos: this.state.videos.concat([{ title: data.title, description: data.description, id: url }]) 
-      });
+        this.setState({ 
+          videos: this.state.videos.concat([{ title: data.title, description: data.description, id: url }]) 
+        });
+      }
     }
     
     this.setState({ loading: false });
@@ -48,9 +50,17 @@ class Move extends Component {
       <CustomHeader icon="arrow-left" navigation={this.props.navigation} />
       <ContainerLight>
 
-        <ImageBox>
-          <ImageBoxContent source={{ uri: move.imageUrl }} />
-        </ImageBox>
+        <ImageBox 
+          style={{ 
+              borderBottomLeftRadius: 20,
+              borderBottomRightRadius: 20,
+              borderTopRightRadius: 20,
+              borderTopLeftRadius: 20,
+              overflow: 'hidden',
+              borderRadius: 20
+          }} 
+          source={{ uri: move.imageUrl }} 
+        />
 
         <Category>{move.category}</Category>
         <Title>{move.name}</Title>
@@ -63,7 +73,7 @@ class Move extends Component {
         { !loading ? videos.map(video => (
           <ActivityItem 
             key={video.id}
-            name={video.title.slice(0, 15)}
+            name={video.title.slice(0, 15) + "..."}
             tags={[video.description.slice(0, 20) + "..."]}
             source={{ uri: 'https://img.youtube.com/vi/'+ video.id +'/mqdefault.jpg' }}
             onPress={() => Linking.openURL("https://www.youtube.com/watch?v=" + video.id)}

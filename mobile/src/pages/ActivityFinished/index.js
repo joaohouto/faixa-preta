@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { getDate } from '../../services/calendar';
@@ -7,8 +8,8 @@ import CustomHeader from '../../components/CustomHeader'
 import Badge from '../../components/Badge'
 import { Icon } from 'react-native-elements'
 
-import { ContainerDark, Row, PageTitleLight } from '../../components/Global';
-import { Container, GoodJob, Details, Square, RowBox, RowBoxItem, RowTitle, BlackDot, MoveName, MoveRepetitions, FifityFiveView } from './styles';
+import { Row, PageTitleLight } from '../../components/Global';
+import { ContainerDark, Container, GoodJob, Details, Square, RowBox, RowBoxItem, RowTitle, BlackDot, MoveName, MoveRepetitions, FifityFiveView } from './styles';
 
 class ActivityFinished extends Component {
 
@@ -34,7 +35,7 @@ class ActivityFinished extends Component {
   saveData = async () => {
 
     let activityFinishedData = {
-      id: this.state.activity.name.replace(' ', '') + getDate().replace('/', '-') + this.state.timerTime,
+      id: this.state.activity.name.replace(' ', '') + getDate().replace('/', '-') + this.state.timerTime + Math.random(),
       date: getDate(),
       name: this.state.activity.name,
       time: this.state.timerTime
@@ -87,6 +88,7 @@ class ActivityFinished extends Component {
     <>
       <CustomHeader icon="arrow-left" dark={true} navigation={this.props.navigation} />
 
+      <ScrollView style={{ backgroundColor: '#111' }}>
       <Container>
         <Row style={{ flexDirection: 'column', alignItems: 'flex-start', width: 200 }}>
           <GoodJob>Bom trabalho!</GoodJob>
@@ -116,10 +118,10 @@ class ActivityFinished extends Component {
           </RowBoxItem>
         </RowBox>
 
-        <Badge dark={true}>Executado</Badge>
+        { moves && <Badge dark={true}>Executado</Badge> }
 
 
-        { moves.length > 0 && moves.map(move => (
+        { moves && moves.length > 0 && moves.map(move => (
           <Row 
             key={move._id}
             style={{ justifyContent: 'flex-start', alignItems: 'center', height: 20, marginBottom: 20, marginTop: 10 }}
@@ -133,6 +135,7 @@ class ActivityFinished extends Component {
         <FifityFiveView />
 
       </ContainerDark>
+      </ScrollView>
     </>
   );
   }

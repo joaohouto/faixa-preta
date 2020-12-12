@@ -3,29 +3,28 @@ import { Dimensions } from 'react-native'
 
 export const Container = styled.ImageBackground`
     width: 100%;
-    height: ${Dimensions.get('screen').height - 240}px;
+    height: ${Dimensions.get('screen').height - 295}px;
     background: #222;
     padding: 30px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 `;
 
-export const BottomContainer = styled.View`
-    height: 200px;
+export const ControlsContainer = styled.View`
     width: 100%;
     background: #111;
-    padding: 30px;
-    border-top-right-radius: 40px;
-    border-top-left-radius: 40px;
+    padding: 20px 30px;
 
     position: absolute;
     bottom: 0;
+    z-index: 2;
 `;
 
 export const Timer = styled.Text`
     font-size: 20px;
     color: #999;
     font-weight: bold;
+    margin-bottom: 15px;
 `;
 
 export const Do = styled.Text`
@@ -58,12 +57,13 @@ export const ButtonElement = styled.TouchableOpacity`
 `;
 
 export const Label = styled.Text`
-    font-size: 18px;
-    color: #333;
+    font-size: 14px;
+    color: #444;
     font-weight: bold;
     text-transform: uppercase;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 `;
+
 
 export const TenView = styled.View`
     width: 10px;

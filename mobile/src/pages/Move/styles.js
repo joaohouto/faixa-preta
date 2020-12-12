@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Dimensions } from 'react-native'
 
 export const Details = styled.Text`
     font-size: 14px;
@@ -30,17 +31,9 @@ export const Title = styled.Text`
     margin-bottom: 20px;
 `;
 
-export const ImageBox = styled.View`
-    height: 200px;
-    background: #111;
-    border-radius: 20px;
-    justify-content: center;
-    align-items: center;
-`;
-
-export const ImageBoxContent = styled.Image`
-    height: 200px;
-    width: 200px;
+export const ImageBox = styled.ImageBackground`
+    height: ${Dimensions.get('screen').width - 60}px;
+    width: ${Dimensions.get('screen').width - 60}px;
     background: #111;
     border-radius: 20px;
 `;

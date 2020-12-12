@@ -11,6 +11,12 @@ export const Container = styled.View`
     justify-content: space-between;
 `;
 
+export const ContainerDark = styled.View`
+    background: #111;
+    padding: 40px 30px;
+    flex: 1;
+`;
+
 export const GoodJob = styled.Text`
     color: #fff;
     font-size: 24px;
