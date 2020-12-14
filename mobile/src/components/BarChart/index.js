@@ -1,18 +1,36 @@
 import React from 'react';
 
 import { parseTime } from '../../services/calendar';
+import { roundNumber } from '../../services/number';
 
-import { Container, FirstRow, SecondRow, SectionLeft, SectionRight, Section, LeftLabel, Overlay, Line, SectionBlank, SectionBottom, BottomLabel, Column } from './styles';
+import { 
+    Container, 
+    FirstRow, 
+    SecondRow, 
+    SectionLeft, 
+    SectionRight, 
+    Section, 
+    LeftLabel, 
+    Overlay, 
+    Line, 
+    SectionBlank, 
+    SectionBottom, 
+    BottomLabel, 
+    Column 
+} from './styles';
 
 const BarChart = ({ data, ...rest }) => {
 
     const newValues = data.map(time => {
         let onlyMinutes = parseTime(time);
         onlyMinutes = onlyMinutes.split(':');
-        onlyMinutes = (onlyMinutes[0] * 60) + (onlyMinutes[1] * 1) + (onlyMinutes[2] / 60) | 0
+        
+        onlyMinutes = (onlyMinutes[0] * 60) + (onlyMinutes[1] * 1) + (onlyMinutes[2] / 60);
+        onlyMinutes = roundNumber(onlyMinutes, 2);
 
         return onlyMinutes
     });
+
 
     const max = newValues.reduce((a, b) => {
         return Math.max(a, b);
@@ -30,16 +48,16 @@ const BarChart = ({ data, ...rest }) => {
             <FirstRow>
                 <SectionLeft>
                     <Section style={{ borderTopWidth: 2, borderTopColor: '#333' }}>
-                        <LeftLabel>{max}min</LeftLabel>
+                        <LeftLabel>{roundNumber(max, 2)}min</LeftLabel>
                     </Section>
                     <Section style={{ borderTopWidth: 2, borderTopColor: '#333' }}>
-                        <LeftLabel>{halfPlusQuarter}min</LeftLabel>
+                        <LeftLabel>{roundNumber(halfPlusQuarter, 2)}min</LeftLabel>
                     </Section>
                     <Section style={{ borderTopWidth: 2, borderTopColor: '#333' }}>
-                        <LeftLabel>{half}min</LeftLabel>
+                        <LeftLabel>{roundNumber(half, 2)}min</LeftLabel>
                     </Section>
                     <Section style={{ borderTopWidth: 2, borderTopColor: '#333' }}>
-                        <LeftLabel>{quarter}min</LeftLabel>
+                        <LeftLabel>{roundNumber(quarter, 2)}min</LeftLabel>
                      </Section>
                 </SectionLeft>
                 <SectionRight>

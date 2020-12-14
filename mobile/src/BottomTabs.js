@@ -31,7 +31,7 @@ const BottomTabs = () => {
                 name="Explore" 
                 component={Explore} 
                 options={{
-                    tabBarLabel: 'TREINAR',
+                    tabBarLabel: 'EXPLORAR',
                     tabBarIcon: ({ color, size, focused }) => {
                         return (
                             <Icon name='compass' type='feather' size={24} color={focused ? '#ddd' : color} />
@@ -57,7 +57,7 @@ const BottomTabs = () => {
                 name="Statistics" 
                 component={Statistics} 
                 options={{
-                    tabBarLabel: 'HISTÓRICO',
+                    tabBarLabel: 'ESTATÍSTICAS',
                     tabBarIcon: ({ color, size, focused }) => {
                         return (
                             <Icon name='bar-chart' type='feather' size={24} color={focused ? '#ddd' : color} />

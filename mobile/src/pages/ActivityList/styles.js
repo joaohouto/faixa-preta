@@ -8,11 +8,11 @@ export const Square = styled.View`
 `;
 
 export const SquareImage = styled.Image`
-    width: 116px;
-    height: 125px;
+    width: 120px;
+    height: 120px;
     position: absolute;
     right: 0px;
-    top: -20px;
+    top: 0px;
 `;
 
 export const NotFoundMessage = styled.Text`

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Linking } from 'react-native';
 
-import logoImg from '../../assets/logo.png';
-
 import CustomHeader from '../../components/CustomHeader';
 
 import { ContainerLight, PageTitleDark, Row } from '../../components/Global';
@@ -19,29 +17,20 @@ class Settings extends Component {
         <PageTitleDark>Ajustes</PageTitleDark>
 
         <ButtonsWrapper>
-          <Button>
-            <ButtonText>Exportar dados de treinos</ButtonText>
-          </Button>
-          <Button>
-            <ButtonText>Importar dados de treinos</ButtonText>
-          </Button>
-          <Button onPress={() => Linking.openURL("https://faixa-preta.web.app/faq")}>
-            <ButtonText>Perguntas frequentes</ButtonText>
-          </Button>
+
           <Button onPress={() => Linking.openURL("https://faixa-preta.web.app/privacidade")}>
             <ButtonText>Política de Privacidade</ButtonText>
           </Button>
           <Button onPress={() => Linking.openURL("https://faixa-preta.web.app/contato")}>
             <ButtonText>Contato</ButtonText>
           </Button>
-          <Button>
-            <ButtonText>Sair</ButtonText>
+          <Button onPress={() => Linking.openURL("https://faixa-preta.web.app/sobre")}>
+            <ButtonText>Sobre</ButtonText>
+          </Button>
+          <Button onPress={() => Linking.openURL("https://github.com/joaocou/faixa-preta")}>
+            <ButtonText>GitHub</ButtonText>
           </Button>
         </ButtonsWrapper>
-
-        <Row>
-          <Logo source={logoImg} />
-        </Row>
 
       </ContainerLight>
     </>

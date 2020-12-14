@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Dimensions, TouchableOpacity, AsyncStorage } from 'react-native';
+import { Dimensions, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage'
 import { Icon } from 'react-native-elements'
 
 import { parseTime, gerarCalendario, pegarSemanaAtual } from '../../services/calendar';

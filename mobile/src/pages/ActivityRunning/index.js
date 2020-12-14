@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert } from 'react-native'
+import { Alert, View } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 import CustomHeader from '../../components/CustomHeader'
@@ -18,6 +18,7 @@ import {
   ButtonElement, 
   TenView, 
   Label, 
+  MainWrapper
 } from './styles';
 
 class ActivityRunning extends Component {
@@ -136,7 +137,7 @@ class ActivityRunning extends Component {
   let hours = ("0" + Math.floor(timerTime / 3600000)).slice(-2);
  
   return (
-    <>
+    <MainWrapper>
       <CustomHeader icon="x" dark={true} navigation={this.props.navigation} />
 
       <Container 
@@ -213,7 +214,7 @@ class ActivityRunning extends Component {
         </Row>
 
       </BottomDrawer>
-    </>
+    </MainWrapper>
   );
   }
 }

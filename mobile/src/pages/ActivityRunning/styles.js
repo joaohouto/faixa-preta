@@ -1,6 +1,11 @@
 import styled from 'styled-components'
 import { Dimensions } from 'react-native'
 
+export const MainWrapper = styled.View`
+   flex: 1;
+   background: #222;
+`;
+
 export const Container = styled.ImageBackground`
     width: 100%;
     height: ${Dimensions.get('screen').height - 295}px;

@@ -1,27 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { AppLoading } from 'expo'
+import AppLoading from 'expo-app-loading'
 
-import { Poppins_700Bold, useFonts } from '@expo-google-fonts/poppins'
-import { Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto'
+import AsyncStorage from '@react-native-community/async-storage'
 
-import Landing from './src/pages/Landing';
 import Routes from './src/routes';
+import Landing from './src/pages/Landing';
 
 export default function App() {
 
-  let [fontLoaded] = useFonts({
-    Poppins_700Bold,
-    Roboto_400Regular,
-    Roboto_700Bold
-  });
-  
   return <Routes />;
 
-  if (!fontLoaded) {
+  const [loading, setLoading] = useState(true);
+  const [firstTime, setFirstTime] = useState(null);
 
-    return <AppLoading />
+  useEffect(() => {
+    
+    const verifyFirstTime = async () => {
+      const firstTime = await AsyncStorage.getItem('@firstTime');
+
+      setFirstTime(JSON.parse(firstTime));s
+      setLoading(false);
+    }
+
+    verifyFirstTime();
+
+  }, []);
+
+  if (loading) {
+    return <AppLoading />;s
+
   } else {
-
+    if (firstTime) {
+      return <Landing />;
+    } else {
+      return <Routes />
+    }
   }
+
 }

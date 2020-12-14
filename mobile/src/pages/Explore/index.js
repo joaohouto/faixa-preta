@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react';
-import { Alert } from 'react-native';
+import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Icon } from 'react-native-elements';
-
-import api  from "../../services/api";
 
 import HomeHeader from '../../components/HomeHeader'
 import Badge from '../../components/Badge'
 
-import { Row } from '../../components/Global';
+import { Row, PageTitleLight, SimpleTextLight } from '../../components/Global';
 import { 
   Scroll, 
   LittleContainer, 
@@ -17,64 +14,41 @@ import {
   BigCard, 
   FifityFiveView, 
   HorizontalRow, 
-  KarateImage, 
-  Heading, 
   DarkButton, 
-  DarkButtonText, 
-  HeadingBold
+  DarkButtonText
 } from './styles.js'
 
 import kihonImg from '../../assets/images/kihon.png';
 import kataImg from '../../assets/images/kata.png';
 import kumiteImg from '../../assets/images/kumite.png';
 import exameImg from '../../assets/images/exame.png';
-import karateImg from '../../assets/images/karate.png';
 
 const Explore = ({ navigation }) => {
-
-  useEffect(() => {
-
-    const verifyStatus = async () => {
-      try {
-        const response = await api.get('/');
-  
-        if(response.data.status !== "Online") {
-          Alert.alert('Aviso importante!', 'Os servidores do Faixa Preta estão em manutenção no momento, logo as funcionalidades do app podem não funcionar como o esperado.');
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    }
-
-    verifyStatus();
-  
-  }, []);
 
   return (
     <>
       <HomeHeader />
       <Scroll>
         <ContainerLight>
-
-          <KarateImage source={karateImg} />
           
           <Row style={{ justifyContent: 'space-between', flex: 1 }}>
             <Row style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-              <Heading>Boa noite,</Heading>
-              <HeadingBold>João Henrique.</HeadingBold>
+              <PageTitleLight>Explorar</PageTitleLight>
             </Row>
 
             <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-              <Icon name='circle' type='feather' size={24} color="#999" />
+              <Icon name='more-vertical' type='feather' size={24} color="#999" />
             </TouchableOpacity>
           </Row>
+          
+          <SimpleTextLight>
+            Procure por treinos já prontos ou monitore o seu tempo em um treino livre.
+          </SimpleTextLight>
 
-          <DarkButton>
+          <DarkButton onPress={() => navigation.navigate('FreeActivityRunning')}>
             <Icon name='plus-circle' type='feather' size={24} color="#999" />
           
-            <DarkButtonText 
-              onPress={() => navigation.navigate('FreeActivityRunning')}
-            >
+            <DarkButtonText>
               TREINO LIVRE
             </DarkButtonText>
           </DarkButton>

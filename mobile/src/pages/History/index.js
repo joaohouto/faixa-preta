@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { AsyncStorage } from 'react-native'
-import { Icon } from 'react-native-elements'
+import AsyncStorage from '@react-native-community/async-storage'
 
 import CustomHeader from '../../components/CustomHeader'
 import HistoryItem from '../../components/HistoryItem'

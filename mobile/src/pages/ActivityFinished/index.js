@@ -44,8 +44,6 @@ class ActivityFinished extends Component {
     let { oldActivities } = this.state;
     oldActivities = oldActivities.concat(activityFinishedData);
 
-    console.log(oldActivities);
-
     try {
       await AsyncStorage.setItem('@oldActivities', JSON.stringify(oldActivities));
 

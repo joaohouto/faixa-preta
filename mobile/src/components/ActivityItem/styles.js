@@ -30,7 +30,7 @@ export const Section = styled.View`
 export const ActivityImage = styled.ImageBackground`
     width: 120px;
     height: 66px;
-    background: #333;
+    background: #f1f1f1;
     border-radius: 20px;
     margin-right: 24px
 `;
