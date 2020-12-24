@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Raleway:ital,wght@0,400;0,700;1,400&display=swap');
+
 * {
     font-family: 'Raleway', Arial, Helvetica, sans-serif;
     margin: 0;
@@ -20,7 +22,7 @@ iframe {
 a {
     font-weight: bold;
     color: #999;
-    transition: 0.4s all;
+    transition: 0.4s opacity;
 }
 
 a:hover {
@@ -29,11 +31,16 @@ a:hover {
 
 p {
     margin-top: 20px;
+    font-size: 16px;
+    line-height: 28px;
 }
 
 h2 {
-    font-size: 40px;
+    font-size: 42px;
     margin-bottom: 40px;
+    line-height: 44px;
+    font-family: 'Poppins', sans-serif;
+    transition: transform 1s ease;
 }
 
 h3 {
@@ -48,14 +55,20 @@ ul li a {
     text-decoration: none;
     color: #111;
     background: #ddd;
-    padding: 5px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 6px 20px;
     border-radius: 20px;
     font-size: 14px;
     margin-right: 10px;
     transition: 0.4s all;
     font-weight: normal;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul li a img {
+    margin-right: 5px;
 }
 
 ul {
@@ -77,15 +90,18 @@ label {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 20px;
 }
 
 .team-card {
-    background: #f1f1f1;
+    background: #fafafa;
+    border: 1px solid #eee;
     border-radius: 10px;
     padding: 20px;
     margin: 20px;
     margin-left: 0;
     display: flex;
+    align-items: center;
     width: 300px;
 }
 
@@ -94,12 +110,11 @@ label {
     width: 80px;
     border-radius: 50%;
     margin-right: 20px;
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
 }
 
 .team-card p {
     font-size: 14px;
+    margin-top: 0;
 }
 
 .team-card b {
@@ -136,12 +151,14 @@ label {
     transition: 0.4s all;
 }
 
-.button i {
+.button img {
     color: #f1f1f1;
+    height: 20px;
     margin-right: 10px;
 }
 
-.button:hover, ul li a:hover {
+
+#downButton:hover {
     opacity: 0.5;
     transform: scale(95%);
 }
@@ -156,7 +173,7 @@ label {
 }
 
 .content {
-    padding: 40px;
+    padding: 60px 40px;
     margin-left: 10%;
     margin-right: 10%;
     display: flex;
@@ -176,6 +193,8 @@ label {
     margin-right: 10%;
     display: flex;
     align-items: center;
+
+    font-family: 'Poppins', sans-serif;
 }
 
 #width {
@@ -193,57 +212,6 @@ label {
 
 .list li {
     display: block;
-}
-
-.input {
-    padding: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border: 1px solid #999;
-    border-radius: 5px;
-    margin-top: 5px;
-    width: 100%;
-    font-size: 15px;
-}
-
-.input-button {
-    background: #111;
-    color: #f1f1f1;
-    padding: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 20px;
-    border: 0;
-    font-weight: bold;
-    font-size: 15px;
-    cursor: pointer;
-    transition: 0.4s all;
-
-}
-
-.input-button:hover {
-    opacity: 0.5;
-}
-
-.lang-box {
-    padding: 20px;
-    padding-left: 10%;
-    padding-right: 10%;
-    background-color: #f1f1f1;
-    display: flex;
-    align-items: center;
-}
-
-.lang-box a {
-    text-decoration: none !important;
-    margin-right: 20px;
-    color: #999;
-}
-
-.lang-box a i:first-child {
-    font-size: 25px;
-    color: #999;
-
 }
 
 /*Loading*/
@@ -266,14 +234,37 @@ label {
     animation: spin 2s linear infinite;
 }
 
+.not-found {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /*Animations*/
 .animate-opacity {
-    animation: opac 0.8s
+    animation: opac 1s ease-in-out;
+}
+
+.animate-push {
+    animation: push 0.5s ease-in-out;
 }
 
 @keyframes opac {
     from { opacity: 0 } 
     to { opacity: 1 }
+}
+
+@keyframes push {
+    from { 
+        opacity: 0; 
+        transform: translateY(40px); 
+    } 
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
 }
 
 @keyframes spin {
@@ -300,11 +291,13 @@ label {
 
     .section {
         width: 100%;
+        padding: 0;
     }
 
     #belt {
         top: 0;
         right: 0;
+        opacity: 0.3;
     }
 
     .footer {
