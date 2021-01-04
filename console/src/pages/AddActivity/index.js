@@ -6,8 +6,9 @@ import api from '../../api'
 
 import logoImg from '../../assets/images/logo-x.svg'
 
-import { Container, Logo, Header, LeftBar, Main, LinkItem, Form,  ActivityImage, MoveItemTitle, Dot, Tags, InputBox, InputLabel, RepetitionsInput } from './styles';
+import { Container, Logo, Header, LeftBar, Main, LinkItem, Form,  ActivityImage, MoveItemTitle, Dot, Tags, InputBox, InputLabel } from './styles';
 import { PageTitleDark, Row } from '../../components/Global'
+import swal from 'sweetalert';
 import SearchInput from '../../components/SearchInput'
 import MoveItem from '../../components/MoveItem'
 import Loader from '../../components/Loader'
@@ -59,14 +60,14 @@ export default class AddActivity extends Component {
             const response = await api.post('/activities/', this.state.activity);
 
             if(response.status === 200) {
-                alert('Adicionado!');
+                swal('Adicionado!', 'As informações foram salvas.', 'success');
                 
                 setTimeout(() => { 
                     window.location.href = '/activities/1';
                 }, 1000);
             }
         } catch (err) {
-            alert(err)
+            swal('Erro', err, 'error')
         }
 
     }
@@ -108,7 +109,7 @@ export default class AddActivity extends Component {
 
         let moveToRemove;
         moves.forEach((move, index) => {
-            if(move.fakeId == fakeId){
+            if(move.fakeId === fakeId){
                 moveToRemove = index;
             }
         });
@@ -128,7 +129,7 @@ export default class AddActivity extends Component {
     handlePlusRepetitons(fakeId) {
         let { moves } = this.state.activity;
 
-        let moveIndex = moves.findIndex((move => move.fakeId == fakeId));
+        let moveIndex = moves.findIndex((move => move.fakeId === fakeId));
         moves[moveIndex].repetitions++
 
         this.setState({ ...this.state.activity, moves });
@@ -138,7 +139,7 @@ export default class AddActivity extends Component {
     handleMinusRepetitons(fakeId) {
         let { moves } = this.state.activity;
 
-        let moveIndex = moves.findIndex((move => move.fakeId == fakeId));
+        let moveIndex = moves.findIndex((move => move.fakeId === fakeId));
         if (moves[moveIndex].repetitions > 0) {
             moves[moveIndex].repetitions--
         }
@@ -262,7 +263,7 @@ export default class AddActivity extends Component {
 
                         <Row>
                             { pageList.map(page => (
-                                page == this.state.page ? (
+                                page === this.state.page ? (
                                     <Dot key={page} onClick={() => this.navigateTo(page)} style={{ background: '#333', color: '#fff' }}>{page}</Dot>
                                 ) : (
                                     <Dot key={page} onClick={() => this.navigateTo(page)}>{page}</Dot>

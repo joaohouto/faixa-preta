@@ -117,7 +117,7 @@ export default class Dashboard extends Component {
 
                 <Row>
                     { pageList.map(page => (
-                        this.props.match.params.page_id == page ? (
+                        this.props.match.params.page_id === page ? (
                             <Dot key={page} href={`/activities/${page}`} style={{ background: '#333', color: '#fff' }}>{page}</Dot>
                         ) : (
                             <Dot key={page} href={`/activities/${page}`}>{page}</Dot>
@@ -132,7 +132,7 @@ export default class Dashboard extends Component {
                         tags={item.tags}
                         onEdit={`/activities/edit/${item._id}`}
                         onDelete={() => this.deleteItem(item._id)}
-                        style={{ backgroundBackground: 'url('+ item.imageUrl +')', backgroundSize: 'cover', backgroundPosition: 'center' }}
+                        style={{ backgroundImage: `url('${item.imageUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
                     />
                 )) : <Loader /> }
                 

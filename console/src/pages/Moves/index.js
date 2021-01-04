@@ -117,7 +117,7 @@ export default class Dashboard extends Component {
 
                 <Row>
                     { pageList.map(page => (
-                        this.props.match.params.page_id == page ? (
+                        this.props.match.params.page_id === page ? (
                             <Dot key={page} href={`/moves/${page}`} style={{ background: '#333', color: '#fff' }}>{page}</Dot>
                         ) : (
                             <Dot key={page} href={`/moves/${page}`}>{page}</Dot>

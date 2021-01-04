@@ -8,6 +8,7 @@ import logoImg from '../../assets/images/logo-x.svg'
 
 import { Container, Logo, Header, LeftBar, Main, LinkItem, Form,  MoveImage } from './styles';
 import { PageTitleDark, Row } from '../../components/Global'
+import swal from 'sweetalert';
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 import Textarea from '../../components/Textarea';
@@ -24,20 +25,16 @@ export default class EditMove extends Component {
         }
     }
 
-    save = async () => {
+    save = () => {
 
-        try {
-            api.post(`/moves/`, this.state.move).then(response => {
-                alert("Sucesso!")
-                window.location.href = '/moves/1';
-    
-            }).catch(error => {
-                alert(error);
-                
-            });
-        } catch (err) {
-            alert(err);
-        }
+        api.post(`/moves/`, this.state.move).then(response => {
+            swal('Sucesso!', 'Informações salvas.', 'success')
+            window.location.href = '/moves/1';
+
+        }).catch(error => {
+            swal('Erro', error, 'error');
+            
+        });
 
     }
 

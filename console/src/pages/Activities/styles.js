@@ -50,7 +50,7 @@ export const LinkItem = styled.div`
     font-weight: bold;
 `;
 
-export const Dot = styled.span`
+export const Dot = styled.a`
     height: 30px;
     width: 30px;
     border-radius: 15px;

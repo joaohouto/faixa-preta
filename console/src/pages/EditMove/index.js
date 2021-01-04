@@ -8,6 +8,7 @@ import logoImg from '../../assets/images/logo-x.svg'
 
 import { Container, Logo, Header, LeftBar, Main, LinkItem, Form,  MoveImage } from './styles';
 import { PageTitleDark, Row } from '../../components/Global'
+import swal from 'sweetalert';
 import Loader from '../../components/Loader'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
@@ -37,14 +38,14 @@ export default class EditMove extends Component {
             const response = await api.put(`/moves/${this.state.move._id}`, this.state.move);
 
             if(response.status === 200) {
-                alert('Atualizado!');
+                swal('Atualizado!', 'As informações foram salvas.', 'success');
                 
                 setTimeout(() => { 
                     window.location.href = '/moves/1';
                 }, 1000);
             }
         } catch (err) {
-            alert(err);
+            swal("Erro", err, "error");
         }
 
     }
@@ -59,7 +60,7 @@ export default class EditMove extends Component {
         this.setState({ move: newState })
     }
 
-    handleVideoChange = (value) => {
+    handleVideoUrlChange = (value) => {
         value = value.split(',');
 
         const newState = {...this.state.move, videoUrl: value}

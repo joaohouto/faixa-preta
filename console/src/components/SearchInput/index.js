@@ -2,7 +2,6 @@ import React from 'react';
 
 import { InputBox, InputElement, IconContainer, Icon } from './styles';
 import searchIconDark from '../../assets/icons/search.svg';
-import closeIcon from '../../assets/icons/x.svg';
 
 const SearchInput = ({ label, dark, onClick, onDismiss, searched, value, ...rest }) => {
     return (

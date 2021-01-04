@@ -1,10 +1,12 @@
-import React, { useState, useContext } from 'react'
-import { useHistory, Redirect } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import api from '../../api'
 
 import { PageTitleDark } from '../../components/Global'
-import { Container, Form, Logo } from './styles';
+import { Container, Form } from './styles';
+
+import swal from 'sweetalert';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
@@ -29,7 +31,7 @@ const Login = () => {
                 history.push('/moves/1');
 
         }).catch(err =>{
-            alert("Email ou senha incorreto(s)!");
+            swal("Aviso", "Email ou senha incorreto(s)!", "error");
         });
     }
 
