@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Row = styled.TouchableOpacity`
+export const Row = styled.View`
     display: flex;
     flex-direction: row;
     margin-bottom: 22px;

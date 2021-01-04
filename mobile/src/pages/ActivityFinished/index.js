@@ -26,7 +26,6 @@ class ActivityFinished extends Component {
   }
 
   loadData = () => {
-
     const { activity, moves, timerTime } = this.props.route.params;
 
     this.setState({ activity, moves, timerTime });

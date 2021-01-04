@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export const Container = styled.ImageBackground`
     flex: 1;
@@ -16,11 +17,14 @@ export const Heading = styled.Text`
     color: #fff;
 `
 
-export const Info = styled.Text`
+export const Info = styled(TouchableOpacity)`
     width: 220px;
+    margin: 30px 0;
+`
+
+export const InfoText = styled.Text`
     font-size: 13px;
     color: #999;
-    margin: 30px 0;
 `
 
 export const Bold = styled.Text`

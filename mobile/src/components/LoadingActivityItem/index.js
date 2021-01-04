@@ -22,8 +22,8 @@ class LoadingActivityItem extends Component {
                               )).start();
   }
 
-  render(){
 
+  render(){
     return (
         <Animated.View style={{ opacity: this.state.fadeAnim }}>
             <Row>

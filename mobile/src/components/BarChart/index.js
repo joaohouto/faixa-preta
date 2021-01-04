@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { parseTime } from '../../services/calendar';
 import { roundNumber } from '../../services/number';
@@ -32,31 +32,29 @@ const BarChart = ({ data, ...rest }) => {
     });
 
 
-    const max = newValues.reduce((a, b) => {
-        return Math.max(a, b);
-    });
+    let max = newValues.reduce((a, b) => Math.max(a, b));
 
-    const halfPlusQuarter = max * 0.75;
-    const half = max * 0.5;
-    const quarter = max * 0.25;
+    let halfPlusQuarter = max * 0.75;
+    let half = max * 0.5;
+    let quarter = max * 0.25;
 
-    const columnsHeight = newValues.map(value =>  value * (100 / max));
+    let columnsHeight = newValues.map(value =>  value * (100 / max));
 
     return (
         <Container {...rest}>
             
             <FirstRow>
                 <SectionLeft>
-                    <Section style={{ borderTopWidth: 2, borderTopColor: '#333' }}>
+                    <Section style={{ borderTopWidth: 2, borderTopColor: '#222' }}>
                         <LeftLabel>{roundNumber(max, 2)}min</LeftLabel>
                     </Section>
-                    <Section style={{ borderTopWidth: 2, borderTopColor: '#333' }}>
+                    <Section style={{ borderTopWidth: 2, borderTopColor: '#222' }}>
                         <LeftLabel>{roundNumber(halfPlusQuarter, 2)}min</LeftLabel>
                     </Section>
-                    <Section style={{ borderTopWidth: 2, borderTopColor: '#333' }}>
+                    <Section style={{ borderTopWidth: 2, borderTopColor: '#222' }}>
                         <LeftLabel>{roundNumber(half, 2)}min</LeftLabel>
                     </Section>
-                    <Section style={{ borderTopWidth: 2, borderTopColor: '#333' }}>
+                    <Section style={{ borderTopWidth: 2, borderTopColor: '#222' }}>
                         <LeftLabel>{roundNumber(quarter, 2)}min</LeftLabel>
                      </Section>
                 </SectionLeft>

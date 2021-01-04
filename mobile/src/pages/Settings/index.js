@@ -21,7 +21,7 @@ class Settings extends Component {
           <Button onPress={() => Linking.openURL("https://faixa-preta.web.app/privacidade")}>
             <ButtonText>Política de Privacidade</ButtonText>
           </Button>
-          <Button onPress={() => Linking.openURL("https://faixa-preta.web.app/contato")}>
+          <Button onPress={() => Linking.openURL("mailto:appfaixapreta@gmail.com")}>
             <ButtonText>Contato</ButtonText>
           </Button>
           <Button onPress={() => Linking.openURL("https://faixa-preta.web.app/sobre")}>

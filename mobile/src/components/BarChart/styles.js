@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const Container = styled.View`
-    height: 250px;
+    height: 260px;
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin: 0 30px;
 `;
 
 export const FirstRow = styled.View`
@@ -22,7 +22,6 @@ export const SecondRow = styled.View`
 `;
 
 export const SectionLeft = styled.View`
-    background: #222;
     width: 15%;
 `;
 
@@ -45,7 +44,7 @@ export const Section = styled.View`
 export const LeftLabel = styled.Text`
     font-size: 12px;
     font-weight: bold;
-    color: #fff;
+    color: #999;
     margin-top: 10px;
 `;
 
@@ -63,8 +62,8 @@ export const Line = styled.View`
 `;
 
 export const Column = styled.View`
-    width: 10%;
-    background: #555;
+    width: 8%;
+    background: #999;
     border-radius: 4px;
 `;
 
@@ -85,5 +84,5 @@ export const BottomLabel = styled.Text`
     font-size: 12px;
     font-weight: bold;
     margin-top: 10px;
-    color: #f1f1f1;
+    color: #999;
 `;

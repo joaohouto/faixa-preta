@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
-import { Dimensions, TouchableOpacity } from 'react-native';
+import { Dimensions, TouchableOpacity, ScrollView, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage'
 import { Icon } from 'react-native-elements'
 
-import { parseTime, gerarCalendario, pegarSemanaAtual } from '../../services/calendar';
+import { parseTime, gerarCalendario, pegarSemanaAtual, getDate } from '../../services/calendar';
+import { roundNumber } from '../../services/number';
 
 import HomeHeader from '../../components/HomeHeader'
 import Badge from '../../components/Badge'
 import StatsRow from '../../components/StatsRow'
 import BarChart from '../../components/BarChart'
+import MonthChart from '../../components/MonthChart'
 
-import { ContainerDark, PageTitleLight, Row, SimpleTextLight, FifityFiveView } from '../../components/Global'
+import { PageTitleLight, Row } from '../../components/Global'
+
+import { SectionButton, ButtonText, Container } from './styles'
 
 export default class Statistics extends Component {
 
@@ -21,17 +25,12 @@ export default class Statistics extends Component {
     weekTime: null,
     monthTime: null,
     totalTime: null,
-    loading: true
+    loading: true,
+    currentPage: 1,
+    monthData: []
   }
 
   componentDidMount() {
-
-    const { navigation } = this.props;
-
-    this.focusListener = navigation.addListener('didFocus', () => {
-      this.getOldActivities();
-    });
-
     this.getOldActivities();
   }
 
@@ -54,12 +53,12 @@ export default class Statistics extends Component {
       console.log(e);
     }
 
-    this.fillChart();
+    this.fillCharts();
     this.fillRow();
     
   }
 
-  fillChart = async () => {
+  fillCharts = async () => {
 
     let { oldActivities } = this.state;
     
@@ -82,8 +81,49 @@ export default class Statistics extends Component {
 
     this.setState({ 
       weekData, 
-      weekPeriod: week[0].slice(0,5) + " até " + week[6].slice(0,5),
-      loading: false 
+      weekPeriod: week[0].slice(0,5) + " até " + week[6].slice(0,5)
+    });
+
+    ///-------------------------------
+
+    let date = getDate().split('/');
+    let month = gerarCalendario(date[2], date[1]);
+    
+    let monthData = [];
+    
+    month.forEach(week => {
+      let weekData = [];
+
+      week.forEach(day => {
+        let timeOnDay = 0;
+
+        oldActivities.forEach(actv => {
+          if(day == actv.date){
+            timeOnDay = timeOnDay + actv.time;
+          }
+        });
+
+        let onlyMinutes = parseTime(timeOnDay);
+        onlyMinutes = onlyMinutes.split(':');
+        
+        onlyMinutes = (onlyMinutes[0] * 60) + (onlyMinutes[1] * 1) + (onlyMinutes[2] / 60);
+        onlyMinutes = roundNumber(onlyMinutes, 2);
+
+        weekData.push({
+          date: day,
+          time: onlyMinutes
+        });
+        timeOnDay = 0;
+      });
+
+      monthData.push(weekData);
+      weekData = [];
+
+    });
+
+    this.setState({ 
+      monthData, 
+      loading: false
     });
 
   }
@@ -122,38 +162,66 @@ export default class Statistics extends Component {
 
   render() {
 
-    const { weekData, weekPeriod, loading } = this.state;
+    const { weekData, monthData, loading, currentPage } = this.state;
     const { weekTime, monthTime, totalTime } = this.state;
 
     return (
-      <>
+      <View style={{ flex: 1 }}>
         <HomeHeader />
-        <ContainerDark>
-          <PageTitleLight>Estatísticas</PageTitleLight>
+        <ScrollView style={{ backgroundColor: '#111' }}>
+          
+          <Container>
+            <PageTitleLight>Estatísticas</PageTitleLight>
   
-          <Badge dark={true}>Geral</Badge>
-          <StatsRow 
-            week={weekTime ? weekTime : "00:00:00" } 
-            month={monthTime ? monthTime : "00:00:00"} 
-            total={totalTime ? totalTime : "00:00:00"} 
-          />
-  
-          <Badge dark={true}>Detalhado</Badge>
-          <SimpleTextLight>Semana atual: {weekPeriod}</SimpleTextLight>
+            <Badge dark={true}>Geral</Badge>
+            <StatsRow 
+              week={weekTime ? weekTime : "00:00:00" } 
+              month={monthTime ? monthTime : "00:00:00"} 
+              total={totalTime ? totalTime : "00:00:00"} 
+            />
 
-          <BarChart 
-            data={loading ? [0,0,0,0,0,0,0] : weekData} 
-            style={{ width: Dimensions.get('window').width - 60 }} 
-          />
+            <Badge dark={true}>Gráfico</Badge>
 
+            <Row style={{ marginBottom: 30, justifyContent: 'flex-start' }}>
+              <SectionButton 
+                onPress={() => this.setState({ currentPage: 1 })}
+                active={this.state.currentPage === 1}
+              >
+                <ButtonText>Semana</ButtonText>
+              </SectionButton>
+
+              <SectionButton 
+                onPress={() => this.setState({ currentPage: 2 })}
+                active={this.state.currentPage === 2}
+              >
+                <ButtonText>Mês</ButtonText>
+              </SectionButton>
+            </Row>
+
+          </Container>
+
+          { currentPage === 1 && (
+            <BarChart 
+              data={currentPage === 1 ? loading ? [0,0,0,0,0,0,0] : weekData : [0,0,0,0,0,0,0]} 
+              style={{ width: Dimensions.get('window').width - 60 }} 
+            />
+          ) }
+
+          { currentPage === 2 && (
+            <MonthChart 
+              data={currentPage === 2 ? loading ? [] : monthData : []}
+            />
+          ) }
+
+          <Container>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('History')}>
               <Row><Icon name='chevron-down' type='feather' size={38} color="#fff" /></Row>
             </TouchableOpacity>
 
-            <FifityFiveView />
+          </Container>
   
-        </ContainerDark>
-      </>
+        </ScrollView>
+      </View>
     );
   }
 }

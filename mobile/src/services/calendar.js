@@ -7,6 +7,20 @@ export const parseTime = (timerTime) => {
   return hours + ':' + minutes + ':' + seconds;
 }
 
+export const nextMonth = (day, month, year) => {
+  if (month > 11)
+    return [day, "01", tratarNumero(+year + 1)];
+
+  return [day, tratarNumero(+month + 1), year]
+}
+
+export const previousMonth = (day, month, year) => {
+  if (month < 2)
+    return [day, "12", tratarNumero(year - 1)];
+
+  return [day, tratarNumero(month - 1), year]
+}
+
 export const gerarCalendario = (anoAtual, mesAtual) => { 
 
   mesAtual--;
