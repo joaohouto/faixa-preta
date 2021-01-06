@@ -9,14 +9,14 @@ export const Row = styled.View`
 export const Title = styled.Text`
     font-size: 14px;
     color: #111;
-    font-weight: bold;
     max-width: 240px;
+    font-family: 'Roboto-Bold';
 `;
 
 export const Repetitions = styled.Text`
     font-size: 18px;
     color: #999;
-    font-weight: bold;
+    font-family: 'Roboto-Bold';
 `;
 
 export const Section = styled.View`

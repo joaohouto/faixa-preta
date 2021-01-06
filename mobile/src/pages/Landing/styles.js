@@ -13,8 +13,9 @@ export const Container = styled.ImageBackground`
 export const Heading = styled.Text`
     width: 280px;
     font-size: 38px;
-    font-weight: bold;
+    line-height: 45px;
     color: #fff;
+    font-family: 'Poppins-SemiBold';
 `
 
 export const Info = styled(TouchableOpacity)`
@@ -25,10 +26,11 @@ export const Info = styled(TouchableOpacity)`
 export const InfoText = styled.Text`
     font-size: 13px;
     color: #999;
+    font-family: 'Roboto-Regular';
 `
 
 export const Bold = styled.Text`
-    font-weight: bold;
+    font-family: 'Roboto-Bold';
 `
 
 export const Button = styled.TouchableOpacity`
@@ -44,8 +46,9 @@ export const Button = styled.TouchableOpacity`
 
 export const ButtonText = styled.Text`
     font-size: 18px;
-    font-weight: bold;
     color: #999;
+    text-transform: uppercase;
+    font-family: 'Roboto-Bold';
 `
 
 export const IconWrapper = styled.View`

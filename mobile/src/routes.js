@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useFonts } from 'expo-font';
 import AsyncStorage from '@react-native-community/async-storage';
 import AppLoading from 'expo-app-loading'
 
@@ -24,6 +25,11 @@ const Routes = () => {
 
     const [loading, setLoading] = useState(true);
     const [isFirstAccess, setIsFirstAccess] = useState(true);
+    const [fontsLoaded] = useFonts({
+        'Poppins-SemiBold': require('./assets/fonts/Poppins-SemiBold.ttf'),
+        'Roboto-Bold': require('./assets/fonts/Roboto-Bold.ttf'),
+        'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
+    });
 
     useEffect(() => {
         verifyFirstAccess();
@@ -52,9 +58,10 @@ const Routes = () => {
         setLoading(false);
     }
 
-    if(loading) {
+    if(loading || !fontsLoaded) {
         return <AppLoading />
-    }
+
+    } 
 
     return(
         <NavigationContainer>
@@ -80,6 +87,7 @@ const Routes = () => {
             </Navigator>
         </NavigationContainer>
     )
+    
 }
 
 export default Routes;

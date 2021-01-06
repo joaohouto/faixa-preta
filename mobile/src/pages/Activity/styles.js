@@ -4,6 +4,7 @@ export const Details = styled.Text`
     font-size: 14px;
     color: #555;
     margin-bottom: 30px;
+    font-family: 'Roboto-Regular';
 `;
 
 export const Label = styled.Text`
@@ -13,6 +14,7 @@ export const Label = styled.Text`
     text-transform: uppercase;
     margin-bottom: 30px;
     margin-top: 10px;
+    font-family: 'Roboto-Bold';
 `;
 
 export const WarningBox = styled.View`
@@ -27,6 +29,8 @@ export const WarningBoxText = styled.Text`
     font-size: 14px;
     color: #999;
     margin: 0px 20px;
+    margin-right: 30px;
+    font-family: 'Roboto-Regular';
 `;
 
 export const ButtonWrapper = styled.View`

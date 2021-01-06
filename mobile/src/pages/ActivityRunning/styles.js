@@ -8,7 +8,7 @@ export const MainWrapper = styled.View`
 
 export const Container = styled.ImageBackground`
     width: 100%;
-    height: ${Dimensions.get('screen').height - 295}px;
+    height: ${Dimensions.get('window').height - 230}px;
     background: #222;
     padding: 30px;
     display: flex;
@@ -28,27 +28,27 @@ export const ControlsContainer = styled.View`
 export const Timer = styled.Text`
     font-size: 20px;
     color: #999;
-    font-weight: bold;
     margin-bottom: 15px;
+    font-family: 'Roboto-Bold';
 `;
 
 export const Do = styled.Text`
     font-size: 18px;
     color: #999;
-    font-weight: bold;
     margin-bottom: 10px;
+    font-family: 'Roboto-Bold';
 `;
 
 export const MoveName = styled.Text`
     font-size: 34px;
     color: #fff;
-    font-weight: bold;
+    font-family: 'Roboto-Bold';
 `;
 
 export const MoveRepetitions = styled.Text`
     font-size: 24px;
     color: #999;
-    font-weight: bold;
+    font-family: 'Roboto-Bold';
 `;
 
 export const ButtonElement = styled.TouchableOpacity`
@@ -64,9 +64,9 @@ export const ButtonElement = styled.TouchableOpacity`
 export const Label = styled.Text`
     font-size: 14px;
     color: #444;
-    font-weight: bold;
     text-transform: uppercase;
     margin-bottom: 10px;
+    font-family: 'Roboto-Bold';
 `;
 
 

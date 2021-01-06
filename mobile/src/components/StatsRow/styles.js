@@ -17,13 +17,13 @@ export const Section = styled.View`
 `;
 
 export const Time = styled.Text`
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 18px;
     color: #fff;
+    font-family: 'Roboto-Bold';
 `;
 
 export const Desc = styled.Text`
     font-size: 10px;
     color: #999999;
-    font-weight: bold;
+    font-family: 'Roboto-Bold';
 `;

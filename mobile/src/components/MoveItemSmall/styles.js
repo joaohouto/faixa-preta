@@ -23,12 +23,12 @@ export const BlackDot = styled.View`
 export const MoveName = styled.Text`
     color: #fff;
     font-size: 14px;
-    font-weight: bold;
     margin: 0px 20px;
+    font-family: 'Roboto-Bold';
 `;
 
 export const MoveRepetitions = styled.Text`
     color: #999;
     font-size: 18px;
-    font-weight: bold;
+    font-family: 'Roboto-Bold';
 `;

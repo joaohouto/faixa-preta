@@ -28,6 +28,7 @@ export const InputElement = styled.TextInput`
     padding-right: 25px;
     font-size: 14px;
     border-radius: 20px;
+    font-family: 'Roboto-Regular'
 
     border: 0;
     background: #f1f1f1;

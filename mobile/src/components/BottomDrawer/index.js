@@ -20,7 +20,7 @@ const BottomDrawer = ({ children }) => {
             borderTopLeftRadius: 40,
     
             position: 'absolute',
-            top: Dimensions.get('screen').height - 260
+            top: Dimensions.get('window').height - 255
         }
     });
 
@@ -36,7 +36,7 @@ const BottomDrawer = ({ children }) => {
 
     const openDrawer = () => {
         Animated.spring(y, { 
-            toValue: -Dimensions.get('screen').height * 0.57,
+            toValue: -Dimensions.get('window').height * 0.55,
             duration: 1000,
             useNativeDriver: true
         }).start();

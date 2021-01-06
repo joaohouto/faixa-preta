@@ -16,4 +16,5 @@ export const SectionButton = styled(TouchableOpacity)`
 
 export const ButtonText = styled.Text`
     color: #999;
+    font-family: 'Roboto-Regular';
 `

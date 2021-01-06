@@ -24,11 +24,11 @@ export default function Landing({ navigation }) {
         >
             <Heading>Comece a treinar agora mesmo.</Heading>
             <Info onPress={() => Linking.openURL("https://faixa-preta.web.app/privacidade")}>
-                <InfoText>Ao entrar, você concorda com nossa <Bold>Política de Privacidade</Bold> e <Bold>Termos de Uso</Bold>.</InfoText>
+                <InfoText>Ao prosseguir, você concorda com nossos <Bold>Termos de Uso</Bold> e <Bold>Política de Privacidade</Bold>.</InfoText>
             </Info>
             
             <Button onPress={navigateToApp}>
-                <ButtonText>Prosseguir para o app</ButtonText>
+                <ButtonText>Entrar</ButtonText>
                 <IconWrapper>
                     <Icon 
                         size={25} 

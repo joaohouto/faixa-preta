@@ -17,8 +17,8 @@ export const SquareImage = styled.Image`
 
 export const NotFoundMessage = styled.Text`
     font-size: 20px;
-    font-weight: bold;
     color: #555;
+    font-family: 'Roboto-Bold';
 `;
 
 export const FifityFiveView = styled.View`

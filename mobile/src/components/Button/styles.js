@@ -16,4 +16,5 @@ export const ButtonText = styled.Text`
     text-transform: uppercase;
     color: #fff;
     font-weight: bold;
+    font-family: 'Roboto-Bold';
 `;

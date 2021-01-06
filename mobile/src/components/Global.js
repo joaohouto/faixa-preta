@@ -15,14 +15,16 @@ export const ContainerDark = styled.ScrollView`
 
 export const PageTitleDark = styled.Text`
     font-size: 48px;
-    font-weight: bold;
+    line-height: 56px;
     color: #111;
+    font-family: 'Poppins-SemiBold';
 `;
 
 export const PageTitleLight = styled.Text`
     font-size: 48px;
-    font-weight: bold;
     color: #fff;
+    line-height: 56px;
+    font-family: 'Poppins-SemiBold';
 `;
 
 export const SimpleTextDark = styled.Text`
@@ -30,6 +32,7 @@ export const SimpleTextDark = styled.Text`
     color: #555;
     margin-bottom: 22px;
     margin-top: 22px;
+    font-family: 'Roboto-Regular';
 `;
 
 export const SimpleTextLight = styled.Text`
@@ -37,10 +40,12 @@ export const SimpleTextLight = styled.Text`
     color: #aaa;
     margin-bottom: 22px;
     margin-top: 22px;
+    font-family: 'Roboto-Regular';
 `;
 
 export const Bold = styled.Text`
     font-weight: bold;
+    font-family: 'Roboto-Bold';
 `;
 
 export const Row = styled.View`

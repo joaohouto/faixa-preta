@@ -10,6 +10,6 @@ export const TwentyEightView = styled.View`
 
 export const NotFoundMessage = styled.Text`
     font-size: 20px;
-    font-weight: bold;
     color: #555;
+    font-family: 'Roboto-Bold';
 `;

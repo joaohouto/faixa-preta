@@ -26,7 +26,7 @@ export const Row = styled.View`
 
 export const Year = styled.Text`
     color: #999;
-    font-weight: bold;
+    font-family: 'Roboto-Bold';
 `;
 
 export const Button = styled.TouchableOpacity`
@@ -39,7 +39,7 @@ export const Button = styled.TouchableOpacity`
 export const Month = styled.Text`
     font-size: 20px;
     color: #fff;
-    font-weight: bold;
+    font-family: 'Roboto-Bold';
 `;
 
 export const Week = styled.View`
@@ -64,8 +64,8 @@ export const Day = styled.View`
 
 export const DayText = styled.Text`
     color: ${p => p.active ? '#fff' : '#999'};
-    font-weight: bold;
     font-size: 12px;
+    font-family: 'Roboto-Bold';
 `;
 
 export const Light = styled.View`

@@ -21,12 +21,14 @@ export const GoodJob = styled.Text`
     color: #fff;
     font-size: 24px;
     font-weight: bold;
+    font-family: 'Poppins-SemiBold';
 `;
 
 export const Details = styled.Text`
     color: #fff;
     font-size: 14px;
     margin-top: 10px;
+    font-family: 'Roboto-Regular';
 `;
 
 export const Square = styled.View`
@@ -55,8 +57,8 @@ export const RowBoxItem = styled.View`
 export const RowTitle = styled.Text`
     color: #fff;
     font-size: 18px;
-    font-weight: bold;
     margin-left: 10px;
+    font-family: 'Roboto-Bold';
 `;
 
 export const BlackDot = styled.View`
@@ -69,14 +71,14 @@ export const BlackDot = styled.View`
 export const MoveName = styled.Text`
     color: #fff;
     font-size: 14px;
-    font-weight: bold;
     margin: 0px 20px;
+    font-family: 'Roboto-Bold';
 `;
 
 export const MoveRepetitions = styled.Text`
     color: #999;
     font-size: 18px;
-    font-weight: bold;
+    font-family: 'Roboto-Bold';
 `;
 
 export const FifityFiveView = styled.View`

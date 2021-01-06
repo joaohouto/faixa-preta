@@ -9,14 +9,14 @@ export const Row = styled.View`
 export const Title = styled.Text`
     font-size: 18px;
     color: #fff;
-    font-weight: bold;
     max-width: 240px;
+    font-family: 'Roboto-Bold';
 `;
 
 export const Tags = styled.Text`
     font-size: 14px;
     color: #999;
-    font-weight: bold;
+    font-family: 'Roboto-Bold';
 `;
 
 export const Section = styled.View`
@@ -32,7 +32,7 @@ export const MoveImage = styled.View`
     background: #333;
     border-radius: 20px;
     margin-right: 24px;
-    padding: 10px;
+    padding: 6px;
 
     display: flex;
     justify-content: space-between;
@@ -42,16 +42,21 @@ export const MoveImage = styled.View`
 
 export const Day = styled.Text`
     font-size: 24px;
+    line-height: 24px;
     color: #ddd;
-    font-weight: bold;
+    font-family: 'Roboto-Bold';
 `;
 
 export const Month = styled.Text`
+    line-height: 9px;
     font-size: 9px;
     color: #ddd;
+    font-family: 'Roboto-Regular';
 `;
 
 export const Year = styled.Text`
+    line-height: 9px;
     font-size: 9px;
     color: #ddd;
+    font-family: 'Roboto-Regular';
 `;

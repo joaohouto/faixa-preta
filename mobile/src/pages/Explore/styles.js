@@ -65,7 +65,7 @@ export const DarkButton = styled.TouchableOpacity`
 
 export const DarkButtonText = styled.Text`
     font-size: 16px;
-    font-weight: bold;
     color: #999;
     margin: 0 20px;
+    font-family: 'Roboto-Bold';
 `;

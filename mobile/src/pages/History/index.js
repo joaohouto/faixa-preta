@@ -6,8 +6,8 @@ import HistoryItem from '../../components/HistoryItem'
 import Badge from '../../components/Badge'
 import LoadingMoveItemSearched from '../../components/LoadingMoveItemSearched'
 
-import { ContainerDark, SimpleTextLight, PageTitleLight } from '../../components/Global';
-import { FifityFiveView } from './styles';
+import { ContainerDark, SimpleTextLight, PageTitleLight, Row } from '../../components/Global';
+import { FifityFiveView, NotFoundMessage } from './styles';
 
 class History extends Component {
 
@@ -36,6 +36,8 @@ class History extends Component {
             loading: false 
           });
         }
+      } else {
+        this.setState({ loading: false });
       }
 
     } catch(e){
@@ -58,14 +60,19 @@ class History extends Component {
 
         <Badge dark>Tudo</Badge>
 
-        { !loading ? oldActivities.length > 0 && oldActivities.map(activity => (
-          <HistoryItem 
-            key={activity.id}
-            name={activity.name}
-            time={activity.time}
-            date={activity.date}
-          />
-        )) : <LoadingMoveItemSearched /> }
+        { !loading ? 
+            oldActivities.length > 0 ? oldActivities.map(activity => (
+              <HistoryItem 
+                key={activity.id}
+                name={activity.name}
+                time={activity.time}
+                date={activity.date}
+              />
+            )) : (
+              <Row>
+                <NotFoundMessage>Não existem registros!</NotFoundMessage>
+              </Row>
+            ) : <LoadingMoveItemSearched /> }
 
         <FifityFiveView />
 

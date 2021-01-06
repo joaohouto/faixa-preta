@@ -38,16 +38,16 @@ const MonthChart = ({ data }) => {
 
             <Week>
                 { calendar && calendar[0].map((day, index) => day.split('/').splice(0, 1) < 8 ? (
-                    <Day>
+                    <Day key={Math.random()}>
                         <DayText>{day.split('/').splice(0, 1)}</DayText>
                         <Light size={data && (data[0][index].time) * 0.85} />
                     </Day>
-                ) : <Day />) }
+                ) : <Day key={Math.random()} />) }
             </Week>
 
             <Week>
                 { calendar && calendar[1].map((day, index) => (
-                    <Day>
+                    <Day key={Math.random()}>
                         <DayText>{day.split('/').splice(0, 1)}</DayText>
                         <Light size={data && (data[1][index].time) * 0.85} />
                     </Day>
@@ -56,7 +56,7 @@ const MonthChart = ({ data }) => {
 
             <Week>
                 { calendar && calendar[2].map((day, index) => (
-                    <Day>
+                    <Day key={Math.random()}>
                         <DayText>{day.split('/').splice(0, 1)}</DayText>
                         <Light size={data && (data[2][index].time) * 0.85} />
                     </Day>
@@ -65,7 +65,7 @@ const MonthChart = ({ data }) => {
 
             <Week>
                 { calendar && calendar[3].map((day, index) => (
-                    <Day>
+                    <Day key={Math.random()}>
                         <DayText>{day.split('/').splice(0, 1)}</DayText>
                         <Light size={data && (data[3][index].time) * 0.85} />
                     </Day>
@@ -74,11 +74,20 @@ const MonthChart = ({ data }) => {
 
             <Week>
                 { calendar && calendar[4].map((day, index) => !(day.split('/').splice(0, 1) < 7) ? (
-                    <Day>
+                    <Day key={Math.random()}>
                         <DayText>{day.split('/').splice(0, 1)}</DayText>
                         <Light size={data && (data[4][index].time) * 0.85} />
                     </Day>
-                ) : <Day />) }
+                ) : <Day key={Math.random()} />) }
+            </Week>
+
+            <Week>
+                { calendar && calendar[5].map((day, index) => !(day.split('/').splice(0, 1) < 7) ? (
+                    <Day key={Math.random()}>
+                        <DayText>{day.split('/').splice(0, 1)}</DayText>
+                        <Light size={data && (data[5][index].time) * 0.85} />
+                    </Day>
+                ) : <Day key={Math.random()} />) }
             </Week>
 
             

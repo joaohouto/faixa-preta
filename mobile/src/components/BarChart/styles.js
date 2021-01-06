@@ -43,9 +43,9 @@ export const Section = styled.View`
 
 export const LeftLabel = styled.Text`
     font-size: 12px;
-    font-weight: bold;
     color: #999;
     margin-top: 10px;
+    font-family: 'Roboto-Bold';
 `;
 
 export const Overlay = styled.View`
@@ -82,7 +82,7 @@ export const SectionBottom = styled.View`
 
 export const BottomLabel = styled.Text`
     font-size: 12px;
-    font-weight: bold;
     margin-top: 10px;
     color: #999;
+    font-family: 'Roboto-Bold';
 `;

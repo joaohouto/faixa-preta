@@ -15,7 +15,7 @@ export const Button = styled(TouchableOpacity)`
 export const ButtonText = styled.Text`
     font-size: 18px;
     color: #555;
-    font-weight: bold;
+    font-family: 'Roboto-Bold';
 `;
 
 export const Logo = styled.Image`
