@@ -1,4 +1,4 @@
-<img src="./web/src/assets/logo-x.svg" width="200"/>
+<img src="./mobile/assets/icon.png" width="100"/>
 
 # <a href="https://github.com/joaocou/faixa-preta">Faixa Preta</a>
 
@@ -7,7 +7,7 @@
 [![Repo Size](https://img.shields.io/github/repo-size/joaocou/faixa-preta?color=222)](https://github.com/joaocou/faixa-preta/)
 
 
-> O Faixa Preta é a proposta de uma plataforma de acompanahamento de treinos individuais de Karatê Shotkan.
+> O Faixa Preta é a proposta de um aplicativo para ajudar karatecas em seus treinos individuais, com programas de treino específicos e detalhes da execução de técnicas.
 
 
 ### 📌 Sumário
@@ -20,43 +20,31 @@
 
 ### <span id="Caracteristicas">⚙️ Características</span>
 
-- Listar movimentos
-- Listar atividades
-- Gravar atividade
-- Listar atividades gravadas
-- Manter movimentos e atividades
+- Exibir recomendações de treinos;
+- Busca de atividades e técnicas;
+- Relatório de desempenho semanal;
+- Gravação de treinos recomendados e livres;
 
 ### <span id="Telas">📱 Telas</span>
 
+<img src="https://joaocouto.ga/img/posts/faixa-preta.png" style="width: 100%;">
 
+Figma: <a href="https://www.figma.com/file/bQcSnRRb8ZVshbcljYIRQr/Mobile?node-id=0%3A1">Mobile</a>
 
 ### <span id="Tecnologias">💻 Tecnologias</span>
 
-*Backend*
-- JavaScript
-- Express.js
-- MongoDB
-- Mongoose
-- Mongoose Paginate
-- Cors
-
-*Web*
-- JavaScript
-- React.js
-- React Router Dom
-- Axios
-- Styled Components
-
-
-*Mobile*
-- JavaScript
-- React Native
-- Expo.io 
-- React Native Elements
-- React Navigation
-- Axios
-- Styled Components
-
+- Javascript;
+- ReactJS;
+- NodeJS;
+- React Native;
+- Expo;
+- Styled Components;
+- MomentJS;
+- Axios;
+- MongoDB;
+- Mongoose;
+- BcryptJS;
+- JWT;
 
 <hr>
 
