@@ -18,7 +18,7 @@ export default class Home extends Component {
             <div className="content">
               <div className="section">
                 <h2 className="animate-opacity">O treino que vai além da academia.</h2>
-                <p className="animate-opacity">O <i>Faixa Preta</i> é a proposta de um app para ajudar karatecas em seus treinos individuais, contando com recursos que facilitam o o seu aprendizado e aperfeiçoamento.</p>
+                <p className="animate-opacity">O <i>Faixa Preta</i> é a proposta de um app para ajudar karatecas em seus treinos individuais, contando com recursos que facilitam o seu aprendizado e aperfeiçoamento.</p>
 
                 <a className="animate-opacity" href="https://expo.io/@joaohouto/faixa-preta" id="downButton">
                   <button className="button"><img alt="" src={downloadIcon} /> Download</button>
@@ -32,7 +32,7 @@ export default class Home extends Component {
             </div>
 
             <div className="footer">
-              &copy; 2020 Faixa Preta
+              &copy; 2021 Faixa Preta
             </div>
         </div>
     );

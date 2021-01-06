@@ -16,8 +16,8 @@ export default class Home extends Component {
               <div className="section" id="width" >
                 <h2>Sobre.</h2>
       
-                <p>O Faixa Preta é a proposta de um aplicativo para ajudar karatecas em seus treinos individuais, com programas de treino específicos e detalhes da execução de técnicas. Além disso, relatórios da execução de treinos podem ser encontrados na seção de estatísticas do app.</p>
-                <p>Este é um projeto inicialmente idealizado como um Trabalho de Conclusão de Curso para o Curso Técnico de Informática, do Instituto Federal de Mato Grosso do Sul - Campus   Aquidauana-MS.</p>
+                <p>O Faixa Preta é a proposta de um aplicativo para ajudar karatecas em seus treinos individuais, contando com programas de treino específicos e detalhes da execução de técnicas. Além disso, relatórios da execução de treinos podem ser encontrados na seção de estatísticas do app.</p>
+                <p>Este é um projeto inicialmente idealizado como um Trabalho de Conclusão de Curso para o Curso Técnico de Informática, do Instituto Federal de Mato Grosso do Sul - Campus Aquidauana.</p>
 
                 <h3>Contato</h3>
                 <p>Para elogios, críticas e outros, envie um email para <a href="mailto:appfaixapreta@gmail.com">appfaixapreta@gmail.com</a>.</p>
@@ -45,7 +45,7 @@ export default class Home extends Component {
             </div>
 
             <div className="footer">
-              &copy; 2020 Faixa Preta
+              &copy; 2021 Faixa Preta
             </div>
         </div>
     );
