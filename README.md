@@ -7,7 +7,7 @@
 [![Repo Size](https://img.shields.io/github/repo-size/joaocou/faixa-preta?color=222)](https://github.com/joaocou/faixa-preta/)
 
 
-> O Faixa Preta é a proposta de um aplicativo para ajudar karatecas em seus treinos individuais, com programas de treino específicos e detalhes da execução de técnicas.
+> O Faixa Preta é a proposta de um aplicativo para ajudar karatecas em seus treinos individuais, contando com programas de treino específicos e detalhes da execução de técnicas.
 
 
 ### 📌 Sumário
@@ -21,13 +21,13 @@
 ### <span id="Caracteristicas">⚙️ Características</span>
 
 - Exibir recomendações de treinos;
-- Busca de atividades e técnicas;
-- Relatório de desempenho semanal;
+- Buscar por atividades e técnicas;
+- Relatórios de desempenho semanal e mensal;
 - Gravação de treinos recomendados e livres;
 
 ### <span id="Telas">📱 Telas</span>
 
-<img src="https://joaocouto.ga/img/posts/faixa-preta.png" style="width: 100%;">
+--
 
 Figma: <a href="https://www.figma.com/file/bQcSnRRb8ZVshbcljYIRQr/Mobile?node-id=0%3A1">Mobile</a>
 
