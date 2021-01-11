@@ -13,7 +13,7 @@ import MoveItemSearched from '../../components/MoveItemSearched'
 import LoadingMoveItemSearched from '../../components/LoadingMoveItemSearched'
 
 import { ContainerDark, PageTitleLight, SimpleTextLight, Row } from '../../components/Global';
-import { TwentyEightView, FifityFiveView, NotFoundMessage } from './styles';
+import { TwentyEightView, FifityFiveView, NotFoundMessage, SectionButton, ButtonText } from './styles';
 
 class MoveList extends React.Component {
 
@@ -24,7 +24,8 @@ class MoveList extends React.Component {
     showSearch: true,
     search: '',
     refreshing: false,
-    loading: true
+    loading: true,
+    filter: ''
   }
 
   componentDidMount() {
@@ -46,7 +47,7 @@ class MoveList extends React.Component {
   handleSearch = async () => {
     await this.setState({ currentPage: 1, loading: true });
     
-    const response = await api.get('moves?name=' + this.state.search);
+    const response = await api.get('moves?name=' + this.state.search + '&category=' + this.state.filter);
 
     await this.setState({ 
       moves: response.data.docs,
@@ -57,6 +58,15 @@ class MoveList extends React.Component {
 
   }
 
+  handleFilterSet = (value) => {
+    if (this.state.filter === value)
+      this.setState({ filter: '' })
+    else
+      this.setState({ filter: value})
+
+    this.handleSearch();
+  }
+
   handleDismiss = async () => {
     await this.setState({ 
       moves: [],
@@ -64,6 +74,7 @@ class MoveList extends React.Component {
       showSearch: true,
       search: '', 
       loading: true, 
+      filter: ''
     });
 
     await this.loadMoves();
@@ -90,7 +101,7 @@ class MoveList extends React.Component {
 
   render() {
 
-  const { moves } = this.state;
+  const { moves, filter } = this.state;
  
   return (
     <>
@@ -98,10 +109,7 @@ class MoveList extends React.Component {
       <ContainerDark
         refreshControl={ <RefreshControl refreshing={this.state.refreshing} onRefresh={this.handleRefresh} />}
       >
-        <PageTitleLight>Pesquisa</PageTitleLight>
-        <SimpleTextLight>
-          Dúvidas na execução de algum golpe, defesa, base ou kata? Procure por ele nesta página.
-        </SimpleTextLight>
+        <PageTitleLight style={{ marginBottom: 20 }}>Pesquisa</PageTitleLight>
 
         <SearchInput 
           dark={true} 
@@ -113,6 +121,30 @@ class MoveList extends React.Component {
           showSearch={this.state.showSearch}
           onDismiss={this.handleDismiss}
         />
+
+        <Row style={{ marginVertical: 20, justifyContent: 'flex-start' }}>
+          <SectionButton 
+            onPress={() => this.handleFilterSet("kihon")}
+            active={filter === "kihon"}
+          >
+            <ButtonText>Kihon</ButtonText>
+          </SectionButton>
+
+          <SectionButton 
+            onPress={() => this.handleFilterSet("kata")}
+            active={filter === "kata"}
+          >
+            <ButtonText>Kata</ButtonText>
+          </SectionButton>
+
+          <SectionButton 
+            onPress={() => this.handleFilterSet("kumite")}
+            active={filter === "kumite"}
+          >
+            <ButtonText>Kumite</ButtonText>
+          </SectionButton>
+        </Row>
+
         <TwentyEightView />
 
         { !this.state.loading ? 
