@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import swal from 'sweetalert';
 
 import { logout } from '../../services/auth'
 import api from '../../api'
@@ -44,14 +45,14 @@ export default class Dashboard extends Component {
             const response = await api.delete(`/activities/${id}`);
 
             if(response.status === 200) {
-                alert("Item deletado.");
+                swal('Deletado!', 'O item foi deletado.', 'success');
                 
                 setTimeout(() => {
                     window.location.href = '/activities/' + this.props.match.params.page_id;
                 }, 1000);
             }
         } catch (err) {
-            alert(err);
+            swal('Erro!', err, 'error');
         }
     }
 
