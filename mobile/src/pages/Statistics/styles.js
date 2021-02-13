@@ -3,7 +3,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export const Container = styled.View`
     padding: 30px;
-    background: #111;
 `
 
 export const SectionButton = styled(TouchableOpacity)`

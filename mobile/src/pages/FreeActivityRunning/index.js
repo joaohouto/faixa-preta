@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { Alert } from 'react-native'
 import { Icon } from 'react-native-elements'
 
-import CustomHeader from '../../components/CustomHeader'
+import { launchActivityNotification, dismissActivityNotification } from '../../services/notifications'
+
+import backgroundImg from '../../assets/images/activityBackground.png'
+
 import Button from '../../components/Button'
 
 import { Row } from '../../components/Global';
@@ -10,7 +13,6 @@ import {
   Container, 
   ControlsContainer,
   Timer, 
-  Do, 
   MoveName, 
   ButtonElement, 
   TenView, 
@@ -21,7 +23,7 @@ class FreeActivityRunning extends Component {
   state = {
     timerOn: false,
     timerStart: 0,
-    timerTime: 0,
+    timerTime: 0
   }
   componentDidMount() {
     this.showAlert();
@@ -29,6 +31,7 @@ class FreeActivityRunning extends Component {
 
   componentWillUnmount() {
     this.stopTimer();
+    dismissActivityNotification();
   }
 
   showAlert = () => {
@@ -44,13 +47,19 @@ class FreeActivityRunning extends Component {
           },
           style: 'cancel'
         },
-        { text: 'Iniciar', onPress: () => this.startTimer() }
+        { text: 'Iniciar', onPress: () => this.startActivity() }
       ],
       { cancelable: false }
     );
   }
 
+  startActivity = () => {
+    launchActivityNotification();
+    this.startTimer();
+  }
+
   startTimer = () => {
+
     this.setState({
       timerOn: true,
       timerStart: Date.now() - this.state.timerTime,
@@ -60,6 +69,7 @@ class FreeActivityRunning extends Component {
     this.timer = setInterval(() => {
       this.setState({ timerTime: Date.now() - this.state.timerStart });
     }, 1000);
+    
   }
 
   stopTimer = () => {
@@ -79,8 +89,10 @@ class FreeActivityRunning extends Component {
         { text: 'Finalizar', onPress: () => {
           this.stopTimer();
           
+          dismissActivityNotification();
           this.props.navigation.popToTop();
           this.props.navigation.navigate('ActivityFinished', { activity: { name: 'Treino livre' }, timerTime: this.state.timerTime });
+
         } }
       ],  
       { cancelable: false }
@@ -96,15 +108,15 @@ class FreeActivityRunning extends Component {
  
   return (
     <>
-      <CustomHeader icon="x" dark={true} navigation={this.props.navigation} />
-
-      <Container>
+      <Container
+        source={timerOn ? backgroundImg : null}
+        style={{ resizeMode: 'contain' }}
+        imageStyle={{ opacity: 0.3 }}
+      >
         
         <Row style={{ flexDirection: 'column', alignItems: 'flex-start', marginBottom: 120 }}>
 
           <Timer>{hours}:{minutes}:{seconds}</Timer>          
-
-          { timerOn ? <Do>execute</Do> : <Do>treino livre</Do> }
 
           { timerOn ? <MoveName>Treino livre</MoveName> : <MoveName>Pausado</MoveName> }
 

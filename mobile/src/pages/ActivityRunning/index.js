@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Alert, View } from 'react-native'
+import { Alert } from 'react-native'
 import { Icon } from 'react-native-elements'
 
-import CustomHeader from '../../components/CustomHeader'
+import { launchActivityNotification, dismissActivityNotification } from '../../services/notifications'
+
 import Button from '../../components/Button'
 import MoveItemSmall from '../../components/MoveItemSmall'
 import BottomDrawer from '../../components/BottomDrawer'
@@ -41,6 +42,7 @@ class ActivityRunning extends Component {
 
   componentWillUnmount() {
     this.stopTimer();
+    dismissActivityNotification();
   }
 
   loadMoves = () => {
@@ -85,6 +87,8 @@ class ActivityRunning extends Component {
     this.timer = setInterval(() => {
       this.setState({ timerTime: Date.now() - this.state.timerStart });
     }, 1000);
+
+    launchActivityNotification();
   }
 
   stopTimer = () => {
@@ -93,34 +97,54 @@ class ActivityRunning extends Component {
   }
 
   handleNext = () => {
-    const { currentMove, moves, activity, timerTime, toRunMoves } = this.state;
+    const { currentMove, moves, activity, timerTime, toRunMoves, runnedMoves } = this.state;
+
+    const newRunnedMoves = runnedMoves.concat(moves[currentMove]);
 
     if (currentMove + 1 < moves.length) {
       this.setState({ 
         currentMove: currentMove + 1,
-        toRunMoves: toRunMoves.filter(move => move !== moves[currentMove + 1])
+        toRunMoves: toRunMoves.filter(move => move !== moves[currentMove + 1]),
+        runnedMoves: newRunnedMoves
       });
       
     } else {
       this.stopTimer();
 
+      this.setState({ 
+        runnedMoves: newRunnedMoves
+      });
+
+      dismissActivityNotification();
       this.props.navigation.popToTop();
-      this.props.navigation.navigate('ActivityFinished', { activity, moves, timerTime });
+
+      if (this.state.timerTime >= 60 * 1000) {
+        this.props.navigation.navigate('ActivityFinished', { activity, runnedMoves, timerTime });
+      }
     }
   }
 
   handleCancel = () => {
+
+    const { activity, timerTime, runnedMoves } = this.state;
+
     Alert.alert(
       'Tem certeza?',
-      'Seu progresso não será registrado!',
+      'O movimento atual não será contabilizado!',
       [
         {
-          text: 'Voltar',
+          text: 'Voltar',  
           style: 'cancel'
         },
         { text: 'Finalizar', onPress: () => {
           this.stopTimer();
+
+          dismissActivityNotification();
           this.props.navigation.popToTop();
+
+          if (this.state.timerTime >= 60 * 1000) {
+            this.props.navigation.navigate('ActivityFinished', { activity, runnedMoves, timerTime });
+          }
         } }
       ],
       { cancelable: false }
@@ -129,7 +153,7 @@ class ActivityRunning extends Component {
 
   render() {
 
-  const { moves, currentMove, runnedMoves, toRunMoves } = this.state;
+  const { moves, currentMove, toRunMoves } = this.state;
 
   const { timerTime, timerOn } = this.state;
   let seconds = ("0" + (Math.floor(timerTime / 1000) % 60)).slice(-2);

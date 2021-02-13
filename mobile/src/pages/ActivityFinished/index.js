@@ -1,21 +1,23 @@
-import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import React, { Component } from 'react'
+import { ScrollView } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 
-import { getDate } from '../../services/calendar';
+import { getDate } from '../../services/calendar'
+import { launchWorkoutNotification, dismissActivityNotification } from '../../services/notifications'
 
 import CustomHeader from '../../components/CustomHeader'
 import Badge from '../../components/Badge'
 import { Icon } from 'react-native-elements'
 
-import { Row, PageTitleLight } from '../../components/Global';
+import { Row, PageTitleLight } from '../../components/Global'
 import { ContainerDark, Container, GoodJob, Details, Square, RowBox, RowBoxItem, RowTitle, BlackDot, MoveName, MoveRepetitions, FifityFiveView } from './styles';
 
 class ActivityFinished extends Component {
 
   state = {
+    message: "",
     activity: {},
-    moves: [],
+    runnedMoves: [],
     timerTime: null,
     oldActivities: []
   }
@@ -23,12 +25,19 @@ class ActivityFinished extends Component {
   componentDidMount() {
     this.loadData();
     this.getOldActivities();
+    this.generateRandomMessage();
+    
+    dismissActivityNotification();
   }
 
   loadData = () => {
-    const { activity, moves, timerTime } = this.props.route.params;
+    const { activity, runnedMoves, timerTime } = this.props.route.params;
 
-    this.setState({ activity, moves, timerTime });
+    this.setState({ activity, runnedMoves, timerTime });
+
+    console.log(runnedMoves)
+    
+    launchWorkoutNotification(timerTime);
   }
 
   saveData = async () => {
@@ -73,9 +82,27 @@ class ActivityFinished extends Component {
     this.saveData();
   }
 
+  generateRandomMessage () {
+    const messages = [
+      "🎆 Isso aí!", 
+      "🎇 Muito bom!", 
+      "🔥 Show!", 
+      "✨ Bom trabalho!", 
+      "🌟 Isso aí!", 
+      "🥋 Boa!", 
+      "🏅 Parabéns!", 
+      "🏆 Sensacional!"
+    ];
+
+    const randomPlace = Math.floor(Math.random() * 8);
+
+    this.setState({ message: messages[randomPlace] });
+    
+  }
+
   render() {
 
-  const { activity, moves, timerTime } = this.state;
+  const { activity, runnedMoves, timerTime } = this.state;
 
   const seconds = ("0" + (Math.floor(timerTime / 1000) % 60)).slice(-2);
   const minutes = ("0" + (Math.floor(timerTime / 60000) % 60)).slice(-2);
@@ -86,19 +113,6 @@ class ActivityFinished extends Component {
       <CustomHeader icon="arrow-left" dark={true} navigation={this.props.navigation} />
 
       <ScrollView style={{ backgroundColor: '#111' }}>
-      <Container>
-        <Row style={{ flexDirection: 'column', alignItems: 'flex-start', width: 200 }}>
-          <GoodJob>Bom trabalho!</GoodJob>
-          <Details>Mantenha foco nos treinos para poder ver sua evolução no futuro.</Details>
-        </Row>
-
-        <Row style={{ marginLeft: 30 }}>
-          <Square>
-            <Icon name="check-circle" type='feather' size={70} color="#999" containerStyle={{ position: 'relative', right: 20, bottom: 20 }} />
-          </Square>
-        </Row>
-       
-      </Container>
       <ContainerDark>
 
         <PageTitleLight>Finalizado</PageTitleLight>
@@ -115,10 +129,10 @@ class ActivityFinished extends Component {
           </RowBoxItem>
         </RowBox>
 
-        { moves && <Badge dark={true}>Executado</Badge> }
+        { runnedMoves && <Badge dark={true}>Executado</Badge> }
 
 
-        { moves && moves.length > 0 && moves.map(move => (
+        { runnedMoves?.length > 0 && runnedMoves.map(move => (
           <Row 
             key={move._id}
             style={{ justifyContent: 'flex-start', alignItems: 'center', height: 20, marginBottom: 20, marginTop: 10 }}
@@ -129,9 +143,22 @@ class ActivityFinished extends Component {
           </Row>
         )) }
 
-        <FifityFiveView />
-
       </ContainerDark>
+      <Container>
+        <Row style={{ flexDirection: 'column', alignItems: 'flex-start', width: 200 }}>
+
+          <GoodJob>{this.state.message}</GoodJob>
+          <Details>Mantenha foco nos treinos para poder ver sua evolução no futuro.</Details>
+
+        </Row>
+
+        <Row style={{ marginLeft: 30 }}>
+          <Square>
+            <Icon name="check-circle" type='feather' size={70} color="#999" containerStyle={{ position: 'relative', right: 20, bottom: 20 }} />
+          </Square>
+        </Row>
+       
+      </Container>
       </ScrollView>
     </>
   );

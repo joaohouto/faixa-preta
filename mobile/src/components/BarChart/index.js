@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-import { parseTime } from '../../services/calendar';
+import { parseTime, getDay } from '../../services/calendar';
 import { roundNumber } from '../../services/number';
 
 import { 
@@ -39,6 +39,8 @@ const BarChart = ({ data, ...rest }) => {
     let quarter = max * 0.25;
 
     let columnsHeight = newValues.map(value =>  value * (100 / max));
+
+    const day = getDay();
 
     return (
         <Container {...rest}>
@@ -82,13 +84,13 @@ const BarChart = ({ data, ...rest }) => {
                 <SectionBlank style={{ borderTopWidth: 4, borderTopColor: '#222' }} />
 
                 <SectionBottom style={{ borderTopWidth: 4, borderTopColor: '#222' }}>
-                    <BottomLabel>DOM</BottomLabel>
-                    <BottomLabel>SEG</BottomLabel>
-                    <BottomLabel>TER</BottomLabel>
-                    <BottomLabel>QUA</BottomLabel>
-                    <BottomLabel>QUI</BottomLabel>
-                    <BottomLabel>SEX</BottomLabel>
-                    <BottomLabel>SÁB</BottomLabel>
+                    <BottomLabel active={day === 0}>DOM</BottomLabel>
+                    <BottomLabel active={day === 1}>SEG</BottomLabel>
+                    <BottomLabel active={day === 2}>TER</BottomLabel>
+                    <BottomLabel active={day === 3}>QUA</BottomLabel>
+                    <BottomLabel active={day === 4}>QUI</BottomLabel>
+                    <BottomLabel active={day === 5}>SEX</BottomLabel>
+                    <BottomLabel active={day === 6}>SÁB</BottomLabel>
                 </SectionBottom>
             </SecondRow>
         </Container>

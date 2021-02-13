@@ -1,7 +1,10 @@
-import React from 'react';
-import { StatusBar } from 'react-native';
+import React, { useEffect } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Icon } from 'react-native-elements';
+
+import { dismissActivityNotification } from '../../services/notifications'
+
+import backgroundImg from '../../assets/images/activityBackground.png'
 
 import HomeHeader from '../../components/HomeHeader'
 import Badge from '../../components/Badge'
@@ -26,11 +29,19 @@ import exameImg from '../../assets/images/exame.png';
 
 const Explore = ({ navigation }) => {
 
+  useEffect(() => {
+    dismissActivityNotification();
+  }, []);
+
   return (
     <>
       <HomeHeader />
       <Scroll>
-        <ContainerLight>
+        <ContainerLight
+          source={backgroundImg}
+          style={{ resizeMode: 'contain' }}
+          imageStyle={{ opacity: 0.3 }}
+        >
           
           <Row style={{ justifyContent: 'space-between', flex: 1 }}>
             <Row style={{ flexDirection: 'column', alignItems: 'flex-start' }}>

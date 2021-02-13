@@ -22,7 +22,7 @@ export const BlackDot = styled.View`
 
 export const MoveName = styled.Text`
     color: #fff;
-    font-size: 14px;
+    font-size: 13px;
     margin: 0px 20px;
     font-family: 'Roboto-Bold';
 `;

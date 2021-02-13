@@ -19,6 +19,8 @@ export default class Home extends Component {
                 <p>O Faixa Preta é a proposta de um aplicativo para ajudar karatecas em seus treinos individuais, contando com programas de treino específicos e detalhes da execução de técnicas. Além disso, relatórios da execução de treinos podem ser encontrados na seção de estatísticas do app.</p>
                 <p>Este é um projeto inicialmente idealizado como um Trabalho de Conclusão de Curso para o Curso Técnico de Informática, do Instituto Federal de Mato Grosso do Sul - Campus Aquidauana.</p>
 
+                <h3>Download</h3>
+                <p>Por hora, o aplicativo pode ser testado através do Expo Go (<a href="https://play.google.com/store/apps/details?id=host.exp.exponent&hl=pt_BR&gl=US">Android</a>/<a href="https://apps.apple.com/br/app/expo-client/id982107779?l=en">IOS</a>) ou efetuando a instalação do arquivo .apk para dispositivos Android. Os links se encontram na página inicial do site.</p>
                 <h3>Contato</h3>
                 <p>Para elogios, críticas e outros, envie um email para <a href="mailto:appfaixapreta@gmail.com">appfaixapreta@gmail.com</a>.</p>
 

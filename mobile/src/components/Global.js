@@ -16,14 +16,16 @@ export const ContainerDark = styled.ScrollView`
 export const PageTitleDark = styled.Text`
     font-size: 48px;
     line-height: 56px;
+    margin-top: 10px;
     color: #111;
     font-family: 'Poppins-SemiBold';
 `;
 
 export const PageTitleLight = styled.Text`
     font-size: 48px;
-    color: #fff;
+    margin-top: 10px;
     line-height: 56px;
+    color: #fff;
     font-family: 'Poppins-SemiBold';
 `;
 

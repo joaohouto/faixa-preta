@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Linking } from 'react-native'
+import Markdown from 'react-native-simple-markdown'
 
 import { getLinkPreview } from 'link-preview-js';
 
@@ -44,6 +45,27 @@ class Move extends Component {
   render() {
 
   const { move, videos, loading } = this.state;
+
+  const markdownStyles = {
+    plainText: {
+      fontSize: 14,
+      color: '#555',
+      fontFamily: 'Roboto-Regular',
+    },
+    em: {
+      fontSize: 14,
+      color: '#555',
+      fontFamily: 'Roboto-Regular',
+    },
+    text: {
+      fontSize: 14,
+      color: '#555',
+      fontFamily: 'Roboto-Regular',
+    },
+    strong: {
+      fontFamily: 'Roboto-Bold',
+    },
+  }
  
   return (
     <>
@@ -64,11 +86,12 @@ class Move extends Component {
 
         <Category>{move.category}</Category>
         <Title>{move.name}</Title>
-        <Details>
-          { move.details }
-        </Details>
 
-        <Label>YouTube</Label>
+        <Markdown styles={markdownStyles}>
+          { move.details }
+        </Markdown>
+
+        <Label style={{ marginTop: 30 }}>Vídeos</Label>
 
         { !loading ? videos.map(video => (
           <ActivityItem 

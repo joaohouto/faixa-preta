@@ -72,8 +72,8 @@ export const Light = styled.View`
     width: ${p => p.size}px;
     height: ${p => p.size}px;
 
-    border-radius: 100px;
-    background: rgba(255,255,255,0.1);
+    border-radius: 500px;
+    background: rgba(255, 255, 255, 0.3);
     position: absolute;
     top: 17px;
     left: 17px;

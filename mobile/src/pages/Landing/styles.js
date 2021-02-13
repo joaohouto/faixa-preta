@@ -11,16 +11,17 @@ export const Container = styled.ImageBackground`
 `
 
 export const Heading = styled.Text`
-    width: 280px;
+    width: 300px;
     font-size: 38px;
     line-height: 45px;
     color: #fff;
     font-family: 'Poppins-SemiBold';
+    margin-bottom: -10px;
 `
 
 export const Info = styled(TouchableOpacity)`
-    width: 220px;
-    margin: 30px 0;
+    width: 250px;
+    margin: 40px 0;
 `
 
 export const InfoText = styled.Text`

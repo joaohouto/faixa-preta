@@ -18,10 +18,10 @@ export default class Privacy extends Component {
                 <p>Dados de treinos executados dentro de nossos apps móveis, bem como informações da seção "Estatísticas", são armazenados no próprio dispositivo do usuário, sendo eles de total responsabilidade do indivíduo que o utiliza.</p>
 
                 <h3>Imagens e Direitos Autorais</h3>
-                <p>Algumas imagens utilizadas em materiais de divulgação e da interface do app Faixa Preta são cedidas pelo banco de imagens gratuito <a href="https://br.freepik.com/">FreePik</a>. Imagens de <i>thumbnails</i>, para a visualização de links externos, são de autoria de seus respectivos autores.</p>
+                <p>Algumas imagens utilizadas em materiais de divulgação e da interface do app Faixa Preta são cedidas pelos bancos de imagens gratuitos <a href="https://br.freepik.com/">FreePik</a> e <a href="https://unsplash.com/">Unsplash</a>. Imagens de <i>thumbnails</i>, para a visualização de links externos, são de autoria de seus respectivos autores.</p>
                 
                 <h3>Agradecimentos</h3>
-                <p>Agradecimentos especiais aos Senseis <a href="https://www.youtube.com/channel/UCvXNiArxdbsIRkUWYDiQ3Mw">Seamus O'Dowd</a> e <a href="https://www.youtube.com/user/emrahmihyaz">Emrah Mihyaz</a> que nos autorizaram a indicar seus vídeos em nossa plataforma.</p>
+                <p>Agradecimentos especiais aos Senseis <a href="https://www.youtube.com/channel/UCvXNiArxdbsIRkUWYDiQ3Mw">Seamus O'Dowd</a> e <a href="https://www.youtube.com/user/emrahmihyaz">Emrah Mihyaz</a> que nos autorizaram a listar seus vídeos em nossa plataforma.</p>
               </div>
 
             </div>

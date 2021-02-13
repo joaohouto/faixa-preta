@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React, { useEffect } from 'react';
+import * as Permissions from "expo-permissions";
 import { Linking } from 'react-native';
 
 import { Icon } from 'react-native-elements';
@@ -9,8 +9,24 @@ import backImg from '../../assets/images/background.jpg';
 
 export default function Landing({ navigation }) {
 
-    const navigateToApp = () => {
+    useEffect(() => {
+        askPermissions();
+    }, []);
 
+    askPermissions = async () => {
+        const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+        let finalStatus = existingStatus;
+        if (existingStatus !== "granted") {
+            const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+            finalStatus = status;
+        }
+        if (finalStatus !== "granted") {
+            return false;
+        }
+        return true;
+    };
+
+    const navigateToApp = () => {
         navigation.reset({
             index: 0,
             routes: [{name: 'BottomTabs'}],
@@ -20,7 +36,7 @@ export default function Landing({ navigation }) {
     return (
         <Container
             source={backImg}
-            imageStyle={{ resizeMode: "cover", opacity: 0.5 }}
+            imageStyle={{ resizeMode: "cover", opacity: 1 }}
         >
             <Heading>Comece a treinar agora mesmo.</Heading>
             <Info onPress={() => Linking.openURL("https://faixa-preta.web.app/privacidade")}>

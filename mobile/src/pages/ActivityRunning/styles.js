@@ -22,7 +22,7 @@ export const ControlsContainer = styled.View`
 
     position: absolute;
     bottom: 0;
-    z-index: 2;
+    z-index: 101;
 `;
 
 export const Timer = styled.Text`
@@ -34,20 +34,21 @@ export const Timer = styled.Text`
 
 export const Do = styled.Text`
     font-size: 18px;
-    color: #999;
+    color: #fff;
     margin-bottom: 10px;
+    opacity: 0.5;
     font-family: 'Roboto-Bold';
 `;
 
 export const MoveName = styled.Text`
-    font-size: 34px;
+    font-size: 25px;
     color: #fff;
     font-family: 'Roboto-Bold';
 `;
 
 export const MoveRepetitions = styled.Text`
-    font-size: 24px;
-    color: #999;
+    font-size: 25px;
+    color: #fff;
     font-family: 'Roboto-Bold';
 `;
 

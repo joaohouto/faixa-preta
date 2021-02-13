@@ -35,6 +35,8 @@ class History extends Component {
             oldActivities: act.reverse(),
             loading: false 
           });
+
+          console.log(act.reverse)
         }
       } else {
         this.setState({ loading: false });

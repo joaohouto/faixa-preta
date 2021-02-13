@@ -35,7 +35,7 @@ class MoveList extends React.Component {
   loadMoves = async () => {
     await this.setState({ currentPage: this.state.currentPage + 1 });
     
-    const response = await api.get('moves?name=' + this.state.search + '&page=' + this.state.currentPage);
+    const response = await api.get('moves?name=' + this.state.search + '&category=' + this.state.filter + '&page=' + this.state.currentPage);
 
     await this.setState({ 
       moves: this.state.moves.concat(response.data.docs),

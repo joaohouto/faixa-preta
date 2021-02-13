@@ -17,7 +17,7 @@ export const Title = styled.View`
 export const Tags = styled.View`
     height: 14px;
     background: #222;
-    width: 80px;
+    width: 60px;
     border-radius: 8px;
 `;
 

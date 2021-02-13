@@ -3754,6 +3754,11 @@ expo-notifications@~0.8.2:
     expo-constants "9.3.1"
     uuid "^3.4.0"
 
+expo-permissions@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/expo-permissions/-/expo-permissions-11.0.0.tgz#10889073121fea42bbfc35f09a35fa17a316b233"
+  integrity sha512-5+sFdU1HS/4aK9O7AsoLSNjG4f0UzlA3/nBHOPnWxxY2HRFnQp764tSsfSJRnGhM89Qxort6n2RzOusMoNP5ig==
+
 expo-permissions@~10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/expo-permissions/-/expo-permissions-10.0.0.tgz#5b31c54d561d00c7e46cd02321bc3704c51c584b"
@@ -5074,7 +5079,7 @@ lodash.throttle@^4.1.1:
   resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
   integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
 
-lodash@^4.1.0, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.3.0, lodash@^4.5.0, lodash@^4.6.0:
+lodash@^4.1.0, lodash@^4.15.0, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.3.0, lodash@^4.5.0, lodash@^4.6.0:
   version "4.17.20"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
   integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
@@ -6248,6 +6253,13 @@ react-native-ratings@^7.2.0:
     lodash "^4.17.15"
     prop-types "^15.7.2"
 
+react-native-reanimated@~1.13.0:
+  version "1.13.2"
+  resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.13.2.tgz#1ae5457b24b4913d173a5a064bb28eae7783d293"
+  integrity sha512-O+WhgxSjOIzcVdAAvx+h2DY331Ek1knKlaq+jsNLpC1fhRy9XTdOObovgob/aF2ve9uJfPEawCx8381g/tUJZQ==
+  dependencies:
+    fbjs "^1.0.0"
+
 react-native-safe-area-context@3.1.9:
   version "3.1.9"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.1.9.tgz#48864ea976b0fa57142a2cc523e1fd3314e7247e"
@@ -6257,6 +6269,14 @@ react-native-screens@~2.15.0:
   version "2.15.0"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.15.0.tgz#9b97c1881c4fcdf304bf363f0013225901625f44"
   integrity sha512-qTSQPy0WKHtlb8xt5gY0Gt6sdvfQUQAnFSqgsggW9UEvySbkHzpqOrOYNA79Ca8oXO0dCFwp6X8buIiDefa7+Q==
+
+react-native-simple-markdown@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-simple-markdown/-/react-native-simple-markdown-1.1.0.tgz#4d462f8ced26393c5230467420c61a50cc6a8095"
+  integrity sha1-TUYvjO0mOTxSMEZ0IMYaUMxqgJU=
+  dependencies:
+    lodash "^4.15.0"
+    simple-markdown "git://github.com/CharlesMangwa/simple-markdown.git"
 
 react-native-status-bar-height@^2.5.0:
   version "2.5.0"
@@ -6321,6 +6341,11 @@ readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.2.2, readable
     safe-buffer "~5.1.1"
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
+
+reanimated-bottom-sheet@^1.0.0-alpha.22:
+  version "1.0.0-alpha.22"
+  resolved "https://registry.yarnpkg.com/reanimated-bottom-sheet/-/reanimated-bottom-sheet-1.0.0-alpha.22.tgz#01a200946f1a461f01f1e773e5b4961c2df2e53b"
+  integrity sha512-NxecCn+2iA4YzkFuRK5/b86GHHS2OhZ9VRgiM4q18AC20YE/psRilqxzXCKBEvkOjP5AaAvY0yfE7EkEFBjTvw==
 
 regenerate-unicode-properties@^8.2.0:
   version "8.2.0"
@@ -6703,6 +6728,10 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
   integrity sha512-VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==
+
+"simple-markdown@git://github.com/CharlesMangwa/simple-markdown.git":
+  version "0.1.1"
+  resolved "git://github.com/CharlesMangwa/simple-markdown.git#33d963c760b8196bee01b1a5ba9974bc7f669af1"
 
 simple-plist@^1.0.0:
   version "1.1.0"

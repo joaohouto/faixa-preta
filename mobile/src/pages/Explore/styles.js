@@ -18,7 +18,7 @@ export const LittleContainer = styled.View`
     padding: 0 30px;
 `;
 
-export const ContainerLight = styled.View`
+export const ContainerLight = styled.ImageBackground`
     background: #222;
     padding: 30px;
 `;

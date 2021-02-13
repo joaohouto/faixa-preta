@@ -62,8 +62,8 @@ export const Line = styled.View`
 `;
 
 export const Column = styled.View`
-    width: 8%;
-    background: #999;
+    width: 6%;
+    background: rgba(255, 255, 255, 0.3);
     border-radius: 4px;
 `;
 
@@ -83,6 +83,6 @@ export const SectionBottom = styled.View`
 export const BottomLabel = styled.Text`
     font-size: 12px;
     margin-top: 10px;
-    color: #999;
+    color: ${props => props.active ? "#fff" : "#999"};
     font-family: 'Roboto-Bold';
 `;
