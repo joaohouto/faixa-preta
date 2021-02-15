@@ -13,7 +13,7 @@ const Header = () => {
 
             <ul>
                 <li><Link to="/sobre"><img alt="[]" src={infoIcon} /> Sobre</Link></li>
-                <li><a href="https://github.com/joaocou/faixa-preta"><img alt="[]" src={githubIcon} /> GitHub</a></li>
+                <li><a href="https://github.com/joaohouto/faixa-preta"><img alt="[]" src={githubIcon} /> GitHub</a></li>
             </ul>
 
         </div>

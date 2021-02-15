@@ -302,6 +302,21 @@ label {
     padding: 20px;
 }
 
+.section a {
+    flex: none;
+}
+
+.flex-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.section #mobile {
+    width: 400px;
+    position: absolute;
+    top: -50px;
+}
+
 .footer {
     padding: 40px;
     font-weight: bold;
@@ -363,19 +378,19 @@ label {
     animation: opac 1s ease-in-out;
 }
 
-.animate-push {
-    animation: push 0.5s ease-in-out;
-}
-
 @keyframes opac {
     from { opacity: 0 } 
     to { opacity: 1 }
 }
 
+.animate-push {
+    animation: push 1s ease-in-out;
+}
+
 @keyframes push {
     from { 
         opacity: 0; 
-        transform: translateY(40px); 
+        transform: translateY(500px); 
     } 
     to { 
         opacity: 1; 
@@ -386,13 +401,9 @@ label {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(720deg); }
-  }
+}
 
 @media screen and (max-width: 800px) {
-
-    iframe { 
-        width: 100%;
-    }
 
     .header {
         margin: 0;
@@ -408,6 +419,11 @@ label {
     .section {
         width: 100%;
         padding: 0;
+    }
+
+    .section #mobile {
+        width: 100%;
+        position: static;
     }
 
     #belt {
