@@ -1,4 +1,4 @@
-<img src="./mobile/assets/icon.png" width="100"/>
+<img src="./web/public/icon.png" width="100"/>
 
 # <a href="https://github.com/joaocou/faixa-preta">Faixa Preta</a>
 
