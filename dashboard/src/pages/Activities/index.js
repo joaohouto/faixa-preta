@@ -97,7 +97,11 @@ export default class Dashboard extends Component {
                     <Link to="/activities/1"><LinkItem>Atividades</LinkItem></Link>
                 </div>
 
-                <Link to="#" onClick={() => logout()}><LinkItem style={{ backgroundColor: '#111' }}>Sair</LinkItem></Link>
+                <Link to="#" onClick={() => logout()}>
+                    <LinkItem style={{ backgroundColor: '#111' }}>
+                        Sair
+                    </LinkItem>
+                </Link>
             </LeftBar>
 
             <Main>

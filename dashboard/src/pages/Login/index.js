@@ -9,6 +9,7 @@ import { Container, Form } from './styles';
 import swal from 'sweetalert';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import { IconLock } from 'tabler-icons'
 
 const Login = () => {
 
@@ -38,7 +39,10 @@ const Login = () => {
     return (
         <Container>
             <Form onSubmit={handleLogin}>
-                <PageTitleDark style={{ marginBottom: 20 }}>Login</PageTitleDark>
+                <PageTitleDark style={{ marginBottom: 20 }}>
+                    <IconLock size={35} color="#111" style={{ marginRight: 20 }} />
+                    Login
+                </PageTitleDark>
 
                 <Input 
                     value={email}

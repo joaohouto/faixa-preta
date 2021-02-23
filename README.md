@@ -1,4 +1,4 @@
-<img src="./web/public/icon.png" width="100"/>
+<img src="./web/img/icon.png" width="100"/>
 
 # <a href="https://github.com/joaocou/faixa-preta">Faixa Preta</a>
 
@@ -27,9 +27,9 @@
 
 ### <span id="Telas">📱 Telas</span>
 
---
-
 Figma: <a href="https://www.figma.com/file/bQcSnRRb8ZVshbcljYIRQr/Mobile?node-id=0%3A1">Mobile</a>
+
+Figma: <a href="https://www.figma.com/file/KVz2PjSQs6Xg3k6SQG3K2K/Web">Dashboard</a>
 
 ### <span id="Tecnologias">💻 Tecnologias</span>
 
