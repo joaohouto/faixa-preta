@@ -1,0 +1,84 @@
+<!--
+
+  ______    _             _____          _        
+ |  ____|  (_)           |  __ \        | |       
+ | |__ __ _ ___  ____ _  | |__) | __ ___| |_ __ _ 
+ |  __/ _` | \ \/ / _` | |  ___/ '__/ _ \ __/ _` |
+ | | | (_| | |>  < (_| | | |   | | |  __/ || (_| |
+ |_|  \__,_|_/_/\_\__,_| |_|   |_|  \___|\__\__,_|
+                                                  
+                                                  
+@joaohouto
+
+-->
+<!doctype html>
+    <html lang="pt-Br">
+        <head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width,initial-scale=1"/>
+            <meta name="theme-color" content="#fafafa"/>
+            <meta name="description" content="Monitore os seus treinos e pesquise por técnicas de Karatê Shotokan com o Faixa Preta."/>
+            
+            <link rel="icon" href="img/icon.png"/>
+            <link rel="apple-touch-icon" href="img/icon.png"/>
+
+            <link rel="stylesheet" href="styles.css">
+            
+            <title>Faixa Preta</title> 
+        </head>
+        <body>
+            <div class="home">
+
+                <div class="header">
+                    <a href="/"><img id="logo" src="./img/logo-x.svg" alt="Faixa Preta" /></a>
+        
+                    <ul>
+                        <li><a href="./sobre/"><img alt="[]" src="./img/icons/info.svg" /> Sobre</a></li>
+                        <li><a href="https://github.com/joaohouto/faixa-preta"><img alt="[]" src="./img/icons/github.svg" /> GitHub</a></li>
+                    </ul>
+                </div>
+      
+                <div class="content">
+                  <div class="section animate-opacity">
+                    <h2>O treino que vai além do dojo.</h2>
+                    <p>O <i>Faixa Preta</i> é a proposta de um app para ajudar karatecas em seus treinos individuais, contando com recursos que facilitam o seu aprendizado e aperfeiçoamento.</p>
+      
+                    <button class="button" onclick="openModal()">
+                      <img alt="" src="./img/icons/download.svg" />
+                      Download
+                    </button>
+          
+                  </div>
+      
+                  <div class="section flex-end">
+                    <img class="animate-push" src="./img/mobile.png" id="mobile" alt="App" />
+                  </div>
+                </div>
+      
+                <div class="download-modal" id="modal">
+                  <button id="close-modal" onclick="closeModal()">
+                    <img alt="X" src="./img/icons/close.svg" />
+                  </button>
+      
+                  <ul>
+                    <li><a class="button disabled"><img alt="Play Store" src="./img/icons/google-play.svg" /> Google Play</a></li>
+                    <li><a class="button" href="https://firebasestorage.googleapis.com/v0/b/faixa-preta.appspot.com/o/builds%2Ffaixa-preta-2.0.apk?alt=media&token=8757e0dc-de6e-4539-b6a6-ab994a936d17"><img alt="" src="./img/icons/android.svg" /> Android APK</a></li>
+                    <li><a class="button" href="exp://exp.host/@joaohouto/faixa-preta"><img alt="" src="./img/icons/expo.svg" /> Expo Go</a></li>
+                  </ul>
+                </div>
+      
+                <div class="footer">
+                  &copy; 2021 Faixa Preta
+                </div>
+<script>
+  function openModal() {
+    document.getElementById("modal").style.display = 'flex';
+  }  
+
+  function closeModal() {
+    document.getElementById("modal").style.display = 'none';
+  }  
+
+</script>
+        </body>
+    </html>
