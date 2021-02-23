@@ -1,8 +1,8 @@
-<img src="./mobile/assets/icon.png" width="100"/>
+<img src="./web/public/icon.png" width="100"/>
 
 # <a href="https://github.com/joaocou/faixa-preta">Faixa Preta</a>
 
-[![Author](https://img.shields.io/badge/author-joaocou-222)](https://github.com/joaocou)
+[![Author](https://img.shields.io/badge/author-joaohouto-222)](https://github.com/joaohouto)
 [![Languages](https://img.shields.io/github/languages/count/joaocou/faixa-preta?color=222)](https://github.com/joaocou/faixa-preta/)
 [![Repo Size](https://img.shields.io/github/repo-size/joaocou/faixa-preta?color=222)](https://github.com/joaocou/faixa-preta/)
 
@@ -48,4 +48,4 @@ Figma: <a href="https://www.figma.com/file/bQcSnRRb8ZVshbcljYIRQr/Mobile?node-id
 
 <hr>
 
-Feito por <a href="https://github.com/joaocou">João Couto</a>
+Feito por <a href="https://github.com/joaohouto">João Couto</a>
