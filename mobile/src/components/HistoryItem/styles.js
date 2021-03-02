@@ -1,9 +1,13 @@
 import styled from 'styled-components';
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
-export const Row = styled.View`
+export const Container = styled.View`
+    margin-bottom: 22px;
+`
+
+export const Row = styled.TouchableOpacity`
     display: flex;
     flex-direction: row;
-    margin-bottom: 22px;
 `;
 
 export const Title = styled.Text`
@@ -30,7 +34,7 @@ export const MoveImage = styled.View`
     width: 66px;
     height: 66px;
     background: #333;
-    border-radius: 20px;
+    border-radius: 10px;
     margin-right: 24px;
     padding: 6px;
 
@@ -39,24 +43,38 @@ export const MoveImage = styled.View`
     align-items: center;
 `;
 
-
 export const Day = styled.Text`
-    font-size: 24px;
-    line-height: 24px;
-    color: #ddd;
-    font-family: 'Roboto-Bold';
+    font-size: 30px;
+    line-height: 35px;
+    color: #999;
+    font-family: 'Poppins-SemiBold';
 `;
 
 export const Month = styled.Text`
-    line-height: 9px;
-    font-size: 9px;
-    color: #ddd;
+    line-height: 20px;
+    font-size: 10px;
+    color: #999;
     font-family: 'Roboto-Regular';
 `;
 
-export const Year = styled.Text`
-    line-height: 9px;
-    font-size: 9px;
+export const Menu = styled.View`
+    display: flex;
+    margin-top: 10px;
+`;
+
+export const Option = styled(TouchableOpacity)`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 20px;
+    background: ${props => props.color};
+    border-radius: 10px;
+    flex: 1;
+`;
+
+export const OptionText = styled.Text`
+    font-size: 16px;
     color: #ddd;
-    font-family: 'Roboto-Regular';
+    margin-left: 10px;
 `;

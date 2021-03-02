@@ -1,5 +1,4 @@
 export const parseTime = (timerTime) => {
-
   const seconds = ("0" + (Math.floor(timerTime / 1000) % 60)).slice(-2);
   const minutes = ("0" + (Math.floor(timerTime / 60000) % 60)).slice(-2);
   const hours = ("0" + Math.floor(timerTime / 3600000)).slice(-2);
@@ -28,17 +27,15 @@ export const gerarCalendario = (anoAtual, mesAtual) => {
   let semanasMes = [];
   let qtdDiasMeses = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-  //Verifica se o ano é bissexto
   if(new Date(anoAtual, 1, 29).getMonth() == 1) {
       qtdDiasMeses[1] = 29;
   }
 
   let diaUm = new Date(anoAtual, mesAtual, 1);
-  let diaUmSemana = diaUm.getDay(); //Dom, Seg, Ter, Qua, Qui, Sex ou Sáb - posição na semana do dia 01
+  let diaUmSemana = diaUm.getDay(); 
 
   let semana = [];
 
-  //Se o dia não começa no domingo, pega os outros dias da última semana do mes passado
   if(diaUmSemana > 0) {
       for(let i=diaUmSemana-1; i>=0; i--){
           let qtdDiasMesPassado = qtdDiasMeses[mesAtual-1];
@@ -46,7 +43,6 @@ export const gerarCalendario = (anoAtual, mesAtual) => {
       }
   }
 
-  //Preenche o mês todo
   for(let contagemDiasMes=1; contagemDiasMes<=qtdDiasMeses[mesAtual]; contagemDiasMes++){
       if(semana.length < 7){
           semana.push(tratarNumero(contagemDiasMes) + '/' + tratarNumero(mesAtual + 1) + "/" + anoAtual);
@@ -58,7 +54,6 @@ export const gerarCalendario = (anoAtual, mesAtual) => {
       }
   }
 
-  //Preenche a última do mês com os dias do próximo mês
   for(let contagemDiasMes=1; contagemDiasMes<=semana.length+1; contagemDiasMes++){
       if(semana.length < 7){
           semana.push(tratarNumero(contagemDiasMes) + '/' + tratarNumero(mesAtual + 2) + "/" + anoAtual);

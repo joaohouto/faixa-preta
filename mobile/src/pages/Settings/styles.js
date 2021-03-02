@@ -17,8 +17,3 @@ export const ButtonText = styled.Text`
     color: #555;
     font-family: 'Roboto-Bold';
 `;
-
-export const Logo = styled.Image`
-    height: 13px;
-    width: 185px;
-`;

@@ -49,7 +49,7 @@ const Explore = ({ navigation }) => {
             </Row>
 
             <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-              <Icon name='more-vertical' type='feather' size={24} color="#999" />
+              <Icon name='settings' type='feather' size={24} color="#999" />
             </TouchableOpacity>
           </Row>
           

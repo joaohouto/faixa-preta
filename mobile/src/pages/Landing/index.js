@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import * as Permissions from "expo-permissions";
 import { Linking } from 'react-native';
 
+import DatabaseInit from '../../database/init';
+
 import { Icon } from 'react-native-elements';
 import { Container, Heading, Info, Bold, Button, ButtonText, IconWrapper, InfoText } from './styles';
 
@@ -11,6 +13,7 @@ export default function Landing({ navigation }) {
 
     useEffect(() => {
         askPermissions();
+        new DatabaseInit();
     }, []);
 
     askPermissions = async () => {

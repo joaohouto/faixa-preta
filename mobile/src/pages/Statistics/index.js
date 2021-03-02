@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Dimensions, TouchableOpacity, ScrollView, View } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage'
 import { Icon } from 'react-native-elements'
 
+import ActivityService from '../../services/activity';
 import { parseTime, gerarCalendario, pegarSemanaAtual, getDate } from '../../services/calendar';
 import { roundNumber } from '../../services/number';
 
@@ -35,27 +35,12 @@ export default class Statistics extends Component {
   }
 
   getOldActivities = async () => {
-    try {
-      const oldActivities = await AsyncStorage.getItem('@oldActivities');
-
-      if (oldActivities !== null) {
-        if(oldActivities == "1"){
-          this.setState({ oldActivities: [] });
-
-        } else {
-          let act = JSON.parse(oldActivities);
-          this.setState({ oldActivities: act });
-        }
-      }
-
-      
-    } catch(e){
-      console.log(e);
-    }
+    
+    const response = await ActivityService.findAll();
+    this.setState({ oldActivities: response._array });
 
     this.fillCharts();
     this.fillRow();
-    
   }
 
   fillCharts = async () => {

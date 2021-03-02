@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import AsyncStorage from '@react-native-community/async-storage'
+
+import ActivityService from '../../services/activity'
 
 import CustomHeader from '../../components/CustomHeader'
 import HistoryItem from '../../components/HistoryItem'
@@ -21,31 +22,13 @@ class History extends Component {
   }
 
   getOldActivities = async () => {
-    try {
-      const oldActivities = await AsyncStorage.getItem('@oldActivities');
+    const response = await ActivityService.findAll();
+    this.setState({ oldActivities: response._array.reverse(), loading: false });
+  }
 
-      if (oldActivities !== null) {
-        if(oldActivities == "1"){
-          this.setState({ oldActivities: [] });
-
-        } else {
-          let act = JSON.parse(oldActivities);
-
-          this.setState({ 
-            oldActivities: act.reverse(),
-            loading: false 
-          });
-
-          console.log(act.reverse)
-        }
-      } else {
-        this.setState({ loading: false });
-      }
-
-    } catch(e){
-      console.log(e);
-    }
-
+  deleteActivity = (id) => {
+    ActivityService.deleteById(id);
+    this.getOldActivities();
   }
 
   render() {
@@ -58,9 +41,9 @@ class History extends Component {
       <ContainerDark>
 
         <PageTitleLight>Histórico</PageTitleLight>
-        <SimpleTextLight>Todos os treinos executados por você.</SimpleTextLight>
+        <SimpleTextLight>Todos os treinos executados por você. Mantenha um item pressionado para excluir.</SimpleTextLight>
 
-        <Badge dark>Tudo</Badge>
+        <Badge dark>Nesse ano</Badge>
 
         { !loading ? 
             oldActivities.length > 0 ? oldActivities.map(activity => (
@@ -69,6 +52,7 @@ class History extends Component {
                 name={activity.name}
                 time={activity.time}
                 date={activity.date}
+                onDelete={() => this.deleteActivity(activity.id)}
               />
             )) : (
               <Row>

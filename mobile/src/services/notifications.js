@@ -74,6 +74,7 @@ const launchActivityNotification = async () => {
             body: "Toque para voltar para a atividade em execução.",
             autoDismiss: false,
             sticky: true,
+            color: "#D11919"
         },
         trigger: null,
     });

@@ -3,8 +3,8 @@ import { Linking } from 'react-native';
 
 import CustomHeader from '../../components/CustomHeader';
 
-import { ContainerLight, PageTitleDark, Row } from '../../components/Global';
-import { ButtonsWrapper, Button, ButtonText, Logo } from './styles';
+import { ContainerLight, PageTitleDark } from '../../components/Global';
+import { ButtonsWrapper, Button, ButtonText, LittleText } from './styles';
 
 class Settings extends Component {
 
