@@ -27,9 +27,11 @@
 
 ### <span id="Telas">📱 Telas</span>
 
-Figma: <a href="https://www.figma.com/file/bQcSnRRb8ZVshbcljYIRQr/Mobile?node-id=0%3A1">Mobile</a>
+<a href="https://youtu.be/Vwq3e4hdAlg">Vídeo de Apresentação (YouTube)</a>
 
-Figma: <a href="https://www.figma.com/file/KVz2PjSQs6Xg3k6SQG3K2K/Web">Dashboard</a>
+<a href="https://www.figma.com/file/bQcSnRRb8ZVshbcljYIRQr/Mobile?node-id=0%3A1">Mobile (Figma)</a>
+
+<a href="https://www.figma.com/file/KVz2PjSQs6Xg3k6SQG3K2K/Web">Dashboard (Figma)</a>
 
 ### <span id="Tecnologias">💻 Tecnologias</span>
 
@@ -38,6 +40,7 @@ Figma: <a href="https://www.figma.com/file/KVz2PjSQs6Xg3k6SQG3K2K/Web">Dashboard
 - NodeJS;
 - React Native;
 - Expo;
+- SQLite;
 - Styled Components;
 - MomentJS;
 - Axios;
