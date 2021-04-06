@@ -23,62 +23,77 @@
             <link rel="apple-touch-icon" href="img/icon.png"/>
 
             <link rel="stylesheet" href="styles.css">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
             
             <title>Faixa Preta</title> 
         </head>
         <body>
-            <div class="home">
-
-                <div class="header">
-                    <a href="/"><img id="logo" src="./img/logo-x.svg" alt="Faixa Preta" /></a>
-        
-                    <ul>
-                        <li><a href="./sobre/"><img alt="[]" src="./img/icons/info.svg" /> Sobre</a></li>
-                        <li><a href="https://github.com/joaohouto/faixa-preta"><img alt="[]" src="./img/icons/github.svg" /> GitHub</a></li>
-                    </ul>
+            <div class="home-section">
+              <header>
+                <div class="brand">
+                  <img src="./img/icon.png">
+                  <h1>Faixa Preta</h1>
                 </div>
-      
-                <div class="content">
-                  <div class="section animate-opacity">
-                    <h2>O treino que vai além do dojo.</h2>
-                    <p>O <i>Faixa Preta</i> é a proposta de um app para ajudar karatecas em seus treinos individuais, contando com recursos que facilitam o seu aprendizado e aperfeiçoamento.</p>
-      
-                    <button class="button" onclick="openModal()">
-                      <img alt="" src="./img/icons/download.svg" />
+
+                <a href="/privacidade/">Política de Privacidade</a>
+                <a id="icon" href="/privacidade/"><img src="./img/icons/info.svg" ></a>
+              </header>
+
+              <div class="wrapper">
+                <div class="column">
+                  <h2 class="animate-opacity-one">O treino que vai além do dojo.</h2>
+                  <p class="animate-opacity-two">O Faixa Preta é a proposta de um app para ajudar karatecas em seus treinos individuais, contando com recursos que facilitam o seu aprendizado e aperfeiçoamento.</p>
+
+                  <a href="#download">
+                    <button class="animate-opacity-three">
+                      <img src="./img/icons/download.svg" >
                       Download
                     </button>
-          
-                  </div>
-      
-                  <div class="section flex-end">
-                    <img class="animate-push" src="./img/mobile.png" id="mobile" alt="App" />
-                  </div>
+                  </a>
                 </div>
-      
-                <div class="download-modal" id="modal">
-                  <button id="close-modal" onclick="closeModal()">
-                    <img alt="X" src="./img/icons/close.svg" />
-                  </button>
-      
-                  <ul>
-                    <li><a class="button disabled"><img alt="Play Store" src="./img/icons/google-play.svg" /> Google Play</a></li>
-                    <li><a class="button" href="https://firebasestorage.googleapis.com/v0/b/faixa-preta.appspot.com/o/builds%2Ffaixa-preta-2.0.apk?alt=media&token=8757e0dc-de6e-4539-b6a6-ab994a936d17"><img alt="" src="./img/icons/android.svg" /> Android APK</a></li>
-                    <li><a class="button" href="exp://exp.host/@joaohouto/faixa-preta"><img alt="" src="./img/icons/expo.svg" /> Expo Go</a></li>
-                  </ul>
-                </div>
-      
-                <div class="footer">
-                  &copy; 2021 Faixa Preta
-                </div>
-<script>
-  function openModal() {
-    document.getElementById("modal").style.display = 'flex';
-  }  
+                
+                <img style="object-fit:contain;" src="./img/mobile.png" >
+              </div>
+            </div>
 
-  function closeModal() {
-    document.getElementById("modal").style.display = 'none';
-  }  
+            <div class="section">
+              <h2>Sobre.</h2>
 
-</script>
+              <p>O Faixa Preta é a proposta de um aplicativo para ajudar karatecas em seus treinos individuais, contando com programas de treino específicos e detalhes da execução de técnicas. Além disso, relatórios da execução de treinos podem ser encontrados na seção de estatísticas do app.</p>
+              <p>Este é um projeto inicialmente idealizado como um Trabalho de Conclusão de Curso para o Curso Técnico de Informática, do Instituto Federal de Mato Grosso do Sul - Campus Aquidauana. Orientado pelo Prof. Dr. Ygo Brito e desenvolvido pelo aluno João Couto.</p>
+              <p>Para elogios, críticas e outros, envie um email para <a href="mailto:appfaixapreta@gmail.com">appfaixapreta@gmail.com</a>.</p>
+            </div>
+
+            <div id="download" class="download-section">
+
+              <a href="https://expo.io/@joaohouto/projects/faixa-preta">
+                <button class="download">
+                  <img src="./img/icons/expo.svg">
+                
+                  <div>
+                    <span>Teste com</span>
+                    <h3>Expo Go</h3>
+                  </div>
+                </button>
+              </a>
+              
+              <a href="https://firebasestorage.googleapis.com/v0/b/faixa-preta.appspot.com/o/builds%2Ffaixa-preta-2.0.apk?alt=media&token=8757e0dc-de6e-4539-b6a6-ab994a936d17">
+                <button class="download">
+                  <img src="./img/icons/android.svg">
+                
+                  <div>
+                    <span>Download do</span>
+                    <h3>APK Android</h3>
+                  </div>
+                </button>
+              </a>
+
+            </div>
+          </div>
+
+          <footer class="bg-dark">
+            <p>&copy; 2021 Faixa Preta</p>
+          </footer>
         </body>
     </html>

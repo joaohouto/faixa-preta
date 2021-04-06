@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: 'http://faixa-preta.herokuapp.com/',
+    baseURL: 'https://faixa-preta.herokuapp.com/',
     headers: {
         "Content-Type": "application/json;charset=UTF-8",
         "Access-Control-Allow-Origin": "*",

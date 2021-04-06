@@ -14,7 +14,7 @@ const MoveItemSearched = ({ name, date, time, onDelete }) => {
         Alert.alert(
             'Excluir',
             'Deseja excluir esse treino? A ação não pode ser desfeita.',
-            [
+            [   
               {
                 text: 'Cancelar',
                 style: 'cancel'
