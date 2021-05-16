@@ -1,0 +1,406 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&family=Poppins:wght@0,400;0,700&display=swap");
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #ccc;
+	border-radius: 10px;
+}
+
+::-moz-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-moz-scrollbar-track {
+	border-radius: 0px;
+}
+
+::-moz-scrollbar-thumb {
+	background: #ccc;
+	border-radius: 10px;
+}
+
+* {
+	font-family: "Open Sans", sans-serif;
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	box-sizing: border-box;
+	transition: opacity 0.4s ease;
+	border: 0;
+}
+
+html {
+	scroll-behavior: smooth;
+	background: #fafafa;
+}
+
+a {
+	text-decoration: none;
+	transition: opacity 0.4s;
+	color: #2c9de9;
+}
+
+a:hover {
+	opacity: 0.5;
+}
+
+.home-section {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background: linear-gradient(111.6deg, #fff 0%, #eee 65.1%);
+}
+
+header {
+	width: 100%;
+	padding: 40px 10%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+header a {
+	font-family: "Poppins", sans-serif;
+	font-weight: 500;
+	font-size: 14px;
+	color: #777;
+}
+
+header a#icon {
+	display: none;
+}
+
+header.bg {
+	background: #f1f1f1;
+}
+
+.brand {
+	display: flex;
+	align-items: center;
+}
+
+.brand img {
+	height: 40px;
+	width: 40px;
+	border-radius: 8px;
+}
+
+.brand h1 {
+	font-family: "Roboto", sans-serif;
+	font-size: 18px;
+	color: #222;
+	margin-left: 20px;
+	text-transform: uppercase;
+}
+
+.wrapper {
+	height: auto;
+	width: 100%;
+	flex: 1;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 10%;
+}
+
+.wrapper .column {
+	min-width: 50%;
+	margin: 100px 0;
+}
+
+.wrapper .column h2 {
+	max-width: 400px;
+	font-family: "Poppins", sans-serif;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 40px;
+	color: #222;
+	line-height: 115%;
+	margin-bottom: 40px;
+}
+
+.wrapper .column p {
+	max-width: 400px;
+	font-size: 16px;
+	line-height: 150%;
+	color: #555;
+	margin-bottom: 60px;
+}
+
+.wrapper .column button {
+	height: 60px;
+	background: #0071bc;
+	border-radius: 8px;
+	border: 0;
+	padding: 10px 50px;
+	font-family: "Poppins", sans-serif;
+	text-transform: uppercase;
+	font-size: 16px;
+	font-weight: 600;
+	cursor: pointer;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.2);
+}
+
+.wrapper .column button img {
+	margin-right: 15px;
+}
+
+.wrapper > img {
+	width: 50%;
+	height: 550px;
+	max-height: 100%;
+	object-fit: contain;
+}
+
+.section {
+	width: 100%;
+	background: #f1f1f1;
+	padding: 100px 10%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.home-section > .wrapper,
+.section > .wrapper,
+footer > .wrapper {
+	display: flex;
+	flex-direction: column;
+	max-width: 1600px;
+	padding: 0;
+}
+
+.section h2 {
+	font-family: "Poppins", sans-serif;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 36px;
+	color: #222;
+	line-height: 115%;
+	margin-bottom: 40px;
+}
+
+.section h3 {
+	font-family: "Poppins", sans-serif;
+	font-style: normal;
+	font-weight: 600;
+	color: #222;
+	line-height: 115%;
+	margin-bottom: 20px;
+	margin-top: 30px;
+}
+
+.section p {
+	font-size: 16px;
+	line-height: 150%;
+	color: #555;
+	margin-bottom: 20px;
+	max-width: 60%;
+}
+
+.download-section {
+	background: #fafafa;
+	padding: 100px 10%;
+	display: flex;
+	justify-content: center;
+}
+
+button.download {
+	padding: 15px 30px;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	background: rgba(0, 113, 189, 0.2);
+	border: 0;
+	border-radius: 8px;
+	margin: 0 10px;
+}
+
+button.download > img {
+	height: 30px;
+	width: 30px;
+}
+
+button.download > div {
+	margin: 0 15px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+button.download > div span {
+	font-size: 14px;
+	color: rgba(0, 113, 189, 0.8);
+}
+
+button.download > div h3 {
+	font-size: 18px;
+	color: rgba(0, 113, 189, 1);
+}
+
+footer {
+	background: #fafafa;
+	padding: 20px 10%;
+	display: flex;
+	justify-content: space-between;
+}
+
+footer p,
+footer a {
+	color: #777;
+	font-family: "Poppins", sans-serif;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+footer.bg-dark {
+	background: #fafafa;
+}
+
+.animate-opacity-one {
+	animation: opacOne 1s ease-in-out;
+}
+
+.animate-opacity-two {
+	animation: opacTwo 1s ease-in-out;
+}
+
+.animate-opacity-three {
+	animation: opacThree 1s ease-in-out;
+}
+
+.animate-opacity-mobile {
+	animation: opac 2s ease-in-out;
+}
+
+@keyframes opac {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes opacOne {
+	0% {
+		opacity: 0;
+		transform: translateY(100px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes opacTwo {
+	0% {
+		opacity: 0;
+		transform: translateY(100px);
+	}
+	30% {
+		opacity: 0;
+		transform: translateY(100px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes opacThree {
+	0% {
+		opacity: 0;
+		transform: translateY(100px);
+	}
+	60% {
+		opacity: 0;
+		transform: translateY(100px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@media screen and (max-width: 800px) {
+	header a {
+		display: none;
+	}
+
+	header a#icon {
+		display: block;
+	}
+
+	.section p {
+		max-width: 100%;
+	}
+
+	.wrapper {
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 40px 10%;
+		padding-bottom: 0;
+	}
+
+	.wrapper .column {
+		width: 100%;
+	}
+
+	.wrapper > img {
+		width: 100%;
+	}
+
+	.download-section {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	button.download {
+		margin: 10px 0;
+		justify-content: center;
+	}
+}
+
+.loader {
+	border: 4px solid #777;
+	border-top: 4px solid #f1f1f1;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	animation: spin 2s linear infinite;
+}
+
+.animate-opacity {
+	animation: opac 0.8s;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(720deg);
+	}
+}
+
+@keyframes opac {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}

@@ -1,244 +1,287 @@
-import React, { Component } from 'react';
-import { Alert } from 'react-native'
-import { Icon } from 'react-native-elements'
+import React, { Component } from "react";
+import { Alert } from "react-native";
+import { Icon } from "react-native-elements";
 
-import { launchActivityNotification, dismissActivityNotification } from '../../services/notifications'
+import {
+	launchActivityNotification,
+	dismissActivityNotification,
+} from "../../services/notifications";
 
-import Button from '../../components/Button'
-import MoveItemSmall from '../../components/MoveItemSmall'
-import BottomDrawer from '../../components/BottomDrawer'
+import Button from "../../components/Button";
+import MoveItemSmall from "../../components/MoveItemSmall";
+import BottomDrawer from "../../components/BottomDrawer";
 
-import { Row } from '../../components/Global';
-import { 
-  Container, 
-  ControlsContainer,
-  Timer, 
-  Do, 
-  MoveName, 
-  MoveRepetitions, 
-  ButtonElement, 
-  TenView, 
-  Label, 
-  MainWrapper
-} from './styles';
+import { Row } from "../../components/Global";
+import {
+	Container,
+	ControlsContainer,
+	Timer,
+	Do,
+	MoveName,
+	MoveRepetitions,
+	ButtonElement,
+	TenView,
+	Label,
+	MainWrapper,
+} from "./styles";
 
 class ActivityRunning extends Component {
+	state = {
+		activity: {},
+		moves: [],
+		currentMove: 0,
+		runnedMoves: [],
+		toRunMoves: [],
+		timerOn: false,
+		timerStart: 0,
+		timerTime: 0,
+	};
+	componentDidMount() {
+		this.loadMoves();
+		this.showAlert();
+	}
 
-  state = {
-    activity: {},
-    moves: [],
-    currentMove: 0,
-    runnedMoves: [],
-    toRunMoves: [],
-    timerOn: false,
-    timerStart: 0,
-    timerTime: 0
-  }
-  componentDidMount() {
-    this.loadMoves();
-    this.showAlert();
+	componentWillUnmount() {
+		this.stopTimer();
+		dismissActivityNotification();
+	}
 
-  }
+	loadMoves = () => {
+		const {
+			activity,
+			kihonMoves,
+			kataMoves,
+			kumiteMoves,
+		} = this.props.route.params;
 
-  componentWillUnmount() {
-    this.stopTimer();
-    dismissActivityNotification();
-  }
+		const moves = kihonMoves.concat(kataMoves.concat(kumiteMoves));
 
-  loadMoves = () => {
-    const { activity, kihonMoves, kataMoves, kumiteMoves } = this.props.route.params;
+		this.setState({
+			activity,
+			moves,
+			toRunMoves: moves.filter(move => move !== moves[0]),
+		});
+	};
 
-    const moves = kihonMoves.concat(kataMoves.concat(kumiteMoves));
+	showAlert = () => {
+		Alert.alert(
+			"Prepare-se",
+			"Quando estiver pronto para iniciar a atividade, toque em iniciar.\n\nUm cronômetro irá gravar o tempo de execução do exercício. Caso queira fazer uma pausa, utilize o grupo de botões inferiores.",
+			[
+				{
+					text: "Cancelar",
+					onPress: () => {
+						this.stopTimer();
+						this.props.navigation.popToTop();
+					},
+					style: "cancel",
+				},
+				{ text: "Iniciar", onPress: () => this.startTimer() },
+			],
+			{ cancelable: false }
+		);
+	};
 
-    this.setState({ 
-      activity, 
-      moves,
-      toRunMoves: moves.filter(move => move !== moves[0])
-    });
+	startTimer = () => {
+		this.setState({
+			timerOn: true,
+			timerStart: Date.now() - this.state.timerTime,
+			timerTime: this.state.timerTime,
+		});
 
-  }
+		this.timer = setInterval(() => {
+			this.setState({ timerTime: Date.now() - this.state.timerStart });
+		}, 1000);
 
-  showAlert = () => {
-    Alert.alert(
-      'Prepare-se',
-      'Quando estiver pronto para iniciar a atividade, toque em iniciar.\n\nUm cronômetro irá gravar o tempo de execução do exercício. Caso queira fazer uma pausa, utilize o grupo de botões inferiores.',
-      [
-        {
-          text: 'Cancelar',
-          onPress: () => {
-            this.stopTimer();
-            this.props.navigation.popToTop();
-          },
-          style: 'cancel'
-        },
-        { text: 'Iniciar', onPress: () => this.startTimer() }
-      ],
-      { cancelable: false }
-    );
-  }
+		launchActivityNotification();
+	};
 
-  startTimer = () => {
-    this.setState({
-      timerOn: true,
-      timerStart: Date.now() - this.state.timerTime,
-      timerTime: this.state.timerTime
-    });
+	stopTimer = () => {
+		this.setState({ timerOn: false });
+		clearInterval(this.timer);
+	};
 
-    this.timer = setInterval(() => {
-      this.setState({ timerTime: Date.now() - this.state.timerStart });
-    }, 1000);
+	handleNext = () => {
+		const {
+			currentMove,
+			moves,
+			activity,
+			timerTime,
+			toRunMoves,
+			runnedMoves,
+		} = this.state;
 
-    launchActivityNotification();
-  }
+		const newRunnedMoves = runnedMoves.concat(moves[currentMove]);
 
-  stopTimer = () => {
-    this.setState({ timerOn: false });
-    clearInterval(this.timer);
-  }
+		if (currentMove + 1 < moves.length) {
+			this.setState({
+				currentMove: currentMove + 1,
+				toRunMoves: toRunMoves.filter(move => move !== moves[currentMove + 1]),
+				runnedMoves: newRunnedMoves,
+			});
+		} else {
+			this.stopTimer();
 
-  handleNext = () => {
-    const { currentMove, moves, activity, timerTime, toRunMoves, runnedMoves } = this.state;
+			this.setState({
+				runnedMoves: newRunnedMoves,
+			});
 
-    const newRunnedMoves = runnedMoves.concat(moves[currentMove]);
+			dismissActivityNotification();
+			this.props.navigation.popToTop();
 
-    if (currentMove + 1 < moves.length) {
-      this.setState({ 
-        currentMove: currentMove + 1,
-        toRunMoves: toRunMoves.filter(move => move !== moves[currentMove + 1]),
-        runnedMoves: newRunnedMoves
-      });
-      
-    } else {
-      this.stopTimer();
+			if (this.state.timerTime >= 60 * 1000) {
+				this.props.navigation.navigate("ActivityFinished", {
+					activity,
+					runnedMoves,
+					timerTime,
+				});
+			}
+		}
+	};
 
-      this.setState({ 
-        runnedMoves: newRunnedMoves
-      });
+	handleCancel = () => {
+		const { activity, timerTime, runnedMoves } = this.state;
 
-      dismissActivityNotification();
-      this.props.navigation.popToTop();
+		Alert.alert(
+			"Tem certeza?",
+			"O movimento atual não será contabilizado!",
+			[
+				{
+					text: "Voltar",
+					style: "cancel",
+				},
+				{
+					text: "Finalizar",
+					onPress: () => {
+						this.stopTimer();
 
-      if (this.state.timerTime >= 60 * 1000) {
-        this.props.navigation.navigate('ActivityFinished', { activity, runnedMoves, timerTime });
-      }
-    }
-  }
+						dismissActivityNotification();
+						this.props.navigation.popToTop();
 
-  handleCancel = () => {
+						if (this.state.timerTime >= 60 * 1000) {
+							this.props.navigation.navigate("ActivityFinished", {
+								activity,
+								runnedMoves,
+								timerTime,
+							});
+						}
+					},
+				},
+			],
+			{ cancelable: false }
+		);
+	};
 
-    const { activity, timerTime, runnedMoves } = this.state;
+	render() {
+		const { moves, currentMove, toRunMoves } = this.state;
 
-    Alert.alert(
-      'Tem certeza?',
-      'O movimento atual não será contabilizado!',
-      [
-        {
-          text: 'Voltar',  
-          style: 'cancel'
-        },
-        { text: 'Finalizar', onPress: () => {
-          this.stopTimer();
+		const { timerTime, timerOn } = this.state;
+		let seconds = ("0" + (Math.floor(timerTime / 1000) % 60)).slice(-2);
+		let minutes = ("0" + (Math.floor(timerTime / 60000) % 60)).slice(-2);
+		let hours = ("0" + Math.floor(timerTime / 3600000)).slice(-2);
 
-          dismissActivityNotification();
-          this.props.navigation.popToTop();
+		return (
+			<MainWrapper>
+				<Container
+					source={{ uri: timerOn ? moves[currentMove].move_id.imageUrl : "default" }}
+					style={{ resizeMode: "contain" }}
+					imageStyle={{ opacity: 0.4 }}
+				>
+					<Row
+						style={{
+							flexDirection: "column",
+							alignItems: "flex-start",
+							marginBottom: 60,
+						}}
+					>
+						{timerOn && <Do>execute</Do>}
 
-          if (this.state.timerTime >= 60 * 1000) {
-            this.props.navigation.navigate('ActivityFinished', { activity, runnedMoves, timerTime });
-          }
-        } }
-      ],
-      { cancelable: false }
-    );
-  }
+						<MoveName>{timerOn ? moves[currentMove].move_id.name : "Pausado"}</MoveName>
 
-  render() {
+						{timerOn && (
+							<MoveRepetitions>
+								x{timerOn && moves[currentMove].repetitions}
+							</MoveRepetitions>
+						)}
+					</Row>
+				</Container>
 
-  const { moves, currentMove, toRunMoves } = this.state;
+				<ControlsContainer>
+					<Row>
+						<Button
+							onPress={this.handleCancel}
+							style={{ backgroundColor: "#333", flex: 1 }}
+							textColor="#999"
+						>
+							Finalizar
+						</Button>
 
-  const { timerTime, timerOn } = this.state;
-  let seconds = ("0" + (Math.floor(timerTime / 1000) % 60)).slice(-2);
-  let minutes = ("0" + (Math.floor(timerTime / 60000) % 60)).slice(-2);
-  let hours = ("0" + Math.floor(timerTime / 3600000)).slice(-2);
- 
-  return (
-    <MainWrapper>
-      <Container 
-        source={{ uri: timerOn ? moves[currentMove].imageUrl : "default" }}
-        style={{ resizeMode: 'contain' }}
-        imageStyle={{ opacity: 0.4 }}
-      >
-        
-        <Row style={{ flexDirection: 'column', alignItems: 'flex-start', marginBottom: 60 }}>
-          
+						<TenView />
 
-          { timerOn && <Do>execute</Do> }
+						<ButtonElement
+							onPress={() => (timerOn ? this.stopTimer() : this.startTimer())}
+							style={{ backgroundColor: "#333", width: 50 }}
+						>
+							<Icon
+								name={timerOn ? "pause" : "play"}
+								type="feather"
+								size={24}
+								color={timerOn ? "#999" : "#fff"}
+							/>
+						</ButtonElement>
 
-          <MoveName>
-            {timerOn ? moves[currentMove].name : 'Pausado'}
-          </MoveName>
+						<TenView />
 
-          { timerOn && (
-            <MoveRepetitions>
-              x{timerOn && moves[currentMove].repetitions}
-            </MoveRepetitions>
-          ) }
-        </Row>
-        
-      </Container>
+						<ButtonElement
+							onPress={timerOn ? this.handleNext : this.startTimer}
+							style={{ backgroundColor: "#333", width: 50 }}
+						>
+							<Icon
+								name="arrow-right"
+								type="feather"
+								size={24}
+								color={timerOn ? "#fff" : "#999"}
+							/>
+						</ButtonElement>
+					</Row>
+				</ControlsContainer>
 
-      <ControlsContainer>
-        <Row>
-          <Button 
-            onPress={this.handleCancel}
-            style={{ backgroundColor: '#333', flex: 1 }} textColor="#999"
-          >
-            Finalizar
-          </Button>
+				<BottomDrawer>
+					<Row
+						style={{
+							flexDirection: "column",
+							justifyContent: "flex-start",
+							alignItems: "flex-start",
+						}}
+					>
+						<Label>Tempo</Label>
+						<Timer>
+							{hours}:{minutes}:{seconds}
+						</Timer>
+					</Row>
 
-          <TenView />
+					<Row
+						style={{
+							flexDirection: "column",
+							justifyContent: "flex-start",
+							alignItems: "flex-start",
+						}}
+					>
+						<Label>Próximo</Label>
 
-          <ButtonElement 
-            onPress={() => timerOn ? this.stopTimer() : this.startTimer()}
-            style={{ backgroundColor: '#333', width: 50 }}
-          >
-            <Icon name={timerOn ? "pause" : "play"} type='feather' size={24} color={timerOn ? "#999" : "#fff"} />
-          </ButtonElement>
-
-          <TenView />
-
-          <ButtonElement 
-            onPress={timerOn ? this.handleNext : this.startTimer}
-            style={{ backgroundColor: '#333', width: 50 }}
-          >
-            <Icon name="arrow-right" type='feather' size={24} color={timerOn ? "#fff" : "#999"} />
-          </ButtonElement>
-        </Row>
-      </ControlsContainer>
-
-      <BottomDrawer>
-
-        <Row style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-          <Label>Tempo</Label>
-          <Timer>{hours}:{minutes}:{seconds}</Timer>
-        </Row>
-
-        <Row style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-          <Label>Próximo</Label>
-
-          { toRunMoves.length > 0 && toRunMoves.map(move => (
-            <MoveItemSmall 
-              key={move._id}
-              name={move.name}
-              repetitions={move.repetitions}
-            />
-          )) }
-          
-        </Row>
-
-      </BottomDrawer>
-    </MainWrapper>
-  );
-  }
+						{toRunMoves.length > 0 &&
+							toRunMoves.map(move => (
+								<MoveItemSmall
+									key={move._id}
+									name={move.move_id.name}
+									repetitions={move.repetitions}
+								/>
+							))}
+					</Row>
+				</BottomDrawer>
+			</MainWrapper>
+		);
+	}
 }
 
 export default ActivityRunning;

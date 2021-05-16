@@ -1,5 +1,5 @@
-import * as SQLite from 'expo-sqlite';
+import * as SQLite from "expo-sqlite";
 
 export const DatabaseConnection = {
-    getConnection: () => SQLite.openDatabase("faixa-preta.db"),
+	getConnection: () => SQLite.openDatabase("faixa-preta.db"),
 };

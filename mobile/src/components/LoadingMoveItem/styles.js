@@ -1,47 +1,46 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Row = styled.View`
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 22px;
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 22px;
 `;
 
 export const Title = styled.View`
-    height: 18px;
-    border-radius: 8px;
-    background: #111;
-    width: 120px;
-    margin-bottom: 8px;
+	height: 18px;
+	border-radius: 8px;
+	background: #111;
+	width: 120px;
+	margin-bottom: 8px;
 `;
 
 export const Label = styled.View`
-    height: 16px;
-    border-radius: 8px;
-    background: #111;
-    width: 60px;
-    margin-bottom: 30px;
-    margin-top: 10px;
+	height: 16px;
+	border-radius: 8px;
+	background: #111;
+	width: 60px;
+	margin-bottom: 30px;
+	margin-top: 10px;
 `;
 
 export const Tags = styled.View`
-    height: 14px;
-    background: #999;
-    width: 80px;
-    border-radius: 8px;
+	height: 14px;
+	background: #999;
+	width: 80px;
+	border-radius: 8px;
 `;
 
 export const Section = styled.View`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
 `;
 
 export const MoveImage = styled.View`
-    width: 60px;
-    height: 60px;
-    background: #333;
-    border-radius: 20px;
-    margin-right: 24px
+	width: 60px;
+	height: 60px;
+	background: #333;
+	border-radius: 20px;
+	margin-right: 24px;
 `;
-

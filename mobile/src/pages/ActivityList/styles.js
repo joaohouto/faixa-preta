@@ -1,26 +1,26 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const Square = styled.View`
-    width: 90px;
-    height: 90px;
-    background: #f1f1f1;
-    border-radius: 20px;
+	width: 90px;
+	height: 90px;
+	background: #f1f1f1;
+	border-radius: 20px;
 `;
 
 export const SquareImage = styled.Image`
-    width: 120px;
-    height: 120px;
-    position: absolute;
-    right: 0px;
-    top: 0px;
+	width: 120px;
+	height: 120px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
 `;
 
 export const NotFoundMessage = styled.Text`
-    font-size: 20px;
-    color: #555;
-    font-family: 'Roboto-Bold';
+	font-size: 20px;
+	color: #555;
+	font-family: "Roboto-Bold";
 `;
 
 export const FifityFiveView = styled.View`
-    height: 55px;
+	height: 55px;
 `;

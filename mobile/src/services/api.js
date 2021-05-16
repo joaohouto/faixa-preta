@@ -1,7 +1,7 @@
-import axios from 'axios'
+import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'http://faixa-preta.herokuapp.com/'
-})
+	baseURL: "https://faixa-preta.herokuapp.com",
+});
 
 export default api;

@@ -1,102 +1,116 @@
-import React, { useEffect } from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Icon } from 'react-native-elements';
+import React, { useEffect } from "react";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { Icon } from "react-native-elements";
 
-import { dismissActivityNotification } from '../../services/notifications'
+import { dismissActivityNotification } from "../../services/notifications";
 
-import backgroundImg from '../../assets/images/activityBackground.png'
+import backgroundImg from "../../assets/images/activityBackground.png";
 
-import HomeHeader from '../../components/HomeHeader'
-import Badge from '../../components/Badge'
+import HomeHeader from "../../components/HomeHeader";
+import Badge from "../../components/Badge";
 
-import { Row, PageTitleLight, SimpleTextLight } from '../../components/Global';
-import { 
-  Scroll, 
-  LittleContainer, 
-  ContainerLight, 
-  LittleCard, 
-  BigCard, 
-  FifityFiveView, 
-  HorizontalRow, 
-  DarkButton, 
-  DarkButtonText
-} from './styles.js'
+import { Row, PageTitleLight, SimpleTextLight } from "../../components/Global";
+import {
+	Scroll,
+	LittleContainer,
+	ContainerLight,
+	LittleCard,
+	BigCard,
+	FifityFiveView,
+	HorizontalRow,
+	DarkButton,
+	DarkButtonText,
+} from "./styles.js";
 
-import kihonImg from '../../assets/images/kihon.png';
-import kataImg from '../../assets/images/kata.png';
-import kumiteImg from '../../assets/images/kumite.png';
-import exameImg from '../../assets/images/exame.png';
+import kihonImg from "../../assets/images/kihon.png";
+import kataImg from "../../assets/images/kata.png";
+import kumiteImg from "../../assets/images/kumite.png";
+import exameImg from "../../assets/images/exame.png";
 
 const Explore = ({ navigation }) => {
+	useEffect(() => {
+		dismissActivityNotification();
+	}, []);
 
-  useEffect(() => {
-    dismissActivityNotification();
-  }, []);
+	return (
+		<>
+			<HomeHeader />
+			<Scroll>
+				<ContainerLight
+					source={backgroundImg}
+					style={{ resizeMode: "contain" }}
+					imageStyle={{ opacity: 0.3 }}
+				>
+					<Row style={{ justifyContent: "space-between", flex: 1 }}>
+						<Row style={{ flexDirection: "column", alignItems: "flex-start" }}>
+							<PageTitleLight>Explorar</PageTitleLight>
+						</Row>
 
-  return (
-    <>
-      <HomeHeader />
-      <Scroll>
-        <ContainerLight
-          source={backgroundImg}
-          style={{ resizeMode: 'contain' }}
-          imageStyle={{ opacity: 0.3 }}
-        >
-          
-          <Row style={{ justifyContent: 'space-between', flex: 1 }}>
-            <Row style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-              <PageTitleLight>Explorar</PageTitleLight>
-            </Row>
+						<TouchableOpacity onPress={() => navigation.navigate("Help")}>
+							<Icon name="help-circle" type="feather" size={24} color="#777" />
+						</TouchableOpacity>
+					</Row>
 
-            <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-              <Icon name='settings' type='feather' size={24} color="#999" />
-            </TouchableOpacity>
-          </Row>
-          
-          <SimpleTextLight>
-            Procure por treinos já prontos ou monitore o seu tempo em um treino livre.
-          </SimpleTextLight>
+					<SimpleTextLight>
+						Procure por treinos já prontos ou monitore o seu tempo em um treino
+						livre.
+					</SimpleTextLight>
 
-          <DarkButton onPress={() => navigation.navigate('FreeActivityRunning')}>
-            <Icon name='plus-circle' type='feather' size={24} color="#999" />
-          
-            <DarkButtonText>
-              TREINO LIVRE
-            </DarkButtonText>
-          </DarkButton>
-        </ContainerLight>
-        
-        <LittleContainer>
-          <Badge dark={true}>Fundamental</Badge>
-        </LittleContainer>
+					<DarkButton
+						onPress={() => navigation.navigate("FreeActivityRunning")}
+					>
+						<Icon name="plus-circle" type="feather" size={24} color="#999" />
 
-        <HorizontalRow horizontal={true}>
-          <TouchableOpacity style={{ marginLeft: 30 }} onPress={() => navigation.navigate('ActivityList', { tag: 'Kihon' })}>
-            <LittleCard source={kihonImg} />
-          </TouchableOpacity>
+						<DarkButtonText>TREINO LIVRE</DarkButtonText>
+					</DarkButton>
+				</ContainerLight>
 
-          <TouchableOpacity onPress={() => navigation.navigate('ActivityList', { tag: 'Kata' })}>
-            <LittleCard source={kataImg} />
-          </TouchableOpacity>
+				<LittleContainer>
+					<Badge dark={true}>Fundamental</Badge>
+				</LittleContainer>
 
-          <TouchableOpacity style={{ marginRight: 30 }} onPress={() => navigation.navigate('ActivityList', { tag: 'Kumite' })}>
-            <LittleCard source={kumiteImg} />
-          </TouchableOpacity>
-        </HorizontalRow>
+				<HorizontalRow horizontal={true}>
+					<TouchableOpacity
+						style={{ marginLeft: 30 }}
+						onPress={() =>
+							navigation.navigate("ActivityList", { tag: "Kihon" })
+						}
+					>
+						<LittleCard source={kihonImg} />
+					</TouchableOpacity>
 
-        <LittleContainer>
-          <Badge dark={true}>Recomendado</Badge>
+					<TouchableOpacity
+						onPress={() => navigation.navigate("ActivityList", { tag: "Kata" })}
+					>
+						<LittleCard source={kataImg} />
+					</TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate('ActivityList', { tag: 'Exame' })}>
-            <BigCard source={exameImg} />
-          </TouchableOpacity>
+					<TouchableOpacity
+						style={{ marginRight: 30 }}
+						onPress={() =>
+							navigation.navigate("ActivityList", { tag: "Kumite" })
+						}
+					>
+						<LittleCard source={kumiteImg} />
+					</TouchableOpacity>
+				</HorizontalRow>
 
-          <FifityFiveView />
-        </LittleContainer>
+				<LittleContainer>
+					<Badge dark={true}>Recomendado</Badge>
 
-      </Scroll>
-    </>
-  );
-}
+					<TouchableOpacity
+						onPress={() =>
+							navigation.navigate("ActivityList", { tag: "Exame" })
+						}
+					>
+						<BigCard source={exameImg} />
+					</TouchableOpacity>
+
+					<FifityFiveView />
+				</LittleContainer>
+			</Scroll>
+		</>
+	);
+};
 
 export default Explore;
