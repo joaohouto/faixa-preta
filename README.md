@@ -1,4 +1,4 @@
-<img src="./web/img/icon.png" width="100"/>
+<img src="./web/src/assets/images/icon.svg" width="100"/>
 
 # <a href="https://github.com/joaocou/faixa-preta">Faixa Preta</a>
 
@@ -42,12 +42,13 @@
 - Expo;
 - SQLite;
 - Styled Components;
-- MomentJS;
 - Axios;
 - MongoDB;
 - Mongoose;
 - BcryptJS;
 - JWT;
+- Unform;
+- Yup;
 
 <hr>
 
