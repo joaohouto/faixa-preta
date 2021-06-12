@@ -52,8 +52,7 @@ const Explore = ({ navigation }) => {
 					</Row>
 
 					<SimpleTextLight>
-						Procure por treinos já prontos ou monitore o seu tempo em um treino
-						livre.
+						Procure por treinos já prontos ou monitore o seu tempo em um treino livre.
 					</SimpleTextLight>
 
 					<DarkButton

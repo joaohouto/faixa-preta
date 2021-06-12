@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&family=Poppins:wght@0,400;0,700&display=swap");
 
 ::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
+	width: 15px;
+	height: 15px;
 }
 
 ::-webkit-scrollbar-track {
@@ -10,22 +10,21 @@
 }
 
 ::-webkit-scrollbar-thumb {
-	background: #ccc;
-	border-radius: 10px;
+	background-color: rgb(218, 220, 224);
+	background-clip: padding-box;
+	border-image: initial;
+	border-style: solid;
+	border-color: transparent;
+	border-width: 4px;
+	border-radius: 8px;
+}
+::-webkit-scrollbar-button {
+	height: 0px;
+	width: 0px;
 }
 
-::-moz-scrollbar {
-	width: 10px;
-	height: 10px;
-}
-
-::-moz-scrollbar-track {
-	border-radius: 0px;
-}
-
-::-moz-scrollbar-thumb {
-	background: #ccc;
-	border-radius: 10px;
+::-webkit-scrollbar-corner {
+	background: transparent;
 }
 
 * {

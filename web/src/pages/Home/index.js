@@ -48,7 +48,7 @@ const Login = () => {
                 <div className="wrapper">
                     <h2>Sobre.</h2>
                     <p>O Faixa Preta é a proposta de um aplicativo para ajudar karatecas em seus treinos individuais, contando com programas de treino específicos e detalhes da execução de técnicas. Além disso, relatórios da execução de treinos podem ser encontrados na seção de estatísticas do app.</p>
-                    <p>Este é um projeto inicialmente idealizado como um Trabalho de Conclusão de Curso para o Curso Técnico de Informática, do Instituto Federal de Mato Grosso do Sul - Campus Aquidauana. Orientado pelo Prof. Dr. Ygo Brito e desenvolvido pelo aluno João Couto.</p>
+                    <p>Este é um projeto inicialmente idealizado como um Trabalho de Conclusão de Curso para o Curso Técnico de Informática, do Instituto Federal de Mato Grosso do Sul - Campus Aquidauana. Orientado pelo Prof. Ygo Brito e desenvolvido pelo aluno João Couto.</p>
                     <p>Para elogios, críticas e outros, envie um email para <a href="mailto:appfaixapreta@gmail.com">appfaixapreta@gmail.com</a>.</p>
                 </div>
             </div>
@@ -66,13 +66,13 @@ const Login = () => {
                     </button>
                 </a>
               
-                <a href="https://firebasestorage.googleapis.com/v0/b/faixa-preta.appspot.com/o/builds%2Ffaixa-preta.apk?alt=media&token=221dc3b3-7e45-4583-a884-40fc24a1aa8f">
+                <a href="https://play.google.com/store/apps/details?id=com.faixapreta">
                     <button className="download">
-                        <img src={androidImg} alt="Android" />
+                        <img src={googleImg} alt="Android" />
                     
                         <div>
-                        <span>Download do</span>
-                        <h3>APK Android</h3>
+                        <span>Download na loja</span>
+                        <h3>Google Play</h3>
                         </div>
                     </button>
                 </a>

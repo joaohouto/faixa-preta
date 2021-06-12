@@ -117,7 +117,7 @@ class ActivityFinished extends Component {
 								}}
 							>
 								<BlackDot />
-								<MoveName>{move.name}</MoveName>
+								<MoveName>{move.move_id.name}</MoveName>
 								<MoveRepetitions>x{move.repetitions}</MoveRepetitions>
 							</Row>
 						))}
