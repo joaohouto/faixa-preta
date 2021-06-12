@@ -5,8 +5,10 @@
 		"privacy": "public",
 		"userInterfaceStyle": "automatic",
 		"platforms": ["ios", "android"],
-		"version": "2.0.0",
+		"version": "3.0.0",
+		"githubUrl": "https://github.com/joaohouto/faixa-preta",
 		"orientation": "portrait",
+		"primaryColor": "#111111",
 		"icon": "./assets/icon.png",
 		"notification": {
 			"icon": "./src/assets/notification.png"
@@ -23,16 +25,17 @@
 		"ios": {
 			"supportsTablet": false,
 			"bundleIdentifier": "com.faixapreta",
-			"buildNumber": "2.0.0"
+			"buildNumber": "3.0.0"
 		},
 		"android": {
 			"package": "com.faixapreta",
-			"versionCode": 2,
+			"versionCode": 3,
 			"useNextNotificationsApi": true,
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/android-icon.png",
 				"backgroundColor": "#1a1a1a"
-			}
+			},
+			"playStoreUrl": "https://play.google.com/store/apps/details?id=com.faixapreta"
 		},
 		"description": "Monitore os seus treinos e pesquise por técnicas de Karatê Shotokan com o Faixa Preta."
 	}

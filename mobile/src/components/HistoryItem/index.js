@@ -11,9 +11,9 @@ import {
 	Section,
 	Day,
 	Month,
-	Menu,
-	Option,
-	OptionText,
+	Wrapper,
+	DeleteButton,
+	Dot
 } from "./styles";
 
 const MoveItemSearched = ({ name, date, time, onDelete }) => {
@@ -51,15 +51,21 @@ const MoveItemSearched = ({ name, date, time, onDelete }) => {
 
 	return (
 		<Container>
-			<Row onLongPress={() => handleDelete()}>
-				<MoveImage>
-					<Month>{fullDate[1]}</Month>
-					<Day>{fullDate[0]}</Day>
-				</MoveImage>
-				<Section>
-					<Title>{name}</Title>
-					<Tags>{parseTime(time)}</Tags>
-				</Section>
+			<Row>
+				<Wrapper>
+					<MoveImage>
+						<Month>{fullDate[1]}</Month>
+						<Day>{fullDate[0]}</Day>
+					</MoveImage>
+					<Section>
+						<Title>{name}</Title>
+						<Tags>{parseTime(time)}</Tags>
+					</Section>
+				</Wrapper>
+
+				<DeleteButton onPress={() => handleDelete()}>
+					<Dot />
+				</DeleteButton>
 			</Row>
 		</Container>
 	);

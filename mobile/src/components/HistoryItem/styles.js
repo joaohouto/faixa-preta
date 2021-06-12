@@ -5,7 +5,14 @@ export const Container = styled.View`
 	margin-bottom: 22px;
 `;
 
-export const Row = styled.TouchableOpacity`
+export const Row = styled.View`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+`;
+
+export const Wrapper = styled.View`
 	display: flex;
 	flex-direction: row;
 `;
@@ -60,6 +67,17 @@ export const Month = styled.Text`
 export const Menu = styled.View`
 	display: flex;
 	margin-top: 10px;
+`;
+
+export const DeleteButton = styled(TouchableOpacity)`
+	padding: 10px 0px 10px 10px;
+`;
+
+export const Dot = styled.View`
+	background: #ee6666;
+	height: 20px;
+	width: 20px;
+	border-radius: 10px;
 `;
 
 export const Option = styled(TouchableOpacity)`

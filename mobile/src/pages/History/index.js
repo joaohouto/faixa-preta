@@ -48,8 +48,7 @@ class History extends Component {
 				<ContainerDark>
 					<PageTitleLight>Histórico</PageTitleLight>
 					<SimpleTextLight>
-						Todos os treinos executados por você. Mantenha um item pressionado
-						para excluir.
+						Todos os treinos executados por você. Toque na bolinha vermelha para excluir.
 					</SimpleTextLight>
 
 					<Badge dark>Nesse ano</Badge>

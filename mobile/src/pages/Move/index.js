@@ -5,7 +5,8 @@ import Markdown from "react-native-simple-markdown";
 import { getLinkPreview } from "link-preview-js";
 
 import CustomHeader from "../../components/CustomHeader";
-import ActivityItem from "../../components/ActivityItem";
+import Badge from "../../components/Badge";
+import VideoItem from "../../components/VideoItem";
 import LoadingActivityItem from "../../components/LoadingActivityItem";
 
 import { ContainerLight, Row } from "../../components/Global";
@@ -59,6 +60,13 @@ class Move extends Component {
 				color: "#555",
 				fontFamily: "Roboto-Regular",
 			},
+			heading: {
+				fontSize: 14,
+				color: "#555",
+				fontFamily: "Roboto-Bold",
+				marginTop: 20,
+				marginBottom: 10,
+			},
 			em: {
 				fontSize: 14,
 				color: "#555",
@@ -95,7 +103,8 @@ class Move extends Component {
 						source={{ uri: move.imageUrl }}
 					/>
 
-					<Category>{move.category}</Category>
+					<Badge>{move.category}</Badge>
+					
 					<Title>{move.name}</Title>
 
 					<Markdown styles={markdownStyles}>{move.details}</Markdown>
@@ -104,10 +113,10 @@ class Move extends Component {
 
 					{!loading ? (
 						videos.map(video => (
-							<ActivityItem
+							<VideoItem
 								key={video.id}
-								name={video.title.slice(0, 15) + "..."}
-								tags={[video.description.slice(0, 30) + "..."]}
+								name={video.title}
+								tags={[video.description]}
 								source={{
 									uri:
 										"https://img.youtube.com/vi/" + video.id + "/mqdefault.jpg",
