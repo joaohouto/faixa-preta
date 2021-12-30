@@ -56,7 +56,7 @@ export default function Dashboard (){
                     description: "Item criado.",
                 });
 
-                history.push("/moves");
+                history.push("/dashboard/moves");
 
             } catch (err) {
                 if (err instanceof Yup.ValidationError) {

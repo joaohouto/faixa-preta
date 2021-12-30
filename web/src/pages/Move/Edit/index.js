@@ -88,7 +88,7 @@ export default function Dashboard (){
                     description: "Item alterado.",
                 });
 
-                history.push("/moves");
+                history.push("/dashboard/moves");
 
             } catch (err) {
                 if (err instanceof Yup.ValidationError) {

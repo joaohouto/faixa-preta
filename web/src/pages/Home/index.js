@@ -31,15 +31,21 @@ const Login = () => {
                             <h2 className="animate-opacity-one">O treino que vai além do dojo.</h2>
                             <p className="animate-opacity-two">O Faixa Preta é a proposta de um app para ajudar karatecas em seus treinos individuais, contando com recursos que facilitam o seu aprendizado e aperfeiçoamento.</p>
     
-                            <a href="#download">
-                                <button className="animate-opacity-three">
-                                    <IconDownload color="#fff" style={{ marginRight: 10 }} />
-                                    Download
-                                </button>
-                            </a>
+                            <div className="buttons animate-opacity-three">
+                                <a href="https://play.google.com/store/apps/details?id=com.faixapreta">
+                                    <button className="download">
+                                        <img src={googleImg} alt="Android" />
+                                    
+                                        <div>
+                                        <span>Download na loja</span>
+                                        <h3>Google Play</h3>
+                                        </div>
+                                    </button>
+                                </a>
+                            </div>
                     </div>
                     
-                    <img style={{ objectFit: 'contain' }} src={mobileImg} alt="App" />
+                    <img className="animate-opacity-mobile " style={{ objectFit: 'contain' }} src={mobileImg} alt="App" />
                     </div>
                 </div>
             </div>
@@ -53,33 +59,7 @@ const Login = () => {
                 </div>
             </div>
 
-            <div id="download" className="download-section">
-
-                <a href="https://expo.io/@joaohouto/projects/faixa-preta">
-                    <button className="download">
-                        <img src={expoImg} alt="Expo" />
-                    
-                        <div>
-                        <span>Teste com</span>
-                        <h3>Expo Go</h3>
-                        </div>
-                    </button>
-                </a>
-              
-                <a href="https://play.google.com/store/apps/details?id=com.faixapreta">
-                    <button className="download">
-                        <img src={googleImg} alt="Android" />
-                    
-                        <div>
-                        <span>Download na loja</span>
-                        <h3>Google Play</h3>
-                        </div>
-                    </button>
-                </a>
-
-            </div>
-
-            <footer className="bg-dark">
+            <footer>
                 <div className="wrapper">
                     <p>&copy; 2021 Faixa Preta</p>
                 </div>

@@ -60,7 +60,7 @@ const MonthChart = ({ data }) => {
 							<DayText active={initialDate === day}>
 								{day.split("/").splice(0, 1)}
 							</DayText>
-							<Light size={data && data[0][index].time * 0.85} />
+							<Light size={data && data[0][index].time} />
 						</Day>
 					) : (
 						<Day key={Math.random()} />
@@ -74,7 +74,7 @@ const MonthChart = ({ data }) => {
 						<DayText active={initialDate === day}>
 							{day.split("/").splice(0, 1)}
 						</DayText>
-						<Light size={data && data[1][index].time * 0.85} />
+						<Light size={data && data[1][index].time} />
 					</Day>
 				))}
 			</Week>
@@ -85,7 +85,7 @@ const MonthChart = ({ data }) => {
 						<DayText active={initialDate === day}>
 							{day.split("/").splice(0, 1)}
 						</DayText>
-						<Light size={data && data[2][index].time * 0.85} />
+						<Light size={data && data[2][index].time} />
 					</Day>
 				))}
 			</Week>
@@ -96,7 +96,7 @@ const MonthChart = ({ data }) => {
 						<DayText active={initialDate === day}>
 							{day.split("/").splice(0, 1)}
 						</DayText>
-						<Light size={data && data[3][index].time * 0.85} />
+						<Light size={data && data[3][index].time} />
 					</Day>
 				))}
 			</Week>
@@ -108,7 +108,7 @@ const MonthChart = ({ data }) => {
 							<DayText active={initialDate === day}>
 								{day.split("/").splice(0, 1)}
 							</DayText>
-							<Light size={data && data[4][index].time * 0.85} />
+							<Light size={data && data[4][index].time} />
 						</Day>
 					) : (
 						<Day key={Math.random()} />
@@ -123,7 +123,7 @@ const MonthChart = ({ data }) => {
 							<DayText active={initialDate === day}>
 								{day.split("/").splice(0, 1)}
 							</DayText>
-							<Light size={data && data[5][index].time * 0.85} />
+							<Light size={data && data[5][index].time} />
 						</Day>
 					) : (
 						<Day key={Math.random()} />

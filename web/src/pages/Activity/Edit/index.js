@@ -104,10 +104,10 @@ export default function Dashboard (){
                 addToast({
                     type: "success",
                     title: "Sucesso!",
-                    description: "Item criado.",
+                    description: "Item alterado.",
                 });
 
-                history.push("/activities");
+                history.push("/dashboard/activities");
 
             } catch (err) {
                 if (err instanceof Yup.ValidationError) {

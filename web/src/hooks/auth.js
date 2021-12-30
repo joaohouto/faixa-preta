@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("@FaixaPreta:Token", token);
         localStorage.setItem("@FaixaPreta:User", JSON.stringify(user));
 
-        api.defaults.headers.authorization = `Bearer ${token}`;
+        api.defaults.headers["x-access-token"] = token;
 
         setData({ token, user });
     }, []);

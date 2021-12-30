@@ -3,6 +3,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Icon } from "react-native-elements";
 
 import { dismissActivityNotification } from "../../services/notifications";
+import ActivityService from "../../services/activity";
 
 import backgroundImg from "../../assets/images/activityBackground.png";
 
@@ -30,6 +31,58 @@ import exameImg from "../../assets/images/exame.png";
 const Explore = ({ navigation }) => {
 	useEffect(() => {
 		dismissActivityNotification();
+
+		const fakeData = async () => {
+
+			const data = [
+				{
+					date: "01/06/2021",
+					time: 1800000,
+					name: "Treino livre",
+				},
+				{
+					date: "02/06/2021",
+					time: 900000,
+					name: "Faixa Preta",
+				},
+				{
+					date: "03/06/2021",
+					time: 2340000,
+					name: "Chutes III",
+				},
+				{
+					date: "04/06/2021",
+					time: 1380000,
+					name: "Treino livre",
+				},
+				{
+					date: "07/06/2021",
+					time: 2700000,
+					name: "Treino livre",
+				},
+				{
+					date: "09/06/2021",
+					time: 1800000,
+					name: "Faixa Marrom",
+				},
+				{
+					date: "11/06/2021",
+					time: 3300000,
+					name: "Série Superiores",
+				},
+				{
+					date: "13/06/2021",
+					time: 1080000,
+					name: "Defesas II",
+				}
+			]
+
+			for (const item of data) {
+				await ActivityService.create(item);
+				console.log('done!\n')
+			}
+		}
+
 	}, []);
 
 	return (
