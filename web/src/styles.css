@@ -44,12 +44,12 @@ html {
 
 a {
 	text-decoration: none;
-	transition: opacity 0.4s;
+	transition: filter 0.4s;
 	color: #2c9de9;
 }
 
 a:hover {
-	opacity: 0.5;
+	filter: brightness(70%);
 }
 
 .home-section {
@@ -141,7 +141,7 @@ header.bg {
 
 .wrapper > img {
 	width: 50%;
-	height: 550px;
+	height: 560px;
 	max-height: 100%;
 	object-fit: contain;
 }
