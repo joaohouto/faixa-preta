@@ -6,9 +6,9 @@ import { Container } from "./styles";
 import { useToast } from "../../../hooks/toast";
 
 const icons = {
-	info: <Info size={30} />,
-	error: <AlertCircle size={30} />,
-	success: <CheckCircle size={30} />,
+	info: <Info size={24} />,
+	error: <AlertCircle size={24} />,
+	success: <CheckCircle size={24} />,
 };
 
 const Toast = ({ message }) => {

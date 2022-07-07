@@ -1,92 +1,67 @@
 import React from "react";
-import { IconInfoCircle } from "tabler-icons";
+import { Link } from "react-router-dom";
+import moment from "moment";
+
+import { IconBrandGooglePlay, IconInfoCircle } from "tabler-icons";
+
+import {
+	Container,
+	Wrapper,
+	Logo,
+	HomeContainer,
+	AdsContainer,
+} from "./styles";
 
 import iconImg from "../../assets/images/icon.svg";
+import logoTextImg from "../../assets/images/logo-text.svg";
 import mobileImg from "../../assets/images/mobile.png";
-import googleImg from "../../assets/icons/google-play.svg";
 
-const Login = () => {
+export default function Home() {
 	return (
-		<div>
-			<div className="home-section">
-				<div className="wrapper">
-					<header>
-						<div className="brand">
-							<img src={iconImg} alt="Ícone" />
-							<h1>Faixa Preta</h1>
-						</div>
+		<Container>
+			<Wrapper>
+				<header>
+					<Logo>
+						<img src={iconImg} alt="[]" />
+						<img src={logoTextImg} alt="Faixa Preta" />
+					</Logo>
 
-						<a href="/privacidade/">Política de Privacidade</a>
-						<a id="icon" href="/privacidade/">
-							<IconInfoCircle color="#777" />
-						</a>
-					</header>
+					<Link to="/privacidade">
+						<IconInfoCircle size={24} />
+						<span>Política de Privacidade</span>
+					</Link>
+				</header>
 
-					<div className="wrapper">
-						<div className="column">
-							<h2 className="animate-opacity-one">
-								O treino que vai além do dojo.
-							</h2>
-							<p className="animate-opacity-two">
-								O Faixa Preta é a proposta de um app para ajudar karatecas em
-								seus treinos individuais, contando com recursos que facilitam o
-								seu aprendizado e aperfeiçoamento.
-							</p>
+				<HomeContainer>
+					<div>
+						<h1>O treino que vai além do dojo.</h1>
+						<p>
+							O Faixa Preta é a proposta de um app para ajudar karatecas em seus
+							treinos individuais, contando com recursos que facilitam o seu
+							aprendizado e aperfeiçoamento.
+						</p>
 
-							<div className="buttons animate-opacity-three">
-								<a href="https://play.google.com/store/apps/details?id=com.faixapreta">
-									<button className="download">
-										<img src={googleImg} alt="Google Play" />
+						<a href="https://play.google.com/store/apps/details?id=com.faixapreta">
+							<IconBrandGooglePlay size={35} strokeWidth={1.5} />
 
-										<div>
-											<span>Download na loja</span>
-											<h3>Google Play</h3>
-										</div>
-									</button>
-								</a>
+							<div>
+								<p>Download na loja</p>
+								<strong>Google Play</strong>
 							</div>
-						</div>
-
-						<img
-							className="animate-opacity-mobile "
-							style={{ objectFit: "contain" }}
-							src={mobileImg}
-							alt="Android App"
-						/>
+						</a>
 					</div>
-				</div>
-			</div>
 
-			<div className="section" style={{ background: "#fff" }}>
-				<div className="wrapper">
-					<h2>Sobre.</h2>
-					<p>
-						O Faixa Preta é a proposta de um aplicativo para ajudar karatecas em
-						seus treinos individuais, contando com programas de treino
-						específicos e detalhes da execução de técnicas. Além disso,
-						relatórios da execução de treinos podem ser encontrados na seção de
-						estatísticas do app.
-					</p>
-					<p>
-						Este é um projeto inicialmente idealizado como um Trabalho de
-						Conclusão de Curso para o Curso Técnico de Informática, do Instituto
-						Federal de Mato Grosso do Sul - Campus Aquidauana. Orientado pelo
-						Prof. Ygo Brito e desenvolvido por João Couto.
-					</p>
-					<p>
-						Para elogios, críticas e outros, envie um email para{" "}
-						<a href="mailto:contato@joaocouto.com">contato@joaocouto.com</a>.
-					</p>
-				</div>
-			</div>
-
-			<footer>
-				<div className="wrapper">
-					<p>&copy; 2021 Faixa Preta</p>
-				</div>
-			</footer>
-		</div>
+					<img src={mobileImg} alt="Aplicação" />
+				</HomeContainer>
+				{/* 
+				<AdsContainer>
+					<button>Acesse a nossa wiki</button>
+				</AdsContainer>
+ */}
+				<footer>
+					&copy; {moment().format("YYYY")} Faixa Preta - Karatê Shotokan
+				</footer>
+			</Wrapper>
+		</Container>
 	);
-};
-
-export default Login;
+}
