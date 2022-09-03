@@ -7,9 +7,9 @@ export const Row = styled.TouchableOpacity`
 `;
 
 export const Title = styled.Text`
-	font-size: 18px;
-	color: #111;
-	max-width: 200px;
+	font-size: 16px;
+	color: #222;
+	max-width: 190px;
 	overflow: hidden;
 	font-family: "Roboto-Bold";
 `;
@@ -17,8 +17,8 @@ export const Title = styled.Text`
 export const Tags = styled.Text`
 	font-size: 14px;
 	color: #999;
-	max-width: 200px;
-	font-family: "Roboto-Bold";
+	max-width: 190px;
+	font-family: "Roboto-Regular";
 `;
 
 export const Section = styled.View`

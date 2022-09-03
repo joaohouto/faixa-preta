@@ -13,7 +13,7 @@ class LoadingMoveItem extends Component {
 			Animated.timing(this.state.fadeAnim, {
 				useNativeDriver: true,
 				toValue: 0.1,
-				duration: 1000,
+				duration: 500,
 				easing: Easing.bounce,
 				friction: 1,
 			})

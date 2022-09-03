@@ -35,20 +35,17 @@ class Activity extends Component {
 		const { activity } = this.props.route.params;
 		this.setState({ activity });
 
-    let kihonMoves = [];
-    let kataMoves = [];
-    let kumiteMoves = [];
+		let kihonMoves = [];
+		let kataMoves = [];
+		let kumiteMoves = [];
 
 		for (const move of activity.moves) {
-      if (move.move_id.category === "Kihon")
-				kihonMoves.push(move);
+			if (move.move_id.category === "Kihon") kihonMoves.push(move);
 
-			if (move.move_id.category === "Kata")
-				kataMoves.push(move);
+			if (move.move_id.category === "Kata") kataMoves.push(move);
 
-			if (move.move_id.category === "Kumite")
-				kumiteMoves.push(move);
-    }
+			if (move.move_id.category === "Kumite") kumiteMoves.push(move);
+		}
 
 		this.setState({ loading: false, kihonMoves, kataMoves, kumiteMoves });
 	};
@@ -79,12 +76,12 @@ class Activity extends Component {
 							<Icon
 								name="alert-triangle"
 								type="feather"
-								size={40}
-								color="#D0D0D0"
+								size={32}
+								color="#ccc"
 							/>
 							<WarningBoxText>
-								Treine sempre em locais seguros e não exceda fisicamente os seus
-								limites.
+								Treine de maneira segura e responsável. Esteja sempre atento ao
+								seu ambiente.
 							</WarningBoxText>
 						</Row>
 					</WarningBox>
@@ -96,7 +93,9 @@ class Activity extends Component {
 						kihonMoves.map(move => (
 							<TouchableOpacity
 								key={move._id}
-								onPress={() => this.props.navigation.navigate("Move", { move: move.move_id })}
+								onPress={() =>
+									this.props.navigation.navigate("Move", { move: move.move_id })
+								}
 							>
 								<MoveItem
 									name={move.move_id.name}
@@ -116,7 +115,9 @@ class Activity extends Component {
 						kataMoves.map(move => (
 							<TouchableOpacity
 								key={move._id}
-								onPress={() => this.props.navigation.navigate("Move", { move: move.move_id })}
+								onPress={() =>
+									this.props.navigation.navigate("Move", { move: move.move_id })
+								}
 							>
 								<MoveItem
 									name={move.move_id.name}
@@ -136,7 +137,9 @@ class Activity extends Component {
 						kumiteMoves.map(move => (
 							<TouchableOpacity
 								key={move._id}
-								onPress={() => this.props.navigation.navigate("Move", { move: move.move_id })}
+								onPress={() =>
+									this.props.navigation.navigate("Move", { move: move.move_id })
+								}
 							>
 								<MoveItem
 									name={move.move_id.name}

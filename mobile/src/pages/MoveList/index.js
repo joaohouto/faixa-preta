@@ -142,7 +142,7 @@ class MoveList extends React.Component {
 						onDismiss={this.handleDismiss}
 					/>
 
-					<Row style={{ marginVertical: 20, justifyContent: "flex-start" }}>
+					<Row style={{ marginVertical: 10, justifyContent: "flex-start" }}>
 						<SectionButton
 							onPress={() => this.handleFilterSet("kihon")}
 							active={filter === "kihon"}

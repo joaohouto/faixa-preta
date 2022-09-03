@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-	baseURL: "https://faixa-preta.herokuapp.com",
+	baseURL: "https://faixapreta.fly.dev",
 });
 
 export default api;

@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { Dimensions } from "react-native";
 
 export const Details = styled.Text`
-	font-size: 14px;
-	color: #555;
-	margin-bottom: 30px;
+	font-size: 16px;
+	color: #777;
+	margin-bottom: 20px;
 	font-family: "Roboto-Regular";
 `;
 
@@ -27,8 +27,8 @@ export const Category = styled.Text`
 
 export const Title = styled.Text`
 	font-size: 18px;
-	color: #111;
-	margin-bottom: 20px;
+	color: #222;
+	margin-bottom: 8px;
 	font-family: "Roboto-Bold";
 `;
 

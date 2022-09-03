@@ -5,7 +5,7 @@
 		"privacy": "public",
 		"userInterfaceStyle": "automatic",
 		"platforms": ["ios", "android"],
-		"version": "3.0.0",
+		"version": "3.0.1",
 		"githubUrl": "https://github.com/joaohouto/faixa-preta",
 		"orientation": "portrait",
 		"primaryColor": "#111111",

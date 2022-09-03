@@ -14,6 +14,12 @@ export const Button = styled(TouchableOpacity)`
 
 export const ButtonText = styled.Text`
 	font-size: 18px;
-	color: #555;
+	color: #777;
 	font-family: "Roboto-Bold";
+`;
+
+export const LittleText = styled.Text`
+	font-size: 14px;
+	color: #999;
+	font-family: "Roboto-Regular";
 `;

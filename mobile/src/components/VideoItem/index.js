@@ -16,7 +16,7 @@ const Button = ({ name, tags, source, onPress, ...rest }) => {
 				}}
 			/>
 			<Section>
-				<Title numberOfLines={1}>{name}</Title>
+				<Title numberOfLines={2}>{name}</Title>
 				<Tags numberOfLines={1}>
 					{tags &&
 						tags.map((tag, index) => {

@@ -11,7 +11,7 @@ export const Container = styled.ImageBackground`
 `;
 
 export const Heading = styled.Text`
-	width: 300px;
+	width: 100%;
 	font-size: 38px;
 	line-height: 45px;
 	color: #fff;
@@ -20,7 +20,7 @@ export const Heading = styled.Text`
 `;
 
 export const Info = styled(TouchableOpacity)`
-	width: 250px;
+	width: 75%;
 	margin: 40px 0;
 `;
 
@@ -55,4 +55,5 @@ export const ButtonText = styled.Text`
 export const IconWrapper = styled.View`
 	position: absolute;
 	right: 20px;
+	opacity: 0.5;
 `;

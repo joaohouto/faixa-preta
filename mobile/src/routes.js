@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useFonts } from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppLoading from "expo-app-loading";
+import * as SplashScreen from "expo-splash-screen";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
+import Splash from "./pages/Splash";
 import Landing from "./pages/Landing";
 import ActivityList from "./pages/ActivityList";
 import Activity from "./pages/Activity";
@@ -19,6 +21,8 @@ import Help from "./pages/Help";
 import BottomTabs from "./BottomTabs";
 
 const { Navigator, Screen } = createStackNavigator();
+
+SplashScreen.preventAutoHideAsync();
 
 const Routes = () => {
 	const [loading, setLoading] = useState(true);
@@ -63,7 +67,9 @@ const Routes = () => {
 	return (
 		<NavigationContainer>
 			<Navigator screenOptions={{ headerShown: false }}>
-				{isFirstAccess ? (
+				<Screen name="Splash" component={Splash} />
+
+				{!isFirstAccess ? (
 					<>
 						<Screen name="Landing" component={Landing} />
 						<Screen name="BottomTabs" component={BottomTabs} />

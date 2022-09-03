@@ -12,26 +12,28 @@ const { Navigator, Screen } = createBottomTabNavigator();
 const BottomTabs = () => {
 	return (
 		<Navigator
-			tabBarOptions={{
-				style: {
-					height: 80,
-					borderTopColor: "#222",
+			screenOptions={{
+				tabBarStyle: {
+					height: 70,
+					borderTopWidth: 0,
 				},
-				labelStyle: {
+				tabBarLabelStyle: {
 					fontSize: 13,
-					marginBottom: 18,
+					marginBottom: 10,
 				},
-				inactiveBackgroundColor: "#222222",
-				activeBackgroundColor: "#222222",
-				inactiveTintColor: "#555555",
-				activeTintColor: "#dddddd",
+				tabBarInactiveBackgroundColor: "#222222",
+				tabBarActiveBackgroundColor: "#222222",
+				tabBarInactiveTintColor: "#555555",
+				tabBarActiveTintColor: "#dddddd",
 			}}
 		>
 			<Screen
 				name="Explore"
 				component={Explore}
 				options={{
-					tabBarLabel: "EXPLORAR",
+					tabBarLabel: "Explorar",
+					headerShown: false,
+					unmountOnBlur: true,
 					tabBarIcon: ({ color, size, focused }) => {
 						return (
 							<Icon
@@ -49,7 +51,9 @@ const BottomTabs = () => {
 				name="MoveList"
 				component={MoveList}
 				options={{
-					tabBarLabel: "PESQUISAR",
+					tabBarLabel: "Pesquisar",
+					headerShown: false,
+					unmountOnBlur: true,
 					tabBarIcon: ({ color, size, focused }) => {
 						return (
 							<Icon
@@ -67,7 +71,9 @@ const BottomTabs = () => {
 				name="Statistics"
 				component={Statistics}
 				options={{
-					tabBarLabel: "ESTATÍSTICAS",
+					tabBarLabel: "Estatísticas",
+					headerShown: false,
+					unmountOnBlur: true,
 					tabBarIcon: ({ color, size, focused }) => {
 						return (
 							<Icon

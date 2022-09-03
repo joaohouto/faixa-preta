@@ -37,16 +37,11 @@ class Help extends Component {
 						<Button
 							onPress={() => Linking.openURL("mailto:appfaixapreta@gmail.com")}
 						>
-							<ButtonText>Contato</ButtonText>
-						</Button>
-						<Button
-							onPress={() =>
-								Linking.openURL("https://github.com/joaohouto/faixa-preta")
-							}
-						>
-							<ButtonText>GitHub</ButtonText>
+							<ButtonText>Fale conosco</ButtonText>
 						</Button>
 					</ButtonsWrapper>
+
+					<LittleText>Versão 3.0.1</LittleText>
 				</ContainerLight>
 			</>
 		);
