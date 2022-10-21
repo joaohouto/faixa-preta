@@ -17,24 +17,24 @@ export const Container = styled.div`
 			align-items: center;
 			gap: 10px;
 			font-size: 14px;
-			font-weight: 500;
-			font-family: "Poppins", sans-serif;
+			font-weight: 600;
+			font-family: "Montserrat", sans-serif;
 			color: #777;
 		}
 	}
 
 	footer {
 		color: #777;
-		font-family: "Poppins", sans-serif;
+		font-family: "Montserrat", sans-serif;
 		font-size: 12px;
-		font-weight: 500;
+		font-weight: 600;
 		margin-top: 80px;
 	}
 
 	h1,
 	h3 {
-		font-family: "Poppins", sans-serif;
-		font-weight: 600;
+		font-family: "Montserrat", sans-serif;
+		font-weight: 700;
 		margin: 40px 0 20px 0;
 		line-height: 120%;
 	}
@@ -65,6 +65,6 @@ export const Logo = styled.div`
 	}
 
 	> img {
-		height: 15px;
+		height: 14px;
 	}
 `;

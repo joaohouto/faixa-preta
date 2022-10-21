@@ -27,20 +27,6 @@ const Moves = () => {
 		}
 	}, [hasMore, scrollRadio]);
 
-	const intersectionObserver = new IntersectionObserver(entries => {
-		const radio = entries[0].intersectionRatio;
-		setScrollRadio(radio);
-	});
-
-	useEffect(() => {
-		handleSearch();
-		intersectionObserver.observe(scrollObserve.current);
-
-		return () => {
-			intersectionObserver.disconnect();
-		};
-	}, [intersectionObserver]);
-
 	const handleSearch = async () => {
 		try {
 			const response = await api.get(`/moves`, {

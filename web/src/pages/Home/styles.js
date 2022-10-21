@@ -26,17 +26,17 @@ export const Container = styled.div`
 
 			> span {
 				font-size: 14px;
-				font-weight: 500;
-				font-family: "Poppins", sans-serif;
+				font-weight: 600;
+				font-family: "Montserrat", sans-serif;
 			}
 		}
 	}
 
 	footer {
 		color: #777;
-		font-family: "Poppins", sans-serif;
+		font-family: "Montserrat", sans-serif;
 		font-size: 12px;
-		font-weight: 500;
+		font-weight: 600;
 		margin-top: 80px;
 	}
 
@@ -71,7 +71,7 @@ export const Logo = styled.div`
 	}
 
 	> img {
-		height: 15px;
+		height: 14px;
 	}
 `;
 
@@ -82,12 +82,12 @@ export const HomeContainer = styled.div`
 	position: relative;
 
 	> div {
-		margin: 0 0 100px 0;
+		margin: 0;
 
 		> h1 {
-			font-family: "Poppins", sans-serif;
+			font-family: "Montserrat", sans-serif;
 			font-size: 40px;
-			font-weight: 600;
+			font-weight: 700;
 			line-height: 120%;
 			max-width: 340px;
 			color: #222;
@@ -105,14 +105,14 @@ export const HomeContainer = styled.div`
 		}
 
 		> a {
-			width: 230px;
+			width: fit-content;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			gap: 10px;
 			background: #0071bd;
 			color: #fff;
-			padding: 16px 0;
+			padding: 16px 54px 16px 40px;
 			border-radius: 8px;
 			cursor: pointer;
 			transition: background 0.2s ease-in-out;
@@ -142,9 +142,11 @@ export const HomeContainer = styled.div`
 	}
 
 	> img {
-		width: 400px;
+		width: 300px;
+		height: 594.05px;
 		margin: 50px;
 		animation: opac 1s ease-in-out;
+		filter: drop-shadow(0px 20px 50px rgba(0, 0, 0, 0.3));
 	}
 
 	@media (max-width: 1080px) {

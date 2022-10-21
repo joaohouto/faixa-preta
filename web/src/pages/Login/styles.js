@@ -12,6 +12,10 @@ export const Container = styled.div`
 	> form {
 		width: 50%;
 		padding-right: 60px;
+
+		> p {
+			color: #777;
+		}
 	}
 
 	> img {

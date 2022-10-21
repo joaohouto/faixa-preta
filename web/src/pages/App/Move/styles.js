@@ -38,7 +38,7 @@ export const MoveContainer = styled.div`
 
 		> h1 {
 			font-size: 40px;
-			font-family: "Poppins", sans-serif;
+			font-family: "Montserrat", sans-serif;
 			font-weight: 600;
 			margin-bottom: 20px;
 			line-height: 120%;

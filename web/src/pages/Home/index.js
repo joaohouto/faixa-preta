@@ -4,17 +4,11 @@ import moment from "moment";
 
 import { IconBrandGooglePlay, IconInfoCircle } from "tabler-icons";
 
-import {
-	Container,
-	Wrapper,
-	Logo,
-	HomeContainer,
-	AdsContainer,
-} from "./styles";
+import { Container, Wrapper, Logo, HomeContainer } from "./styles";
 
 import iconImg from "../../assets/images/icon.svg";
 import logoTextImg from "../../assets/images/logo-text.svg";
-import mobileImg from "../../assets/images/mobile.png";
+import mobileImg from "../../assets/images/mobile-front.png";
 
 export default function Home() {
 	return (
@@ -51,7 +45,7 @@ export default function Home() {
 						</a>
 					</div>
 
-					<img src={mobileImg} alt="Aplicação" />
+					<img src={mobileImg} loading="lazy" alt="Aplicação" />
 				</HomeContainer>
 				{/* 
 				<AdsContainer>

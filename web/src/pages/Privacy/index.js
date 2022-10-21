@@ -60,7 +60,7 @@ export default function Privacy() {
 				</p>
 				<p>
 					Para elogios, críticas e outros, envie um email para{" "}
-					<a href="mailto:contato@joaocouto.com">contato@joaocouto.com</a>
+					<a href="mailto:appfaixapreta@gmail.com">appfaixapreta@gmail.com</a>
 				</p>
 
 				<h3>Agradecimentos</h3>
