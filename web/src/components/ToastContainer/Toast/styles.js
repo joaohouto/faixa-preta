@@ -78,6 +78,7 @@ export const Container = styled.div`
 		align-items: center;
 		height: 50px;
 		width: 50px;
+		min-width: 50px;
 		border-radius: 25px;
 
 		> svg {

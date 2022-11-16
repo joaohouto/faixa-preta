@@ -1,28 +1,30 @@
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from "react";
+import { useLocation, Link } from "react-router-dom";
 
-import { useAuth } from '../../hooks/auth';
+import { IconPackage, IconJumpRope } from "@tabler/icons";
 
-import { LogOut } from 'react-feather';
-import { Container, LinkItem } from './styles';
+import { Container, NavItem } from "./styles";
 
-const LeftBar = () => {
-  const history = useHistory();
-  const { signOut, user } = useAuth();
+const Navbar = () => {
+	const location = useLocation();
 
-  return (
-    <Container>
-        <div>
-            <LinkItem onClick={() => history.push('/dashboard/moves')}>Movimentos</LinkItem>
-            <LinkItem onClick={() => history.push('/dashboard/activities')}>Atividades</LinkItem>
-        </div>
+	return (
+		<Container>
+			<ul>
+				<NavItem active={location.pathname.includes("/dashboard/moves")}>
+					<Link to="/dashboard/moves">
+						<IconPackage size={24} /> Movimentos
+					</Link>
+				</NavItem>
 
-        <LinkItem onClick={() => signOut()} style={{ backgroundColor: '#111', color: "#999" }}>
-          Sair 
-          <LogOut size={20} color="#999" />
-        </LinkItem>
-    </Container>
-  );
-}
+				<NavItem active={location.pathname.includes("/dashboard/activities")}>
+					<Link to="/dashboard/activities">
+						<IconJumpRope size={24} /> Atividades
+					</Link>
+				</NavItem>
+			</ul>
+		</Container>
+	);
+};
 
-export default LeftBar;
+export default Navbar;

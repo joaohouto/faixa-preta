@@ -75,7 +75,7 @@ const Login = () => {
 			<Form ref={formRef} onSubmit={handleSubmit}>
 				<p>Faixa Preta - Karatê Shotokan</p>
 
-				<PageTitleDark style={{ marginBottom: 20 }}>Login</PageTitleDark>
+				<PageTitleDark style={{ marginBottom: 20 }}>Autenticação</PageTitleDark>
 
 				<Input label="Email" type="email" name="email" />
 				<Input

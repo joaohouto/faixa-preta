@@ -159,7 +159,22 @@ export const HomeContainer = styled.div`
 
 		> img {
 			margin: 50px 0;
+			width: 50%;
+			height: auto;
+		}
+	}
+
+	@media (max-width: 800px) {
+		flex-direction: column;
+
+		> div {
 			width: 100%;
+			margin: 50px 0;
+		}
+
+		> img {
+			margin: 50px 0;
+			width: 70%;
 			height: auto;
 		}
 	}

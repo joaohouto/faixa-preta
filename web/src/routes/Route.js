@@ -1,8 +1,5 @@
 import React from "react";
-import {
-	Redirect,
-	Route as ReactDOMRoute,
-} from "react-router-dom";
+import { Redirect, Route as ReactDOMRoute } from "react-router-dom";
 
 import { useAuth } from "../hooks/auth";
 
@@ -18,7 +15,7 @@ const Route = ({ isPrivate = false, component: Component, ...rest }) => {
 				) : (
 					<Redirect
 						to={{
-							pathname: isPrivate ? "/login" : "/dashboard/activities",
+							pathname: isPrivate ? "/auth" : "/dashboard/activities",
 							state: { from: location },
 						}}
 					/>

@@ -3,11 +3,11 @@ import { BrowserRouter, Switch } from "react-router-dom";
 
 import Route from "./Route";
 
-import Home from "../pages/Home";
+import Landing from "../pages/Landing";
 import Privacy from "../pages/Privacy";
 import NotFound from "../pages/NotFound";
 
-import Login from "../pages/Login";
+import SignIn from "../pages/SignIn";
 import Activities from "../pages/Activity";
 import EditActivity from "../pages/Activity/Edit";
 import CreateActivity from "../pages/Activity/Create";
@@ -15,19 +15,13 @@ import Moves from "../pages/Move";
 import EditMove from "../pages/Move/Edit";
 import CreateMove from "../pages/Move/Create";
 
-import AppMoves from "../pages/App/Moves/index";
-import AppMove from "../pages/App/Move/index";
-
 const Routes = () => {
 	return (
 		<BrowserRouter>
 			<Switch>
-				<Route exact path="/" component={Home} />
+				<Route exact path="/" component={Landing} />
 				<Route exact path="/privacidade" component={Privacy} />
-				<Route exact path="/login" component={Login} />
-
-				<Route exact path="/app/moves" component={AppMoves} />
-				<Route exact path="/app/move/:move_id" component={AppMove} />
+				<Route exact path="/auth" component={SignIn} />
 
 				<Route exact path="/dashboard/moves" component={Moves} isPrivate />
 				<Route

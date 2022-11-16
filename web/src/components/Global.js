@@ -13,16 +13,15 @@ export const ContainerDark = styled.div`
 
 export const InputLabel = styled.span`
 	font-size: 14px;
-	font-weight: bold;
-	color: #999;
+	font-weight: 600;
+	color: #777;
 	margin-bottom: 8px;
 `;
 
 export const PageTitleDark = styled.h1`
-	font-size: 48px;
+	font-size: 32px;
 	font-weight: 600;
-	line-height: 60px;
-	color: #111;
+	color: #222;
 	font-family: "Montserrat", sans-serif;
 `;
 
@@ -61,6 +60,7 @@ export const Dot = styled.a`
 	width: 30px;
 	border-radius: 15px;
 	background: #ddd;
+	color: #777;
 	margin: 20px 10px;
 	font-size: 12px;
 	font-weight: bold;

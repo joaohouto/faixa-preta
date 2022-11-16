@@ -1,328 +1,404 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-expressions */
-import React, { useState, useCallback, useRef, useEffect } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
-import { v4 } from 'uuid';
+import React, { useState, useCallback, useRef, useEffect } from "react";
+import { useHistory, useParams } from "react-router-dom";
+import { v4 } from "uuid";
 import { Form } from "@unform/web";
 import { Scope } from "@unform/core";
 import * as Yup from "yup";
 
 import api from "../../../services/api";
 import getValidationErrors from "../../../utils/getValidationErrors";
-import { useToast } from '../../../hooks/toast'
+import { useToast } from "../../../hooks/toast";
 
-import { PageTitleDark, Row, Container, Main, Dot, InputLabel, SimpleTextDark } from '../../../components/Global'
-import { MoveContainer, Column } from './styles'
-import Header from '../../../components/Header'
-import LeftBar from '../../../components/LeftMenu';
-import Button from '../../../components/Button'
-import Input from '../../../components/Input';
-import TextArea from '../../../components/TextArea';
-import SearchInput from '../../../components/SearchInput';
-import ListMoveItem from '../../../components/ListMoveItem';
-import Loader from '../../../components/Loader';
-import MoveItem from '../../../components/MoveItem';
-import { IconInfoCircle } from 'tabler-icons';
+import { IconInfoCircle, IconMinus, IconPlus } from "@tabler/icons";
 
-export default function Dashboard (){
-    const [loading, setLoading] = useState(false);
-    const [loadingAction, setLoadingAction] = useState(false);
-    const [loadingSearchedMoves, setLoadingSearchedMoves] = useState(false);
-    const [searchedMoves, setSearchedMoves] = useState([]);
-    const [search, setSearch] = useState('');
-    
-    const [activity, setActivity] = useState({});
-    const [moves, setMoves] = useState([]);
+import {
+	PageTitleDark,
+	Row,
+	InputLabel,
+	SimpleTextDark,
+	Dot as PaginationDot,
+} from "../../../components/Global";
+import { Container, Content, ContentHeader, Dot, Image } from "./styles";
+import { MoveContainer, Column } from "./styles";
+import Header from "../../../components/Header";
+import LeftBar from "../../../components/LeftMenu";
+import Button from "../../../components/Button";
+import Input from "../../../components/Input";
+import TextArea from "../../../components/TextArea";
+import SearchInput from "../../../components/SearchInput";
+import ListMoveItem from "../../../components/ListMoveItem";
+import Loader from "../../../components/Loader";
+import MoveItem from "../../../components/MoveItem";
 
-    const formRef = useRef(null);
-    const history = useHistory();
-    const { addToast } = useToast();
-    const { activity_id } = useParams();
+import defaultImg from "../../../assets/images/fallback-image.png";
 
-    useEffect(() => {
-        getActivity();
-        handleSearch();
-    }, []);
+export default function Dashboard() {
+	const [loading, setLoading] = useState(false);
+	const [loadingAction, setLoadingAction] = useState(false);
+	const [loadingSearchedMoves, setLoadingSearchedMoves] = useState(false);
+	const [searchedMoves, setSearchedMoves] = useState([]);
+	const [search, setSearch] = useState("");
 
-    const getActivity = async () => {
-        try {
-            setLoading(true);
+	const [activity, setActivity] = useState({});
+	const [imageUrl, setImageUrl] = useState("");
+	const [moves, setMoves] = useState([]);
 
-            const response = await api.get(`/activities/${activity_id}`);
-            setActivity(response.data);
-            
-            const responseObject = response.data;
-            let parsedMoves = [];
-            responseObject.moves?.map(move => {
-                parsedMoves.push({
-                    id: v4(),
-                    move_id: move.move_id._id,
-                    data: move.move_id,
-                    repetitions: parseInt(move.repetitions)
-                });
-            });
+	const formRef = useRef(null);
+	const history = useHistory();
+	const { addToast } = useToast();
+	const { activity_id } = useParams();
 
-            setMoves(parsedMoves);
+	useEffect(() => {
+		getActivity();
+		handleSearch();
+	}, []);
 
-        } catch (err) {
-            addToast({
-                type: "error",
-                title: "Erro!",
-                description: err.response.data?.message || "Algo deu errado.",
-            });
+	const getActivity = async () => {
+		try {
+			setLoading(true);
 
-        } finally {
-            setLoading(false);
-        }
-    }
+			const response = await api.get(`/activities/${activity_id}`);
+			setActivity(response.data);
+			setImageUrl(response.data.imageUrl);
 
-    const handleSubmit = useCallback(
-        async (data) => {
-            try {
-                setLoadingAction(true);
+			const responseObject = response.data;
+			let parsedMoves = [];
+			responseObject.moves?.map(move => {
+				parsedMoves.push({
+					id: v4(),
+					move_id: move.move_id._id,
+					data: move.move_id,
+					repetitions: parseInt(move.repetitions),
+				});
+			});
 
-                formRef.current?.setErrors({});
+			setMoves(parsedMoves);
+		} catch (err) {
+			addToast({
+				type: "error",
+				title: "Erro!",
+				description: err.response.data?.message || "Algo deu errado.",
+			});
+		} finally {
+			setLoading(false);
+		}
+	};
 
-                const schema = Yup.object().shape({
-                    name: Yup.string().required("Informe o nome."),
-                    tags: Yup.string().required("Informe um array de tags."),
-                    details: Yup.string().required("Informe os detalhes."),
-                    imageUrl: Yup.string().required("Informe um link para imagem."),
-                });
+	const handleSubmit = useCallback(
+		async data => {
+			try {
+				setLoadingAction(true);
 
-                await schema.validate(data, {
-                    abortEarly: false,
-                });
+				formRef.current?.setErrors({});
 
-                await api.put(`/activities/${activity_id}`, {
-                    name: data.name,
-                    tags: data.tags.split(','),
-                    details: data.details,
-                    imageUrl: data.imageUrl,
-                    moves: data.moves,
-                });
+				const schema = Yup.object().shape({
+					name: Yup.string().required("Informe o nome."),
+					tags: Yup.string().required("Informe um array de tags."),
+					details: Yup.string().required("Informe os detalhes."),
+					imageUrl: Yup.string().required("Informe um link para imagem."),
+				});
 
-                addToast({
-                    type: "success",
-                    title: "Sucesso!",
-                    description: "Item alterado.",
-                });
+				await schema.validate(data, {
+					abortEarly: false,
+				});
 
-                history.push("/dashboard/activities");
+				await api.put(`/activities/${activity_id}`, {
+					name: data.name,
+					tags: data.tags.split(","),
+					details: data.details,
+					imageUrl: data.imageUrl,
+					moves: data.moves,
+				});
 
-            } catch (err) {
-                if (err instanceof Yup.ValidationError) {
-                    const errors = getValidationErrors(err);
+				addToast({
+					type: "success",
+					title: "Sucesso!",
+					description: "Item alterado.",
+				});
 
-                    formRef.current?.setErrors(errors);
-                    return;
-                }
+				history.push("/dashboard/activities");
+			} catch (err) {
+				if (err instanceof Yup.ValidationError) {
+					const errors = getValidationErrors(err);
 
-                addToast({
-                    type: "error",
-                    title: "Erro!",
-                    description: err.response.data.message || "Algo deu errado.",
-                });
-            } finally {
-                setLoadingAction(false);
-            }
-        },
-        [addToast, history]
-    );
+					formRef.current?.setErrors(errors);
+					return;
+				}
 
-    const handleSearch = async (e) => {
-        e?.preventDefault();
+				addToast({
+					type: "error",
+					title: "Erro!",
+					description: err.response.data.message || "Algo deu errado.",
+				});
+			} finally {
+				setLoadingAction(false);
+			}
+		},
+		[addToast, history]
+	);
 
-        try {
-            setLoadingSearchedMoves(true);
+	const handleSearch = async e => {
+		e?.preventDefault();
 
-            const response = await api.get(`/moves?name=${search}`);
-            setSearchedMoves(response.data);
-        } catch (err) {
-            console.log(err);
-        } finally {
-            setLoadingSearchedMoves(false);
-        }
-    }
+		try {
+			setLoadingSearchedMoves(true);
 
-    const handlePageChange = async (page) => {
+			const response = await api.get(`/moves?name=${search}`);
+			setSearchedMoves(response.data);
+		} catch (err) {
+			console.log(err);
+		} finally {
+			setLoadingSearchedMoves(false);
+		}
+	};
 
-        try {
-            setLoadingSearchedMoves(true);
+	const handlePageChange = async page => {
+		try {
+			setLoadingSearchedMoves(true);
 
-            const response = await api.get(`/moves?name=${search}&page=${page}`);
-            setSearchedMoves(response.data);
-        } catch (err) {
-            console.log(err);
-        } finally {
-            setLoadingSearchedMoves(false);
-        }
-    }
+			const response = await api.get(`/moves?name=${search}&page=${page}`);
+			setSearchedMoves(response.data);
+		} catch (err) {
+			console.log(err);
+		} finally {
+			setLoadingSearchedMoves(false);
+		}
+	};
 
-    const handleAddMove = (move) => {
-        const newMoves = moves.concat({
-            id: v4(),
-            move_id: move._id,
-            data: move,
-            repetitions: 1
-        });
+	const handleAddMove = move => {
+		const newMoves = moves.concat({
+			id: v4(),
+			move_id: move._id,
+			data: move,
+			repetitions: 1,
+		});
 
-        setMoves(newMoves);
-    }
+		setMoves(newMoves);
+	};
 
-    const handleDeleteMove = (id) => {
-        const newMoves = moves.filter(item => item.id !== id);
+	const handleDeleteMove = id => {
+		const newMoves = moves.filter(item => item.id !== id);
 
-        setMoves(newMoves);
-    }
+		setMoves(newMoves);
+	};
 
-    const handlePlus = (id) => {
-        const newMoves = moves.map(move =>
-            move.id === id
-                ? { ...move, repetitions: move.repetitions + 1 }
-                : move
-        );
+	const handlePlus = id => {
+		const newMoves = moves.map(move =>
+			move.id === id ? { ...move, repetitions: move.repetitions + 1 } : move
+		);
 
-        setMoves(newMoves);
-    }
+		setMoves(newMoves);
+	};
 
-    const handleMinus = (id) => {
-        const newMoves = moves.map(move =>
-            move.id === id
-                ? { ...move, repetitions: move.repetitions > 1 
-                                            ? move.repetitions - 1 
-                                            : move.repetitions 
-                    }
-                : move
-        );
+	const handleMinus = id => {
+		const newMoves = moves.map(move =>
+			move.id === id
+				? {
+						...move,
+						repetitions:
+							move.repetitions > 1 ? move.repetitions - 1 : move.repetitions,
+				  }
+				: move
+		);
 
-        setMoves(newMoves);
-    }
+		setMoves(newMoves);
+	};
 
-    return (
-        <Container>
-            <Header />
-            <LeftBar />
+	const handleDelete = async () => {
+		if (window.confirm("Tem certeza? A exclusão do item é irreversível.")) {
+			try {
+				await api.delete(`/activities/${activity_id}`);
 
-            <Main>
-                <Form ref={formRef} onSubmit={handleSubmit}>
-                    <Row style={{ justifyContent: 'space-between' }}>
-                        <PageTitleDark>Editar atividade</PageTitleDark>
-                        <Button 
-                            isLoading={loadingAction}
-                            type="submit"
-                        >
-                            Salvar
-                        </Button>
-                    </Row>
+				addToast({
+					type: "success",
+					title: "Sucesso!",
+					description: "Item excluído.",
+				});
 
-                    { !loading && (
-                    <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                        <Column>
-                            <Input label="Nome" name="name" defaultValue={activity.name} />
-                            <Input label="Tags" name="tags" defaultValue={activity.tags} />
-                            <Input label="Imagem (URL)" name="imageUrl" defaultValue={activity.imageUrl} />
-                        </Column>
-                        <Column>
-                            <TextArea label="Detalhes" name="details" defaultValue={activity.details} />
-                        </Column>
-                    </Row>
-                    ) }
+				history.goBack();
+			} catch (err) {
+				addToast({
+					type: "error",
+					title: "Erro!",
+					description: "Não foi possível excluir o item.",
+				});
+			}
+		}
+	};
 
-                    <div style={{ display: 'none' }}>
-                    { moves?.map((move, index) => (
-                        <Scope path={`moves[${index}]`}>
-                            <Input label="Move ID" name="move_id" value={move.move_id} />
-                            <Input label="Repetitions" name="repetitions" value={move.repetitions} />
-                        </Scope>
-                    )) }
-                    </div>
-                    
-                </Form>
+	return (
+		<Container>
+			<Header />
 
-                { loading && <Loader /> }
+			<Content>
+				<LeftBar />
+				<div>
+					<Form ref={formRef} onSubmit={handleSubmit}>
+						<ContentHeader>
+							<PageTitleDark>Editar atividade</PageTitleDark>
+							<div>
+								<Button onClick={handleDelete} type="button">
+									Excluir
+								</Button>
+								<Button isLoading={loadingAction} type="submit">
+									Salvar
+								</Button>
+							</div>
+						</ContentHeader>
 
-                { !loading && (
-                <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                    <Column>
-                        <InputLabel>Movimentos</InputLabel>
+						{!loading && (
+							<Row
+								style={{
+									alignItems: "flex-start",
+									justifyContent: "space-between",
+								}}
+							>
+								<Column>
+									<Input
+										label="Nome"
+										name="name"
+										defaultValue={activity.name}
+									/>
+									<Input
+										label="Tags"
+										name="tags"
+										defaultValue={activity.tags}
+									/>
+									<Input
+										label="Imagem (URL)"
+										name="imageUrl"
+										defaultValue={activity.imageUrl}
+										onChange={e => setImageUrl(e.target.value)}
+									/>
 
-                        <MoveContainer>
-                        { moves?.map(move => (
-                            <MoveItem 
-                                style={{ 
-                                    backgroundImage: 'url('+ move.data.imageUrl +')', 
-                                    backgroundSize: 'cover', 
-                                    backgroundPosition: 'center' 
-                                }}
-                                name={move.data.name}
-                                onDelete={() => handleDeleteMove(move.id)}
-                            >
-                                <Row style={{ marginTop: 10, flexDirection: 'row' }}>
-                                    <Dot 
-                                        onClick={() => handleMinus(move.id)}
-                                        style={{ height: 20, width: 20, margin: 0, marginRight: 10 }}
-                                    >
-                                        -
-                                    </Dot>
-                                        <b>{move.repetitions}</b>
-                                    <Dot 
-                                        onClick={() => handlePlus(move.id)}
-                                        style={{ height: 20, width: 20, margin: 0, marginLeft: 10 }}
-                                    >
-                                        +
-                                    </Dot>
-                                </Row>
-                            </MoveItem>
-                        )) }
+									<Image src={imageUrl || defaultImg} />
+								</Column>
+								<Column>
+									<TextArea
+										label="Detalhes"
+										name="details"
+										defaultValue={activity.details}
+									/>
+								</Column>
+							</Row>
+						)}
 
-                        { moves?.length === 0 && (
-                            <Row style={{ flexDirection: 'row' }}>
-                                <IconInfoCircle color="#777" style={{ marginRight: 10 }} />
-                                <SimpleTextDark 
-                                    style={{ fontWeight: 600, color: '#777' }}
-                                >
-                                    Nenhum movimento adicionado.
-                                </SimpleTextDark>
-                            </Row>
-                        ) }
-                        </MoveContainer>
-                    </Column>
+						<div style={{ display: "none" }}>
+							{moves?.map((move, index) => (
+								<Scope path={`moves[${index}]`}>
+									<Input label="Move ID" name="move_id" value={move.move_id} />
+									<Input
+										label="Repetitions"
+										name="repetitions"
+										value={move.repetitions}
+									/>
+								</Scope>
+							))}
+						</div>
+					</Form>
 
-                    <Column>
-                        <SearchInput 
-                            placeholder="Pesquisar movimentos" 
-                            value={search}
-                            onChange={e => setSearch(e.target.value)}
-                            onClick={handleSearch}
-                            style={{ marginBottom: 20 }}
-                        />
+					{loading && <Loader />}
 
-                        { loadingSearchedMoves ? <Loader /> : searchedMoves?.docs?.map(item => (
-                            <ListMoveItem 
-                                name={item.name}
-                                onAdd={() => handleAddMove(item)}
-                            />
-                        )) }
+					{!loading && (
+						<Row
+							style={{
+								alignItems: "flex-start",
+								justifyContent: "space-between",
+							}}
+						>
+							<Column>
+								<SearchInput
+									placeholder="Pesquisar movimentos"
+									value={search}
+									onChange={e => setSearch(e.target.value)}
+									onClick={handleSearch}
+									style={{ marginBottom: 20 }}
+								/>
 
-                        <Row style={{ flexDirection: 'row' }}>
-                            { !loadingSearchedMoves && [...Array(searchedMoves.pages)].map((i, index) => (
-                                <Dot 
-                                    onClick={() => handlePageChange(index+1)}
-                                    type="button"
-                                    style={
-                                        index + 1 === Number(searchedMoves.page) ? 
-                                            { background: "#222", color: "#fff", pointerEvents: 'none' } 
-                                            : {}
-                                    }
-                                >
-                                    {index + 1}
-                                </Dot>
-                            ))}
-                        </Row>
-                    </Column>
-                </Row>
-                ) }
-            </Main>
-        </Container>
-    );
+								{loadingSearchedMoves ? (
+									<Loader />
+								) : (
+									searchedMoves?.docs?.map(item => (
+										<ListMoveItem
+											name={item.name}
+											onAdd={() => handleAddMove(item)}
+										/>
+									))
+								)}
+
+								<Row style={{ flexDirection: "row" }}>
+									{!loadingSearchedMoves &&
+										[...Array(searchedMoves.pages)].map((i, index) => (
+											<PaginationDot
+												onClick={() => handlePageChange(index + 1)}
+												type="button"
+												style={
+													index + 1 === Number(searchedMoves.page)
+														? {
+																background: "#222",
+																color: "#fff",
+																pointerEvents: "none",
+														  }
+														: {}
+												}
+											>
+												{index + 1}
+											</PaginationDot>
+										))}
+								</Row>
+							</Column>
+
+							<Column>
+								<InputLabel>Movimentos</InputLabel>
+
+								<MoveContainer>
+									{moves?.map(move => (
+										<MoveItem
+											style={{
+												backgroundImage: "url(" + move.data.imageUrl + ")",
+												backgroundSize: "cover",
+												backgroundPosition: "center",
+											}}
+											name={move.data.name}
+											onDelete={() => handleDeleteMove(move.id)}
+										>
+											<Row
+												style={{ marginTop: 10, flexDirection: "row", gap: 10 }}
+											>
+												<Dot type="button" onClick={() => handleMinus(move.id)}>
+													<IconMinus size={8} />
+												</Dot>
+
+												<b>{move.repetitions}</b>
+
+												<Dot type="button" onClick={() => handlePlus(move.id)}>
+													<IconPlus size={8} />
+												</Dot>
+											</Row>
+										</MoveItem>
+									))}
+
+									{moves?.length === 0 && (
+										<Row style={{ flexDirection: "row" }}>
+											<IconInfoCircle
+												color="#777"
+												style={{ marginRight: 10 }}
+											/>
+											<SimpleTextDark
+												style={{ fontWeight: 600, color: "#777" }}
+											>
+												Nenhum movimento adicionado.
+											</SimpleTextDark>
+										</Row>
+									)}
+								</MoveContainer>
+							</Column>
+						</Row>
+					)}
+				</div>
+			</Content>
+		</Container>
+	);
 }

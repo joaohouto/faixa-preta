@@ -1,19 +1,15 @@
-import React from 'react';
+import React from "react";
 
-const style = { 
-    width: '100%', 
-    minHeight: '300px', 
-    display: 'flex', 
-    justifyContent: 'center', 
-    alignItems: 'center' 
-}
+import { Skeleton } from "./styles";
 
 const Loader = ({ ...rest }) => {
-    return (
-        <div style={style} {...rest}>
-            <div className="loader" />
-        </div>
-    );
-}
+	return (
+		<div {...rest}>
+			<Skeleton />
+			<Skeleton />
+			<Skeleton />
+		</div>
+	);
+};
 
 export default Loader;

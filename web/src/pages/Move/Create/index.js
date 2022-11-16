@@ -1,108 +1,119 @@
 /* eslint-disable no-unused-expressions */
-import React, { useState, useCallback, useRef } from 'react'
-import { useLocation, useHistory, useParams } from 'react-router-dom'
+import React, { useState, useCallback, useRef } from "react";
+import { useLocation, useHistory, useParams } from "react-router-dom";
 import * as Yup from "yup";
 import { Form } from "@unform/web";
 
 import getValidationErrors from "../../../utils/getValidationErrors";
 import api from "../../../services/api";
 
-import { useToast } from '../../../hooks/toast'
+import { useToast } from "../../../hooks/toast";
 
-import { PageTitleDark, Row, Container, Main } from '../../../components/Global'
-import Header from '../../../components/Header'
-import LeftBar from '../../../components/LeftMenu';
-import Button from '../../../components/Button'
-import Input from '../../../components/Input';
-import TextArea from '../../../components/TextArea';
+import { PageTitleDark, Row } from "../../../components/Global";
+import { Container, Content, ContentHeader, Image } from "./styles";
+import Header from "../../../components/Header";
+import LeftBar from "../../../components/LeftMenu";
+import Button from "../../../components/Button";
+import Input from "../../../components/Input";
+import TextArea from "../../../components/TextArea";
 
-export default function Dashboard (){
-    const [loading, setLoading] = useState(false);
+import defaultImg from "../../../assets/images/fallback-image.png";
 
-    const formRef = useRef(null);
-    const history = useHistory();
-    const { addToast } = useToast();
+export default function Dashboard() {
+	const [loading, setLoading] = useState(false);
+	const [imageUrl, setImageUrl] = useState("");
 
-    const handleSubmit = useCallback(
-        async (data) => {
-            try {
-                setLoading(true);
+	const formRef = useRef(null);
+	const history = useHistory();
+	const { addToast } = useToast();
 
-                formRef.current?.setErrors({});
+	const handleSubmit = useCallback(
+		async data => {
+			try {
+				setLoading(true);
 
-                const schema = Yup.object().shape({
-                    name: Yup.string().required("Informe o nome."),
-                    category: Yup.string().required("Informe a categoria."),
-                    details: Yup.string().required("Informe os detalhes."),
-                    videoUrl: Yup.string().required("Informe um array de vídeos."),
-                    imageUrl: Yup.string().required("Informe um link para imagem."),
-                });
+				formRef.current?.setErrors({});
 
-                await schema.validate(data, {
-                    abortEarly: false,
-                  });
-                
-                await api.post("/moves", {
-                    name: data.name,
-                    category: data.category,
-                    details: data.details,
-                    videoUrl: data.videoUrl.split(','),
-                    imageUrl: data.imageUrl
-                });
+				const schema = Yup.object().shape({
+					name: Yup.string().required("Informe o nome."),
+					category: Yup.string().required("Informe a categoria."),
+					details: Yup.string().required("Informe os detalhes."),
+					videoUrl: Yup.string().required("Informe um array de vídeos."),
+					imageUrl: Yup.string().required("Informe um link para imagem."),
+				});
 
-                addToast({
-                    type: "success",
-                    title: "Sucesso!",
-                    description: "Item criado.",
-                });
+				await schema.validate(data, {
+					abortEarly: false,
+				});
 
-                history.push("/dashboard/moves");
+				await api.post("/moves", {
+					name: data.name,
+					category: data.category,
+					details: data.details,
+					videoUrl: data.videoUrl.split(","),
+					imageUrl: data.imageUrl,
+				});
 
-            } catch (err) {
-                if (err instanceof Yup.ValidationError) {
-                    const errors = getValidationErrors(err);
+				addToast({
+					type: "success",
+					title: "Sucesso!",
+					description: "Item criado.",
+				});
 
-                    formRef.current?.setErrors(errors);
-                    return;
-                }
+				history.push("/dashboard/moves");
+			} catch (err) {
+				if (err instanceof Yup.ValidationError) {
+					const errors = getValidationErrors(err);
 
-                addToast({
-                    type: "error",
-                    title: "Erro!",
-                    description: err.response.data.message || "Algo deu errado!",
-                });
-            } finally {
-                setLoading(false);
-            }
-        },
-        [addToast, history]
-    );
+					formRef.current?.setErrors(errors);
+					return;
+				}
 
-    return (
-        <Container>
-            <Header />
-            <LeftBar />
+				addToast({
+					type: "error",
+					title: "Erro!",
+					description: err.response.data.message || "Algo deu errado!",
+				});
+			} finally {
+				setLoading(false);
+			}
+		},
+		[addToast, history]
+	);
 
-            <Main>
-                <Form ref={formRef} onSubmit={handleSubmit}>
-                    <Row style={{ justifyContent: 'space-between' }}>
-                        <PageTitleDark>Novo movimento</PageTitleDark>
-                        <Button 
-                            isLoading={loading}
-                            type="submit"
-                        >
-                            Salvar
-                        </Button>
-                    </Row>
+	return (
+		<Container>
+			<Header />
+			<Content>
+				<LeftBar />
 
-                    <Input label="Nome" name="name" />
-                    <Input label="Categoria" name="category" />
+				<div>
+					<Form ref={formRef} onSubmit={handleSubmit}>
+						<ContentHeader>
+							<PageTitleDark>Novo movimento</PageTitleDark>
 
-                    <Input label="Array de vídeos (URL)" name="videoUrl" />
-                    <Input label="Imagem (URL)" name="imageUrl" />
-                    <TextArea label="Detalhes" name="details" />
-                </Form>
-            </Main>
-        </Container>
-    );
+							<div>
+								<Button isLoading={loading} type="submit">
+									Salvar
+								</Button>
+							</div>
+						</ContentHeader>
+
+						<Input label="Nome" name="name" />
+						<Input label="Categoria" name="category" />
+
+						<Input label="Array de vídeos (URL)" name="videoUrl" />
+						<TextArea label="Detalhes" name="details" />
+
+						<Input
+							label="Imagem (URL)"
+							name="imageUrl"
+							onChange={e => setImageUrl(e.target.value)}
+						/>
+						<Image src={imageUrl || defaultImg} />
+					</Form>
+				</div>
+			</Content>
+		</Container>
+	);
 }
