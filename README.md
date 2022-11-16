@@ -27,9 +27,7 @@ O usuário é capaz de assistir vídeos com explicações didáticas das técnic
 
 ### <span id="Telas">📱 Telas</span>
 
-<a href="https://www.figma.com/file/bQcSnRRb8ZVshbcljYIRQr/Mobile?node-id=0%3A1">Mobile (Figma)</a>
-
-<a href="https://www.figma.com/file/KVz2PjSQs6Xg3k6SQG3K2K/Web">Dashboard (Figma)</a>
+<a href="https://www.figma.com/file/bQcSnRRb8ZVshbcljYIRQr/Faixa-Preta?node-id=1545%3A242&t=bVgtXbtt92q2R3uQ-1">Mobile e Dashboard (Figma)</a>
 
 <a href="https://www.behance.net/gallery/131304889/Faixa-Preta-UI-ID-App">Brand (Behance)</a>
 
