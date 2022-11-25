@@ -3,10 +3,6 @@ import { BrowserRouter, Switch } from "react-router-dom";
 
 import Route from "./Route";
 
-import Landing from "../pages/Landing";
-import Privacy from "../pages/Privacy";
-import NotFound from "../pages/NotFound";
-
 import SignIn from "../pages/SignIn";
 import Activities from "../pages/Activity";
 import EditActivity from "../pages/Activity/Edit";
@@ -19,10 +15,7 @@ const Routes = () => {
 	return (
 		<BrowserRouter>
 			<Switch>
-				<Route exact path="/" component={Landing} />
-				<Route exact path="/privacidade" component={Privacy} />
-				<Route exact path="/auth" component={SignIn} />
-
+				<Route exact path="/" component={SignIn} />
 				<Route exact path="/dashboard/moves" component={Moves} isPrivate />
 				<Route
 					exact
@@ -55,7 +48,6 @@ const Routes = () => {
 					component={EditActivity}
 					isPrivate
 				/>
-				<Route path="*" component={NotFound} />
 			</Switch>
 		</BrowserRouter>
 	);
